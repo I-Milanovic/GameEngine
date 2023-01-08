@@ -1,11 +1,7 @@
-#include "Window.cpp"
+#include "Window.h"
 
 int main() {
-
-	Window window;
-
-	window.init();
-
-
+	Window* window = new Window();
+	window->init();
+	delete(window);
 }
-
