@@ -135,7 +135,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="app\glad.c" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="graphics\UniformMap.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="utilities\Loader.cpp" />
     <ClCompile Include="app\Main.cpp" />
     <ClCompile Include="graphics\Mesh.cpp" />
@@ -146,7 +148,9 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="graphics\UniformMap.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="utilities\Loader.h" />
     <ClInclude Include="graphics\Mesh.h" />
     <ClInclude Include="graphics\Renderer.h" />
@@ -156,6 +160,8 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assimp-vc140-mt.dll" />
+    <None Include="glfw3.dll" />
     <None Include="resources\shaders\shader.frag" />
     <None Include="resources\shaders\shader.vert" />
   </ItemGroup>

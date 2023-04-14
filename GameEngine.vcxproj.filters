@@ -29,6 +29,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="app\glad.c" />
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -55,6 +61,12 @@
     <ClInclude Include="graphics\UniformMap.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\shader.frag">
@@ -63,6 +75,8 @@
     <None Include="resources\shaders\shader.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="glfw3.dll" />
+    <None Include="assimp-vc140-mt.dll" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

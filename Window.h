@@ -16,11 +16,14 @@ private:
 public:
 	void init();
 	GLFWwindow* getWindowHandle();
+	void processInput(GLFWwindow* window);
 
 	
 private:
 	void createWindow();
 	void loop();
-	void processInput(GLFWwindow* window);
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+	static void mouseCallback(GLFWwindow* window, double xposIn, double yposIn);
+	static void scrollCallback(GLFWwindow* window, double offsetX, double offsetY);
+	
 };

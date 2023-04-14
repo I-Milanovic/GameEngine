@@ -2,10 +2,11 @@
 #include "SceneRenderer.h"
 
 class Renderer {
-private:
+public:
 	SceneRenderer* sceneRenderer;
 
 public: 
 	Renderer();
 	void render();
+	SceneRenderer getSceneRenderer();
 };
