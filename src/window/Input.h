@@ -10,7 +10,7 @@
 class Input {
 
 	public:
-		Input(SceneRenderer& scene));
+		Input(SceneRenderer& scene);
 		void keyboardInput(GLFWwindow* windowHandle, const float& const deltaTime, glm::vec3& cameraPos);
 		void mouseInput(double xpos, double ypos);
 		void scrollInput(double offsetX, double offsetY);
