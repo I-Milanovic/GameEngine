@@ -134,34 +134,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="app\glad.c" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="graphics\UniformMap.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="utilities\Loader.cpp" />
-    <ClCompile Include="app\Main.cpp" />
-    <ClCompile Include="graphics\Mesh.cpp" />
-    <ClCompile Include="graphics\Renderer.cpp" />
-    <ClCompile Include="graphics\SceneRenderer.cpp" />
-    <ClCompile Include="graphics\ShaderProgram.cpp" />
-    <ClCompile Include="graphics\Texture.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="src\app\Application.cpp" />
+    <ClCompile Include="src\app\glad.c" />
+    <ClCompile Include="src\engine\Camera.cpp" />
+    <ClCompile Include="src\engine\UniformMap.cpp" />
+    <ClCompile Include="src\window\Input.cpp" />
+    <ClCompile Include="src\utilities\Loader.cpp" />
+    <ClCompile Include="src\app\Main.cpp" />
+    <ClCompile Include="src\engine\Mesh.cpp" />
+    <ClCompile Include="src\engine\Renderer.cpp" />
+    <ClCompile Include="src\engine\SceneRenderer.cpp" />
+    <ClCompile Include="src\engine\ShaderProgram.cpp" />
+    <ClCompile Include="src\engine\Texture.cpp" />
+    <ClCompile Include="src\window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="graphics\UniformMap.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="utilities\Loader.h" />
-    <ClInclude Include="graphics\Mesh.h" />
-    <ClInclude Include="graphics\Renderer.h" />
-    <ClInclude Include="graphics\SceneRenderer.h" />
-    <ClInclude Include="graphics\ShaderProgram.h" />
-    <ClInclude Include="graphics\Texture.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="src\app\Application.h" />
+    <ClInclude Include="src\engine\Camera.h" />
+    <ClInclude Include="src\engine\UniformMap.h" />
+    <ClInclude Include="src\window\Input.h" />
+    <ClInclude Include="src\utilities\Loader.h" />
+    <ClInclude Include="src\engine\Mesh.h" />
+    <ClInclude Include="src\engine\Renderer.h" />
+    <ClInclude Include="src\engine\SceneRenderer.h" />
+    <ClInclude Include="src\engine\ShaderProgram.h" />
+    <ClInclude Include="src\engine\Texture.h" />
+    <ClInclude Include="src\window\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc140-mt.dll" />
-    <None Include="glfw3.dll" />
+    <None Include="src\glfw3.dll" />
     <None Include="resources\shaders\shader.frag" />
     <None Include="resources\shaders\shader.vert" />
   </ItemGroup>

@@ -7,7 +7,3 @@
 	void Renderer::render() {
 		sceneRenderer->renderScene();
 	}
-
-	SceneRenderer Renderer::getSceneRenderer() {
-		return *sceneRenderer;
-	}

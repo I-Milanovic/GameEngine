@@ -30,7 +30,7 @@ glm::mat4 projection;
 
 SceneRenderer::SceneRenderer() {
 
-    camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+ //   camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
     // Create shader program
     shader = new ShaderProgram("resources/shaders/shader");
@@ -38,7 +38,6 @@ SceneRenderer::SceneRenderer() {
     createUniforms();
 
     // Create mesh to be displayed
-//	std::cout << sizeof(vertices) << std::endl;
 
     //mesh = new Mesh(vertices,  sizeof(vertices));
     mesh = new Mesh(vertices, sizeof(vertices), indices, sizeof(indices));
@@ -76,7 +75,7 @@ void SceneRenderer::renderScene() {
 
     shader->useProgram();
     
-    projection = glm::perspective(glm::radians(camera->zoom), (float)800 / (float)600, 0.1f, 100.0f);
+    projection = glm::perspective(glm::radians(m_camera.getZoom()), (float)800 / (float)600, 0.1f, 100.0f);
     uniformMap->setUniform(projectionString, projection);
 
     
@@ -84,7 +83,7 @@ void SceneRenderer::renderScene() {
     float camX = static_cast<float>(sin(glfwGetTime()) * radius);
     float camZ = static_cast<float>(cos(glfwGetTime()) * radius);
 
-    glm::mat4 view = camera->getViewMatrix();
+    glm::mat4 view = m_camera.getViewMatrix();
     uniformMap->setUniform(viewString, view);
     
 

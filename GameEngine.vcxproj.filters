@@ -1,70 +1,76 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="utilities\Loader.cpp">
+    <ClCompile Include="src\utilities\Loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="app\Main.cpp">
+    <ClCompile Include="src\app\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Mesh.cpp">
+    <ClCompile Include="src\engine\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Renderer.cpp">
+    <ClCompile Include="src\engine\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\SceneRenderer.cpp">
+    <ClCompile Include="src\engine\SceneRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\ShaderProgram.cpp">
+    <ClCompile Include="src\engine\ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Texture.cpp">
+    <ClCompile Include="src\engine\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
+    <ClCompile Include="src\window\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\UniformMap.cpp">
+    <ClCompile Include="src\engine\UniformMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="app\glad.c" />
-    <ClCompile Include="Input.cpp">
+    <ClCompile Include="src\app\glad.c" />
+    <ClCompile Include="src\window\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="src\engine\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Window.h">
+    <ClInclude Include="src\window\Window.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Texture.h">
+    <ClInclude Include="src\engine\Texture.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\ShaderProgram.h">
+    <ClInclude Include="src\engine\ShaderProgram.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\SceneRenderer.h">
+    <ClInclude Include="src\engine\SceneRenderer.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Renderer.h">
+    <ClInclude Include="src\engine\Renderer.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Mesh.h">
+    <ClInclude Include="src\engine\Mesh.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="utilities\Loader.h">
+    <ClInclude Include="src\utilities\Loader.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\UniformMap.h">
+    <ClInclude Include="src\engine\UniformMap.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="src\window\Input.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="src\engine\Camera.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\Application.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
   </ItemGroup>
@@ -75,7 +81,7 @@
     <None Include="resources\shaders\shader.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="glfw3.dll" />
+    <None Include="src\glfw3.dll" />
     <None Include="assimp-vc140-mt.dll" />
   </ItemGroup>
   <ItemGroup>

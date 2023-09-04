@@ -1,9 +1,8 @@
 #include "Camera.h"
 #include <iostream>
 
-Camera::Camera(glm::vec3 position, glm::vec3 up , float yaw, float pitch) :front(glm::vec3(0.0f, 0.0f, -1.0f)),
-	movementSpeed(SPEED), mouseSensitivity(SENSITIVITY), zoom(ZOOM), position(position), worldUp(up), yaw(yaw), pitch(pitch)
-{
+Camera::Camera(glm::vec3 position, glm::vec3 up , float yaw, float pitch) :m_front(glm::vec3(0.0f, 0.0f, -1.0f)),
+	m_movementSpeed(c_SPEED), mouseSensitivity(c_SENSITIVITY), m_zoom(c_ZOOM), m_position(position), m_worldUp(up), yaw(yaw), pitch(pitch) {
 	updateCameraVectors();
 }
 /*
@@ -21,22 +20,22 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY,
 }
 */
 mat4 Camera::getViewMatrix() {
-	return lookAt(position, position + front, up);
+	return lookAt(m_position, m_position + m_front, m_up);
 }
 
-void Camera::processKeyboard(CameraMovement direction, float deltaTime) {
-	float velocity = movementSpeed * deltaTime;
+void Camera::cameraMove(CameraMovement direction, float deltaTime) {
+	float velocity = m_movementSpeed * deltaTime;
 	if (direction == FORWARD)
-		position += front * velocity;
+		m_position += m_front * velocity;
 	if (direction == BACKWARD)
-		position -= front * velocity;
+		m_position -= m_front * velocity;
 	if (direction == LEFT)
-		position -= right * velocity;
+		m_position -= m_right * velocity;
 	if (direction == RIGHT)
-		position += right * velocity;
+		m_position += m_right * velocity;
 }
 
-void Camera::processMouseMovement(float xoffset, float yoffset, bool constrainPitch)
+void Camera::cameraRotate(float xoffset, float yoffset, bool constrainPitch)
 {
 	xoffset *= mouseSensitivity;
 	yoffset *= mouseSensitivity;
@@ -57,14 +56,14 @@ void Camera::processMouseMovement(float xoffset, float yoffset, bool constrainPi
 	updateCameraVectors();
 }
 
-void Camera::processMouseScroll(float offsetY) {
-	zoom -= (float)offsetY;
-	if (zoom < 1.0f)
-		zoom = 1.0f;
-	if (zoom > 45.0f)
-		zoom = 45.0f;
-
+void Camera::cameraZoom(float offsetY) {
+	m_zoom -= (float)offsetY;
+	if (m_zoom < 1.0f)
+		m_zoom = 1.0f;
+	if (m_zoom > 45.0f)
+		m_zoom = 45.0f;
 }
+
 
 void Camera::updateCameraVectors() {
 	vec3 front;
@@ -75,8 +74,8 @@ void Camera::updateCameraVectors() {
 	front = normalize(front);
 
 	// also re-calculating the right and up vectors
-	right = normalize(cross(front, worldUp));
+	m_right = normalize(cross(front, m_worldUp));
 	// noramlize the vectors, because their length gets closer to 0 the more you
 	//look up or down which results in slower movement
-	up = normalize(cross(right, front));
+	m_up = normalize(cross(m_right, front));
 }
