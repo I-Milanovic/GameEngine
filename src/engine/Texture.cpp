@@ -6,7 +6,7 @@
 #include "Texture.h"
 
 
-Texture::Texture(std::string& filePath, bool isAlpha) : isAlpha (isAlpha) {
+Texture::Texture(const std::string& filePath) {
 	int width = 0;
 	int height = 0;
 	int nChannels = 0;
@@ -15,7 +15,7 @@ Texture::Texture(std::string& filePath, bool isAlpha) : isAlpha (isAlpha) {
 	stbi_set_flip_vertically_on_load(true);
 
 	if (data) {
-		generateTexture(data, width, height);
+		generateTexture(data, width, height, nChannels);
 		stbi_image_free(data);
 		std::cout << "Texture: " << filePath << " loaded" << std::endl;
 	}
@@ -25,7 +25,7 @@ Texture::Texture(std::string& filePath, bool isAlpha) : isAlpha (isAlpha) {
 	}
 }
 
-void Texture::generateTexture(unsigned char* data, int width, int height) {
+void Texture::generateTexture(unsigned char* data, int width, int height, int c) {
 	glGenTextures(1, &textureId);
 
 	glBindTexture(GL_TEXTURE_2D, textureId);
@@ -38,14 +38,24 @@ void Texture::generateTexture(unsigned char* data, int width, int height) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
-	if(isAlpha)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-	else
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	GLenum format = 0;
+	switch (c) {
+		case 1:
+			format = GL_RED;
+			break;
+		case 3:
+			format = GL_RGB;
+			break;
+		case 4:
+			format = GL_RGBA;
+			break;
+		default:
+			format = 0;
+			std::cout << "Number of image channels 0" << std::endl;
+	}
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-}
-
-unsigned int Texture::getTextureId() {
-	return textureId;
 }

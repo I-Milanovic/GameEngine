@@ -163,13 +163,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc140-mt.dll" />
+    <None Include="resources\shaders\lightShader.frag" />
+    <None Include="resources\shaders\lightShader.vert" />
     <None Include="src\glfw3.dll" />
     <None Include="resources\shaders\shader.frag" />
     <None Include="resources\shaders\shader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\images\a.png" />
     <Image Include="resources\images\awesomeface.png" />
     <Image Include="resources\images\container.jpg" />
+    <Image Include="resources\images\container2.png" />
+    <Image Include="resources\images\container2_specular.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

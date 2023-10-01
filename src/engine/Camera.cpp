@@ -2,7 +2,7 @@
 #include <iostream>
 
 Camera::Camera(glm::vec3 position, glm::vec3 up , float yaw, float pitch) :m_front(glm::vec3(0.0f, 0.0f, -1.0f)),
-	m_movementSpeed(c_SPEED), mouseSensitivity(c_SENSITIVITY), m_zoom(c_ZOOM), m_position(position), m_worldUp(up), yaw(yaw), pitch(pitch) {
+	m_movementSpeed(c_SPEED), m_mouseSensitivity(c_SENSITIVITY), m_zoom(c_ZOOM), m_position(position), m_worldUp(up), m_yaw(yaw), m_pitch(pitch) {
 	updateCameraVectors();
 }
 /*
@@ -12,7 +12,7 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY,
 	up(vec3(upX, upY, upZ)),
 	front(vec3(0.0f, 0.0f, -1.0f)),
 	movementSpeed(SPEED),
-	mouseSensitivity(SENSITIVITY),
+	m_mouseSensitivity(SENSITIVITY),
 	zoom(ZOOM),
 	yaw(yaw),
 	pitch(pitch) {
@@ -37,19 +37,19 @@ void Camera::cameraMove(CameraMovement direction, float deltaTime) {
 
 void Camera::cameraRotate(float xoffset, float yoffset, bool constrainPitch)
 {
-	xoffset *= mouseSensitivity;
-	yoffset *= mouseSensitivity;
+	xoffset *= m_mouseSensitivity;
+	yoffset *= m_mouseSensitivity;
 
-	yaw += xoffset;
-	pitch += yoffset;
+	m_yaw += xoffset;
+	m_pitch += yoffset;
 
 	// make sure that when pitch is out of bounds, screen doesn't get flipped
 	if (constrainPitch)
 	{
-		if (pitch > 89.0f)
-			pitch = 89.0f;
-		if (pitch < -89.0f)
-			pitch = -89.0f;
+		if (m_pitch > 89.0f)
+			m_pitch = 89.0f;
+		if (m_pitch < -89.0f)
+			m_pitch = -89.0f;
 	}
 
 	// update front, right and up vectors using the updated euler angles
@@ -67,11 +67,11 @@ void Camera::cameraZoom(float offsetY) {
 
 void Camera::updateCameraVectors() {
 	vec3 front;
-	front.x = cos(radians(yaw)) * cos(radians(pitch));
-	front.y = sin(radians(pitch));
-	front.z = sin(radians(yaw)) * cos(radians(pitch));
+	front.x = cos(radians(m_yaw)) * cos(radians(m_pitch));
+	front.y = sin(radians(m_pitch));
+	front.z = sin(radians(m_yaw)) * cos(radians(m_pitch));
 
-	front = normalize(front);
+	m_front = normalize(front);
 
 	// also re-calculating the right and up vectors
 	m_right = normalize(cross(front, m_worldUp));

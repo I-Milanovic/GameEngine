@@ -20,11 +20,15 @@ Mesh::Mesh(const float* vertices, int vertSize, const int* indices, int indSize)
 */
 
 	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	// texture attribute
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
+	// normal attribute
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -33,8 +37,4 @@ Mesh::Mesh(const float* vertices, int vertSize, const int* indices, int indSize)
 void Mesh::cleanup() {
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
-}
-
-unsigned int Mesh::getVao() {
-	return vao;
 }

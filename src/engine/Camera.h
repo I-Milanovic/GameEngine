@@ -18,9 +18,7 @@ const float c_ZOOM = 45.0f;
 
 class Camera {
 	public:
-		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = c_YAW, float pitch = c_PITCH) ;
-
-	//	Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch);
+		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float m_yaw = c_YAW, float m_pitch = c_PITCH) ;
 
 		mat4 getViewMatrix();
 
@@ -53,9 +51,9 @@ class Camera {
 
 		// euler angles
 
-		float yaw;
-		float pitch;
-		float mouseSensitivity;
+		float m_yaw;
+		float m_pitch;
+		float m_mouseSensitivity;
 		float m_movementSpeed;
 		float m_zoom;
 

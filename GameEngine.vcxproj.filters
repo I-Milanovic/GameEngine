@@ -83,6 +83,8 @@
     </None>
     <None Include="src\glfw3.dll" />
     <None Include="assimp-vc140-mt.dll" />
+    <None Include="resources\shaders\lightShader.frag" />
+    <None Include="resources\shaders\lightShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -102,5 +104,8 @@
     <Image Include="resources\images\awesomeface.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\images\container2.png" />
+    <Image Include="resources\images\container2_specular.png" />
+    <Image Include="resources\images\a.png" />
   </ItemGroup>
 </Project>

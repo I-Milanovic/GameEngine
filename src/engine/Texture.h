@@ -3,20 +3,15 @@
 
 class Texture {
 
+public:
+	Texture(const std::string &filePath);
+	unsigned int getTextureId() { return textureId; };
+
+private:
+	void generateTexture(unsigned char* data, int width, int height, int c);
+
 private:
 	const std::string texturePath;
 	unsigned int textureId;
-	bool isAlpha;
-public:
-	Texture(std::string &filePath, bool isAlpha);
-//	void bindTexture();
-//	void cleanup();
-//	std::string getTexturePath();
-	unsigned int getTextureId();
-
-private:
-	void generateTexture(unsigned char* data, int width, int height);
-
-
 
 };
