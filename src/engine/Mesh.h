@@ -1,11 +1,64 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
+#include <string>
+#include <vector>
+
+#define MAX_BONE_INFLUENCE 4
+
+struct Vertex {
+	glm::vec3 m_position;
+	glm::vec3 m_normal;
+	glm::vec2 m_texCoords;
+	glm::vec3 m_tangent;
+	glm::vec3 m_biTangent;
+
+	int m_boneIds[MAX_BONE_INFLUENCE];
+	float m_weights[MAX_BONE_INFLUENCE];
+};
+
+struct TextureS {
+	unsigned int m_id;
+	std::string m_type;
+	std::string m_path;
+};
+
+
+struct Material {
+	glm::vec3 m_ambient;
+	glm::vec3 m_diffuse;
+	glm::vec3 m_specular;
+	float m_reflectance; // what did they call for this in aiMaterial
+	float m_shininess;
+	int m_hasTextures;
+};
+
 class Mesh {
 
 public:
-	Mesh(const float* vertices, int size, const int* indices, int indSize);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureS> textures, Material material);
+	Mesh(const Mesh &m);
 	void cleanup();
 	inline unsigned int getVao() { return vao; };
+	inline unsigned int getIndicesSize() { return m_indices.size(); };
+
+	inline int getTextureId(unsigned int index) { return m_textures.at(index).m_id; };
+	inline std::vector<Vertex> getVertex() { return m_vertices; };
+	inline Material getMaterial() { return m_material; };
+	inline void setMaterial(Material material) { m_material = material; };
+
 private:
+	void setupMesh();
+
+
+private:
+	// mesh data
+	std::vector<Vertex> m_vertices;
+	std::vector<unsigned int> m_indices;
+	std::vector<TextureS> m_textures;
+	Material m_material;
+
+
 	unsigned int vbo, vao, ebo;
 };

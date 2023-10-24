@@ -72,8 +72,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,11 +110,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLFW\glfw3.lib;assimp\assimp-vc140-mt.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp\assimp-vc143-mtd.lib;GLFW\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\ModelLoader.cpp" />
     <ClCompile Include="src\app\Application.cpp" />
     <ClCompile Include="src\app\glad.c" />
     <ClCompile Include="src\engine\Camera.cpp" />
@@ -149,6 +152,8 @@
     <ClCompile Include="src\window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\Light.h" />
+    <ClInclude Include="src\engine\ModelLoader.h" />
     <ClInclude Include="src\app\Application.h" />
     <ClInclude Include="src\engine\Camera.h" />
     <ClInclude Include="src\engine\UniformMap.h" />
@@ -163,6 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc140-mt.dll" />
+    <None Include="resources\shaders\basicShader.frag" />
+    <None Include="resources\shaders\basicShader.vert" />
     <None Include="resources\shaders\lightShader.frag" />
     <None Include="resources\shaders\lightShader.vert" />
     <None Include="src\glfw3.dll" />
@@ -170,6 +177,7 @@
     <None Include="resources\shaders\shader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\cube\cube.png" />
     <Image Include="resources\images\a.png" />
     <Image Include="resources\images\awesomeface.png" />
     <Image Include="resources\images\container.jpg" />

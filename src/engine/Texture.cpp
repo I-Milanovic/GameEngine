@@ -6,26 +6,18 @@
 #include "Texture.h"
 
 
-Texture::Texture(const std::string& filePath) {
-	int width = 0;
-	int height = 0;
-	int nChannels = 0;
+// mozda stavi da je static
+unsigned int Texture::generateTexture(const std::string& filePath) {
+	int width, height, nChannels;
 
 	unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nChannels, 0);
 	stbi_set_flip_vertically_on_load(true);
 
-	if (data) {
-		generateTexture(data, width, height, nChannels);
-		stbi_image_free(data);
-		std::cout << "Texture: " << filePath << " loaded" << std::endl;
-	}
-	else {
+	if (!data) {
 		std::cout << "Failed to load the texture path: " << filePath << std::endl;
-//		std::cout << stbi_failure_reason << std::endl;
+		return 0;
 	}
-}
 
-void Texture::generateTexture(unsigned char* data, int width, int height, int c) {
 	glGenTextures(1, &textureId);
 
 	glBindTexture(GL_TEXTURE_2D, textureId);
@@ -39,7 +31,7 @@ void Texture::generateTexture(unsigned char* data, int width, int height, int c)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
 	GLenum format = 0;
-	switch (c) {
+	switch (nChannels) {
 		case 1:
 			format = GL_RED;
 			break;
@@ -58,4 +50,8 @@ void Texture::generateTexture(unsigned char* data, int width, int height, int c)
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 
+	std::cout << "Texture: " << filePath << " loaded, ID : "  << textureId << " CHANNELES " << nChannels << std::endl;
+	stbi_image_free(data);
+
+	return textureId;
 }

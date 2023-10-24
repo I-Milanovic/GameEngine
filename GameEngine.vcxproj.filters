@@ -38,6 +38,7 @@
     <ClCompile Include="src\app\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\ModelLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\Window.h">
@@ -73,6 +74,8 @@
     <ClInclude Include="src\app\Application.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="src\engine\ModelLoader.h" />
+    <ClInclude Include="src\engine\Light.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\shader.frag">
@@ -85,6 +88,8 @@
     <None Include="assimp-vc140-mt.dll" />
     <None Include="resources\shaders\lightShader.frag" />
     <None Include="resources\shaders\lightShader.vert" />
+    <None Include="resources\shaders\basicShader.vert" />
+    <None Include="resources\shaders\basicShader.frag" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -107,5 +112,6 @@
     <Image Include="resources\images\container2.png" />
     <Image Include="resources\images\container2_specular.png" />
     <Image Include="resources\images\a.png" />
+    <Image Include="..\..\cube\cube.png" />
   </ItemGroup>
 </Project>

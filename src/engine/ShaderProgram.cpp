@@ -5,7 +5,8 @@
 #include "../utilities/Loader.h"
 
 
-	ShaderProgram::ShaderProgram(std::string shaderPath) {
+	ShaderProgram::ShaderProgram(std::string shaderPath) :
+			m_programId(glCreateProgram()), m_uniformMap(m_programId) {
 
 		// Concat for the whole file name: path + file extension
 		std::string vertexFile = shaderPath + ".vert";
@@ -13,13 +14,11 @@
 
 
 		// Instantiate class for file reading
-		Loader* loader = new Loader();
-		char *vertexSource = loader->read(vertexFile);
-		char *fragmentSource = loader->read(fragmentFile);
-		delete loader;
+		Loader loader;
+		char *vertexSource = loader.read(vertexFile);
+		char *fragmentSource = loader.read(fragmentFile);
 
 		// Create shader program
-		programId = glCreateProgram();
 
 		unsigned int vertexId = compileVertex(vertexSource);
 		unsigned int fragmentId = compileFragment(fragmentSource);
@@ -67,20 +66,20 @@
 		}
 
 		// Attach shader to the program
-		glAttachShader(programId, shaderId);
+		glAttachShader(m_programId, shaderId);
 
 		return shaderId;
 	}
 
 	void ShaderProgram::link() {
-		glLinkProgram(programId);
+		glLinkProgram(m_programId);
 
 		// Check for linking errors
 		int success;
 		char infoLog[512];
-		glGetProgramiv(programId, GL_LINK_STATUS, &success);
+		glGetProgramiv(m_programId, GL_LINK_STATUS, &success);
 		if (!success) {
-			glGetProgramInfoLog(programId, 512, NULL, infoLog);
+			glGetProgramInfoLog(m_programId, 512, NULL, infoLog);
 			std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 		} 
 		else {
@@ -89,13 +88,13 @@
 	}
 
 	void ShaderProgram::validate() {
-		glValidateProgram(programId);
+		glValidateProgram(m_programId);
 		int success;
 		char infoLog[512];
 
-		glGetProgramiv(programId, GL_VALIDATE_STATUS, &success);
+		glGetProgramiv(m_programId, GL_VALIDATE_STATUS, &success);
 		if (!success) {
-			glGetProgramInfoLog(programId, 512, NULL, infoLog);
+			glGetProgramInfoLog(m_programId, 512, NULL, infoLog);
 			std::cout << "ERROR VALIDATING PROGRAM\n" << infoLog << std::endl;
 		}
 		else {
@@ -104,7 +103,7 @@
 	}
 
 	void ShaderProgram::useProgram() {
-		glUseProgram(programId);
+		glUseProgram(m_programId);
 	}
 
 	void ShaderProgram::detachProgram() {
@@ -113,11 +112,7 @@
 
 	void ShaderProgram::cleanup() {
 		detachProgram();
-		if (programId != 0) {
+		if (m_programId != 0) {
 			glDeleteProgram(0);
 		}
-	}
-
-	unsigned int ShaderProgram::getProgramId() {
-		return programId;
 	}

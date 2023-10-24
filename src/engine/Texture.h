@@ -4,11 +4,8 @@
 class Texture {
 
 public:
-	Texture(const std::string &filePath);
+	unsigned int generateTexture(const std::string& filePath);
 	unsigned int getTextureId() { return textureId; };
-
-private:
-	void generateTexture(unsigned char* data, int width, int height, int c);
 
 private:
 	const std::string texturePath;

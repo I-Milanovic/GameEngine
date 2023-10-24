@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <glm/glm.hpp>
 
+#include "Light.h"
+#include "Mesh.h"
 class UniformMap {
 
 public:
@@ -29,13 +31,42 @@ public:
 					
 	void setUniform(const std::string& uniformName, glm::mat4 &value) const;
 
+public:
+	void createAmbientLight(const std::string& uniformName);
+
+	void createAttenuation(const std::string& uniformName);
+
+	void createMaterial(const std::string& uniformName);
+
+	void createPointLightUniform(const std::string& uniformName);
+	void createDirLightUniform(const std::string& uniformName);
+	void createSpotLightUniform(const std::string& uniformNae);
+
+	void createPointLightListUniform(const std::string& uniformName, unsigned int size);
+	void createDirLightListUniform(const std::string& uniformName, unsigned int size);
+	void createSpotLightListUniform(const std::string& uniformName, unsigned int size);
+
+public:
+	void setAmbientLight(const std::string& uniformName, AmbientLight ambientLight);
+
+	void setAttenuationUniform(const std::string& uniformName, Attenuation attenuation);
+
+	void setMaterialUniform(const std::string& uniformName, Material material);
+
+	void setPointLightUniform(const std::string& uniformName, PointLight pointLight);
+	void setDirLightUniform(const std::string& uniformName, DirLight dirLight);
+	void setSpotLightUniform(const std::string& uniformName, SpotLight spotLight);
+
+	void setPointLightListUniform(const std::string& uniformName, std::vector<PointLight> pointLights);
+	void setDirLightListUniform(const std::string& uniformName, std::vector<DirLight> dirLights);
+	void setSpotLightListUniform(const std::string& uniformName, std::vector<SpotLight> spotLights);
 
 private:
 	int getUniformLocation(const std::string& uniformName) const;
 
 private:
-	int programId;
-	std::unordered_map<std::string, unsigned int> uniforms;
+	int m_programId;
+	std::unordered_map<std::string, unsigned int> m_uniformMap;
 
 
 };
