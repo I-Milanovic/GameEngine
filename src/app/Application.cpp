@@ -1,47 +1,55 @@
 #include <iostream>
-
 #include "Application.h"
 
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
 
 
 Application* Application::s_instance = nullptr;
 
-Application::Application(const std::string& name, int width, int height) {
+
+
+Application::Application() :
+	m_window(new Window(1200, 800)), m_renderer(new Renderer()), 
+	m_input(new Input(m_renderer->getSceneRenderer())), m_hud(Hud(*m_renderer)) {
 
 	s_instance = this;
 
-	//m_window = new Window((m_renderer->getSceneRenderer()));
-	m_window = new Window();
-	m_renderer = new Renderer();
-	SceneRenderer* scene = m_renderer->getSceneRenderer();
-	m_input = new Input(*scene);
-	m_window->init(*scene, *m_input);
+	SceneRenderer& scene = m_renderer->getSceneRenderer();
+	//scene.getScene().getProjection().setRatio(m_window->getWindowWidth(), m_window->getWindowHeight());
+	m_window->init(scene, *m_input);
 
+
+	m_hud.init(*m_window);
 	glEnable(GL_DEPTH_TEST);
 	run();
 
+	m_hud.terminate();
 	glfwTerminate();
 }
 
 void Application::run() {
 	GLFWwindow* windowHandle = m_window->getWindowHandle();
-	SceneRenderer* scene = m_renderer->getSceneRenderer();
-	//Input input(*scene);
-	while (!glfwWindowShouldClose(windowHandle)) {
+	SceneRenderer sceneRenderer = m_renderer->getSceneRenderer();
 
+	while (!glfwWindowShouldClose(windowHandle)) {
 		float currentFrame = static_cast<float>(glfwGetTime());
 		m_deltaTime = currentFrame - m_lastFrame;
 		m_lastFrame = currentFrame;
-		
-		glm::vec3 pos = scene->getCamera().getPos();
-		m_input->keyboardInput(windowHandle, m_deltaTime, pos /*, scene->getCamera().getUp(), scene->getCamera().getFront() */);
+        
+		m_input->keyboardInput(windowHandle, m_deltaTime);
 
-		// rendering commands here
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// draw triangle
 		m_renderer->render();
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// draw sceneRenderer
+		m_hud.renderHud(*m_renderer->getSceneRenderer().getFrameBuffer());
+	
+		// rendering commands here
+
 
 		//glfw: swap buffers and poll IO events
 		glfwSwapBuffers(windowHandle);

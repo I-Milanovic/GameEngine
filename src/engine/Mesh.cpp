@@ -15,16 +15,16 @@ void Mesh::cleanup() {
 	glDeleteBuffers(1, &vbo);
 }
 
-Mesh::Mesh(const Mesh& m) {
-	vao = m.vao;
-	vbo = m.vbo;
-	ebo = m.ebo;
-
-	m_vertices = m.m_vertices;
-	m_indices = m.m_indices;
-	m_textures = m.m_textures;
-	m_material = m.m_material;
-}
+//Mesh::Mesh(const Mesh& m) {
+//	vao = m.vao;
+//	vbo = m.vbo;
+//	ebo = m.ebo;
+//
+//	m_vertices = m.m_vertices;
+//	m_indices = m.m_indices;
+//	m_textures = m.m_textures;
+//	m_material = m.m_material;
+//}
 
 void Mesh::setupMesh() {
 	glGenVertexArrays(1, &vao);
@@ -40,7 +40,7 @@ void Mesh::setupMesh() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned int), &m_indices[0], GL_STATIC_DRAW);
 
-	// vertex position
+	// vertex m_position
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 

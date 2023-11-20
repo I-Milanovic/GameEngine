@@ -18,17 +18,17 @@ const float c_ZOOM = 45.0f;
 
 class Camera {
 	public:
-		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float m_yaw = c_YAW, float m_pitch = c_PITCH) ;
+		Camera(glm::vec3 position = glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float m_yaw = c_YAW, float m_pitch = c_PITCH) ;
 
 		mat4 getViewMatrix();
 
 		void cameraMove(CameraMovement direction, float deltaTime);
-		
-		void cameraResize();
 
 		void cameraRotate(float xoffset, float yoffset, bool constrainPitch = true);
 
 		void cameraZoom(float offsetY);
+
+		inline glm::vec3& getCameraPos() { return m_position; };
 
 	public:
 		inline vec3 getPos() { return m_position; };

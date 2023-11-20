@@ -1,24 +1,12 @@
 #include "Camera.h"
 #include <iostream>
 
+
 Camera::Camera(glm::vec3 position, glm::vec3 up , float yaw, float pitch) :m_front(glm::vec3(0.0f, 0.0f, -1.0f)),
 	m_movementSpeed(c_SPEED), m_mouseSensitivity(c_SENSITIVITY), m_zoom(c_ZOOM), m_position(position), m_worldUp(up), m_yaw(yaw), m_pitch(pitch) {
 	updateCameraVectors();
 }
-/*
-Camera::Camera(float posX, float posY, float posZ, float upX, float upY,
-	float upZ, float yaw, float pitch) :
-	position(vec3(posX, posY, posZ)),
-	up(vec3(upX, upY, upZ)),
-	front(vec3(0.0f, 0.0f, -1.0f)),
-	movementSpeed(SPEED),
-	m_mouseSensitivity(SENSITIVITY),
-	zoom(ZOOM),
-	yaw(yaw),
-	pitch(pitch) {
 
-}
-*/
 mat4 Camera::getViewMatrix() {
 	return lookAt(m_position, m_position + m_front, m_up);
 }

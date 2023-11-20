@@ -2,37 +2,32 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
 
-#include "ShaderProgram.h"
-#include "Mesh.h"
-#include "Camera.h"
-#include "UniformMap.h"
+#include "shader/ShaderProgram.h"
+#include "shader/UniformMap.h"
 
 #include "../engine/ModelLoader.h"
+#include "../engine/Framebuffer.h"
+
+#include "scene/Scene.h"
+
 
 class SceneRenderer {
 
     public:
-        SceneRenderer();
+        SceneRenderer(Scene scene);
         void renderScene();
-        inline Camera& getCamera() { return m_camera; };
+        inline Scene& getScene() { return m_scene; };
+        inline Framebuffer* getFrameBuffer() { return &m_frameBuffer; };
     private:
         void createUniforms();
         void createLightUniforms();
-    private:
-        Camera m_camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
-        Mesh* lightCube;
-        Mesh* mesh;
-   
-        ModelLoader m_loader;
+    private:  
+        Scene m_scene;
+        Framebuffer m_frameBuffer;
 
-	    ShaderProgram* shader;
-	    ShaderProgram* lightShader;
+	    ShaderProgram* m_shader;
+	    ShaderProgram* m_lightShader;
         
-        //Texture* texture1;
-        //Texture* texture2;
-
-        glm::mat4 projection;
-
         glm::vec3 cubePositions[10] = {
             glm::vec3(0.0f,  0.0f,  0.0f),
             glm::vec3(2.0f,  5.0f, -15.0f),

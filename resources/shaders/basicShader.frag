@@ -1,6 +1,6 @@
 #version 330 core
 
-const int MAX_POINT_LIGHTS = 1;
+const int MAX_POINT_LIGHTS = 5;
 const int MAX_SPOT_LIGHTS = 1;
 const float SPECULAR_POWER = 10;
 
@@ -64,10 +64,9 @@ vec4 calcLightColor(vec4 diffuse, vec4 specular, vec3 lightColor, float light_in
 	vec4 diffuseColor = vec4(0, 0, 0, 1);
 	vec4 specColor = vec4(0, 0, 0, 1);
 
-
 	// Diffuse Light
 	float diffuseFactor = max(dot(normal, to_light_dir), 0.0);
-	diffuseColor = diffuse * vec4(lightColor, 1.0) * light_intensity * diffuseColor;
+	diffuseColor = diffuse * vec4(lightColor, 1.0) * light_intensity * diffuseFactor;
 
 	// Speclar Light
 	vec3 camera_direction = normalize(-position);

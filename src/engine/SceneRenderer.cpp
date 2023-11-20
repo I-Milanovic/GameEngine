@@ -4,137 +4,133 @@
 
 #include <sstream>
 #include <string>
-
 #include <iostream>
 
 #include "SceneRenderer.h"
-#include "ShaderProgram.h"
-#include "Mesh.h"
+#include "../window/Window.h"
 
-#include "Light.h"
-
-
-#include "glm/ext.hpp" 
+#include "glm/ext.hpp"
 #include "glm/gtx/string_cast.hpp"
 
-SceneRenderer::SceneRenderer() {
+SceneRenderer::SceneRenderer(Scene scene) : m_scene(scene) {
 
-    // Create shader program
-    shader = new ShaderProgram("resources/shaders/basicShader");               // ovo je losa kompozicija
+    // Create m_shader program
+    m_shader = new ShaderProgram("resources/shaders/basicShader");               // ovo je losa kompozicija
     createUniforms();
 
     // Create light Shader
-    lightShader = new ShaderProgram("resources/shaders/lightShader");
+    m_lightShader = new ShaderProgram("resources/shaders/lightShader");
     createLightUniforms();
      
+    m_frameBuffer.init(1200, 800);
+
     // Create mesh to be displayed
+    ModelLoader m_loader;
     m_loader.loadModel("resources/models/cube.obj");
-    std::vector<Mesh> v = m_loader.getMeshes();
-    mesh = new Mesh(v.at(0));
-    lightCube = new Mesh(v.at(0));
+    m_scene.setMeshes(m_loader.getMeshes());
+
+    SpotLight spotLight;
+    m_scene.addSpotLight(spotLight);
 }
 
+
 void SceneRenderer::createUniforms() {
-    shader->getUniformMap().createUniform("modelMatrix");
-    shader->getUniformMap().createUniform("viewMatrix");
-    shader->getUniformMap().createUniform("projectionMatrix");
+    m_shader->getUniformMap().createUniform("modelMatrix");
+    m_shader->getUniformMap().createUniform("viewMatrix");
+    m_shader->getUniformMap().createUniform("projectionMatrix");
 
-    shader->getUniformMap().createMaterial("material");
-    shader->getUniformMap().createAmbientLight("ambientLight");
-    shader->getUniformMap().createPointLightListUniform("pointLights", 1);
-    shader->getUniformMap().createSpotLightListUniform("spotLights", 1);
-    shader->getUniformMap().createDirLightUniform("dirLight");
-
+    m_shader->getUniformMap().createMaterial("material");
+    m_shader->getUniformMap().createAmbientLight("ambientLight");
+    m_shader->getUniformMap().createPointLightListUniform("pointLights", 5);
+    m_shader->getUniformMap().createSpotLightListUniform("spotLights", 1);
+    m_shader->getUniformMap().createDirLightUniform("dirLight");
 }
 
 void SceneRenderer::createLightUniforms() {
-    lightShader->getUniformMap().createUniform("model");
-    lightShader->getUniformMap().createUniform("view");
-    lightShader->getUniformMap().createUniform("projection");
+    m_lightShader->getUniformMap().createUniform("model");
+    m_lightShader->getUniformMap().createUniform("view");
+    m_lightShader->getUniformMap().createUniform("projection");
 }
 
 void SceneRenderer::renderScene() {
-    glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
+    m_frameBuffer.bindFrameBuffer();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    Mesh m = m_scene.getMesh(0);
 
     // cube object
-    shader->useProgram();
+    m_shader->useProgram();
 
     // Material
-    Material mat = mesh->getMaterial();
-    shader->getUniformMap().setMaterialUniform("material", mat);
+    Material mat = m.getMaterial();
+    m_shader->getUniformMap().setMaterialUniform("material", mat);
     
-    AmbientLight ambientLight(1.0f, glm::vec3(1.0f, 1.0f, 1.0f));
-    shader->getUniformMap().setAmbientLight("ambientLight", ambientLight);
+    m_shader->getUniformMap().setAmbientLight("ambientLight", m_scene.getSceneLights().getAmbientLight());
 
-    Attenuation att1(1.0f, 1.0f, 1.0f);
-    PointLight pointLight1(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, att1);
-    std::vector<PointLight> v;
-    v.push_back(pointLight1);
-    shader->getUniformMap().setPointLightListUniform("pointLights", v);
+    m_shader->getUniformMap().setDirLightUniform("dirLight", m_scene.getSceneLights().getDirLight());
 
-    Attenuation att2(1.0f, 1.0f, 1.0f);
-    PointLight pointLight2(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, att2);
-    SpotLight spotLight(pointLight2, glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
-    std::vector<SpotLight> s;
-    s.push_back(spotLight);
-    shader->getUniformMap().setSpotLightListUniform("spotLights", s);
+    //if(m_scene.getSceneLights().getPointLights().size() > 0)
+    m_shader->getUniformMap().setPointLightListUniform("pointLights", m_scene.getSceneLights().getPointLights());
 
-    DirLight dirLight(glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
-    shader->getUniformMap().setDirLightUniform("dirLight", dirLight);
+    m_shader->getUniformMap().setSpotLightListUniform("spotLights", m_scene.getSceneLights().getSpotLights());
 
+   
     // transformations
-    projection = glm::perspective(glm::radians(m_camera.getZoom()), (float)800 / (float)600, 0.1f, 100.0f);
-    glm::mat4 view = m_camera.getViewMatrix();
-    glm::mat4 model = glm::mat4(1.0f);
-    shader->getUniformMap().setUniform("modelMatrix", model);
+    // 
+    m_scene.getProjection().updateProjection();
+    glm::mat4 projectionMatrix = m_scene.getProjection().getProjectionMatrix();
+    glm::mat4 viewMatrix = m_scene.getCamera()->getViewMatrix();
 
-    shader->getUniformMap().setUniform("projectionMatrix", projection);
-    shader->getUniformMap().setUniform("viewMatrix", view);
+    glm::mat4 modelMatrix = glm::mat4(1.0f);
+    m_shader->getUniformMap().setUniform("modelMatrix", modelMatrix);
+
+    m_shader->getUniformMap().setUniform("projectionMatrix", projectionMatrix);
+    m_shader->getUniformMap().setUniform("viewMatrix", viewMatrix);
 
     // bind diffuse map
-    if (mesh->getMaterial().m_hasTextures) {
+    if (m.getMaterial().m_hasTextures) {
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, mesh->getTextureId(0));
+        glBindTexture(GL_TEXTURE_2D, m.getTextureId(0));
     }
-    //    glActiveTexture(GL_TEXTURE1);
-    //    glBindTexture(GL_TEXTURE_2D, mesh->getTextureId(0));
-    //}
-    glBindVertexArray(mesh->getVao());
-    //glm::mat4 model = glm::mat4(1.0f);
-    model = glm::scale(model, glm::vec3(0.5f));
-    shader->getUniformMap().setUniform("modelMatrix", model);
-    glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(mesh->getIndicesSize()), GL_UNSIGNED_INT, 0);
+
+    glBindVertexArray(m.getVao());
+    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
+    m_shader->getUniformMap().setUniform("modelMatrix", modelMatrix);
+    glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(m.getIndicesSize()), GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
 
     //for (unsigned int i = 0; i < 10; i++) {
-    //    // calculate the model matrix for each and pass it to shader before drawing
-    //    glm::mat4 model = glm::mat4(1.0f);
-    //    model = glm::translate(model, cubePositions[i]);
+    //    // calculate the modelMatrix matrix for each and pass it to m_shader before drawing
+    //    glm::mat4 modelMatrix = glm::mat4(1.0f);
+    //    modelMatrix = glm::translate(modelMatrix, cubePositions[i]);
     //    float angle = 20.0f * i;
-    //    model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-    //    model = glm::scale(model, glm::vec3(0.5f));
-    //    shader->getUniformMap().setUniform("model", model);
+    //    modelMatrix = glm::rotate(modelMatrix, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+    //    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
+    //    m_shader->getUniformMap().setUniform("modelMatrix", modelMatrix);
 
     //   // glDrawArrays(GL_TRIANGLES, 0, 36);
     //    glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(mesh->getIndicesSize()), GL_UNSIGNED_INT, 0);
     //}
 
     // light objects
-    lightShader->useProgram();
-    lightShader->getUniformMap().setUniform("projection", projection);
-    lightShader->getUniformMap().setUniform("view", view);
+    m_lightShader->useProgram();
+    m_lightShader->getUniformMap().setUniform("projection", projectionMatrix);
+    m_lightShader->getUniformMap().setUniform("view", viewMatrix);
    // glBindVertexArray(lightCube->getVao());
     
     for (int i = 0; i < 4; i++) {
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, pointLightPositions[i]);
-        model = glm::scale(model, glm::vec3(0.2f));
-        lightShader->getUniformMap().setUniform("model", model);
+        modelMatrix = glm::mat4(1.0f);
+        modelMatrix = glm::translate(modelMatrix, pointLightPositions[i]);
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f));
+        m_lightShader->getUniformMap().setUniform("model", modelMatrix);
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
+    m_frameBuffer.unbindFrameBuffer();
 
     glBindVertexArray(0);
+
+
     
 }
 

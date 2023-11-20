@@ -5,7 +5,7 @@ class Renderer {
 	public: 
 		Renderer();
 		void render();
-		inline SceneRenderer* getSceneRenderer() { return sceneRenderer; };
+		inline SceneRenderer& getSceneRenderer() { return m_sceneRenderer; };
 	private:
-		SceneRenderer* sceneRenderer;
+		SceneRenderer m_sceneRenderer;
 };

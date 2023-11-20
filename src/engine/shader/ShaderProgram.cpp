@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "ShaderProgram.h"
-#include "../utilities/Loader.h"
+#include "../../utilities/Loader.h"
 
 
 	ShaderProgram::ShaderProgram(std::string shaderPath) :
@@ -12,13 +12,12 @@
 		std::string vertexFile = shaderPath + ".vert";
 		std::string fragmentFile = shaderPath + ".frag";
 
-
 		// Instantiate class for file reading
 		Loader loader;
 		char *vertexSource = loader.read(vertexFile);
 		char *fragmentSource = loader.read(fragmentFile);
 
-		// Create shader program
+		// Create m_shader program
 
 		unsigned int vertexId = compileVertex(vertexSource);
 		unsigned int fragmentId = compileFragment(fragmentSource);
@@ -41,14 +40,14 @@
 
 	unsigned int ShaderProgram::compile(char* source, int type, std::string shaderTypeName) {
 
-		// create shader name
+		// create m_shader name
 		unsigned int shaderId = glCreateShader(type);
 
 		if (shaderId == GL_FALSE) {
 			std::cout << "Error creating shader, type: \n" << type << std::endl;
 		}
 
-		// Pass the shader code to the 
+		// Pass the m_shader code to the 
 		glShaderSource(shaderId, 1, &source, NULL);
 		glCompileShader(shaderId);
 
@@ -65,7 +64,7 @@
 			std::cout << shaderTypeName << " Shader Compiled!" << std::endl;
 		}
 
-		// Attach shader to the program
+		// Attach m_shader to the program
 		glAttachShader(m_programId, shaderId);
 
 		return shaderId;

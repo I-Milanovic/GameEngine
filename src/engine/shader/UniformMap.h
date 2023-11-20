@@ -4,8 +4,8 @@
 #include <unordered_map>
 #include <glm/glm.hpp>
 
-#include "Light.h"
-#include "Mesh.h"
+#include "../scene/lights/Light.h"
+#include "../Mesh.h"
 class UniformMap {
 
 public:
@@ -67,6 +67,4 @@ private:
 private:
 	int m_programId;
 	std::unordered_map<std::string, unsigned int> m_uniformMap;
-
-
 };

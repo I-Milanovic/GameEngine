@@ -9,6 +9,7 @@
 class ModelLoader {
 
 	public:
+		ModelLoader() = default;
 		void loadModel(const std::string& path);
 		inline std::vector<Mesh> getMeshes() { return m_meshes; };
 
@@ -21,6 +22,7 @@ class ModelLoader {
 		std::vector<Vertex> processVertices(aiMesh& mesh);
 		std::vector<unsigned int> processIndices(const aiMesh& mesh);
 		std::vector<TextureS> processTextures(Material& mat, aiMaterial& material);
+
 	private:
 		std::vector<TextureS> textures_loaded;
 		std::vector<Mesh> m_meshes;

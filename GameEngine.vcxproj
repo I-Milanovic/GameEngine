@@ -111,6 +111,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,33 +137,61 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\hud\LightUi.cpp" />
+    <ClCompile Include="src\engine\Framebuffer.cpp" />
+    <ClCompile Include="src\engine\hud\Hud.cpp" />
+    <ClCompile Include="include\imgui\imgui.cpp" />
+    <ClCompile Include="include\imgui\imgui_demo.cpp" />
+    <ClCompile Include="include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="include\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="include\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="include\imgui\imgui_tables.cpp" />
+    <ClCompile Include="include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\engine\scene\lights\SceneLights.cpp" />
     <ClCompile Include="src\engine\ModelLoader.cpp" />
     <ClCompile Include="src\app\Application.cpp" />
     <ClCompile Include="src\app\glad.c" />
-    <ClCompile Include="src\engine\Camera.cpp" />
-    <ClCompile Include="src\engine\UniformMap.cpp" />
+    <ClCompile Include="src\engine\scene\Camera.cpp" />
+    <ClCompile Include="src\engine\scene\Projection.cpp" />
+    <ClCompile Include="src\engine\scene\Scene.cpp" />
+    <ClCompile Include="src\engine\shader\UniformMap.cpp" />
     <ClCompile Include="src\window\Input.cpp" />
     <ClCompile Include="src\utilities\Loader.cpp" />
     <ClCompile Include="src\app\Main.cpp" />
     <ClCompile Include="src\engine\Mesh.cpp" />
     <ClCompile Include="src\engine\Renderer.cpp" />
     <ClCompile Include="src\engine\SceneRenderer.cpp" />
-    <ClCompile Include="src\engine\ShaderProgram.cpp" />
+    <ClCompile Include="src\engine\shader\ShaderProgram.cpp" />
     <ClCompile Include="src\engine\Texture.cpp" />
     <ClCompile Include="src\window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\engine\Light.h" />
+    <ClInclude Include="src\engine\hud\LightUi.h" />
+    <ClInclude Include="src\engine\Framebuffer.h" />
+    <ClInclude Include="src\engine\hud\Hud.h" />
+    <ClInclude Include="include\imgui\imconfig.h" />
+    <ClInclude Include="include\imgui\imgui.h" />
+    <ClInclude Include="include\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="include\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="include\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="include\imgui\imgui_internal.h" />
+    <ClInclude Include="include\imgui\imstb_rectpack.h" />
+    <ClInclude Include="include\imgui\imstb_textedit.h" />
+    <ClInclude Include="include\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\engine\scene\lights\SceneLights.h" />
+    <ClInclude Include="src\engine\scene\lights\Light.h" />
     <ClInclude Include="src\engine\ModelLoader.h" />
     <ClInclude Include="src\app\Application.h" />
-    <ClInclude Include="src\engine\Camera.h" />
-    <ClInclude Include="src\engine\UniformMap.h" />
+    <ClInclude Include="src\engine\scene\Camera.h" />
+    <ClInclude Include="src\engine\scene\Projection.h" />
+    <ClInclude Include="src\engine\scene\Scene.h" />
+    <ClInclude Include="src\engine\shader\UniformMap.h" />
     <ClInclude Include="src\window\Input.h" />
     <ClInclude Include="src\utilities\Loader.h" />
     <ClInclude Include="src\engine\Mesh.h" />
     <ClInclude Include="src\engine\Renderer.h" />
     <ClInclude Include="src\engine\SceneRenderer.h" />
-    <ClInclude Include="src\engine\ShaderProgram.h" />
+    <ClInclude Include="src\engine\shader\ShaderProgram.h" />
     <ClInclude Include="src\engine\Texture.h" />
     <ClInclude Include="src\window\Window.h" />
   </ItemGroup>

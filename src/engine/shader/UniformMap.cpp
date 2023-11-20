@@ -2,11 +2,10 @@
 #include <glad/glad.h>
 
 #include "UniformMap.h"
-#include "Light.h"
+#include "../scene/lights/Light.h"
 
 
 UniformMap::UniformMap(int programId) : m_programId(programId) {
-
 }
 
 void UniformMap::createUniform(const std::string &uniformName) {
@@ -116,30 +115,30 @@ void UniformMap::createSpotLightUniform(const std::string& uniformName) {
 }
 
 void UniformMap::createPointLightListUniform(const std::string& uniformName, unsigned int size) {
-	for (int i = 0; i < size; i++) {
+	for (unsigned int i = 0; i < size; i++) {
 		std::string count = std::to_string(i);
 		createPointLightUniform(uniformName + "[" + count + "]");
 	}
 }
 
 void UniformMap::createDirLightListUniform(const std::string& uniformName, unsigned int size) {
-	for (int i = 0; i < size; i++) {
+	for (unsigned int i = 0; i < size; i++) {
 		std::string count = std::to_string(i);
 		createDirLightUniform(uniformName + "[" + count + "]");
 	}
 }
 
 void UniformMap::createSpotLightListUniform(const std::string& uniformName, unsigned int size) {
-	for (int i = 0; i < size; i++) {
+	for (unsigned int i = 0; i < size; i++) {
 		std::string count = std::to_string(i);
 		createSpotLightUniform(uniformName + "[" + count + "]");
 	}
 }
 
 void UniformMap::setAttenuationUniform(const std::string& uniformName, Attenuation attenuation) {
-	setUniform(uniformName + ".constant", attenuation.constant);
-	setUniform(uniformName + ".linear", attenuation.linear);
-	setUniform(uniformName + ".exponent", attenuation.exponent);
+	setUniform(uniformName + ".constant", attenuation.m_constant);
+	setUniform(uniformName + ".linear", attenuation.m_linear);
+	setUniform(uniformName + ".exponent", attenuation.m_exponent);
 }
 
 void UniformMap::setMaterialUniform(const std::string& uniformName, Material material) {
@@ -150,27 +149,27 @@ void UniformMap::setMaterialUniform(const std::string& uniformName, Material mat
 }
 
 void UniformMap::setAmbientLight(const std::string& uniformName, AmbientLight ambientLight) {
-	setUniform(uniformName + ".factor", ambientLight.factor);
-	setUniform(uniformName + ".color", ambientLight.color);
+	setUniform(uniformName + ".factor", ambientLight.m_factor);
+	setUniform(uniformName + ".color", ambientLight.m_color);
 }
 
 void UniformMap::setPointLightUniform(const std::string& uniformName, PointLight pointLight) {
-	setUniform(uniformName + ".position", pointLight.position);
-	setUniform(uniformName + ".color", pointLight.color);
-	setUniform(uniformName + ".intensity", pointLight.intensity);
-	setAttenuationUniform(uniformName + ".att", pointLight.att);
+	setUniform(uniformName + ".position", pointLight.m_position);
+	setUniform(uniformName + ".color", pointLight.m_color);
+	setUniform(uniformName + ".intensity", pointLight.m_intensity);
+	setAttenuationUniform(uniformName + ".att", pointLight.m_att);
 }
 
 void UniformMap::setDirLightUniform(const std::string& uniformName, DirLight dirLight) {
-	setUniform(uniformName + ".color", dirLight.color);
-	setUniform(uniformName + ".direction", dirLight.direction);
-	setUniform(uniformName + ".intensity", dirLight.intensity);
+	setUniform(uniformName + ".color", dirLight.m_color);
+	setUniform(uniformName + ".direction", dirLight.m_direction);
+	setUniform(uniformName + ".intensity", dirLight.m_intensity);
 }
 
 void UniformMap::setSpotLightUniform(const std::string& uniformName, SpotLight spotLight) {
-	setPointLightUniform(uniformName + ".pointLight", spotLight.pointLight);
-	setUniform(uniformName + ".coneDir", spotLight.coneDir);
-	setUniform(uniformName + ".cutOff", spotLight.cutOff);
+	setPointLightUniform(uniformName + ".pointLight", spotLight.m_pointLight);
+	setUniform(uniformName + ".coneDir", spotLight.m_coneDir);
+	setUniform(uniformName + ".cutOff", spotLight.m_cutOff);
 }
 
 void UniformMap::setPointLightListUniform(const std::string& uniformName, std::vector<PointLight> pointLights) {

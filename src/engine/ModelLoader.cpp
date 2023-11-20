@@ -27,8 +27,6 @@ void ModelLoader::loadModel(const std::string& path) {
 
 	// process ASSIMP's root node recurively
 	processNode(*scene->mRootNode, *scene);
-
-
 } 
 
 void ModelLoader::processNode(aiNode& node, const aiScene& scene) {
@@ -70,7 +68,7 @@ std::vector<Vertex> ModelLoader::processVertices(aiMesh& mesh) {
 
 		// texture coordinates
 		if (mesh.mTextureCoords[0]) {// check if mesh contains texture coordinates
-			glm::vec2 vec;
+			glm::vec2 vec(0.0f);
 			// a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
 			// use models where a vertex can have multiple texture coordinates so we always take the first set (0).
 			vertex.m_texCoords = glm::vec2(mesh.mTextureCoords[0][i].x, mesh.mTextureCoords[0][i].y);
@@ -157,14 +155,13 @@ Material ModelLoader::processMaterial(const aiMaterial& mat) {
 
 	unsigned int max = 1;
 
-	float shininessStrength;
+	float shininessStrength = 0.0f;
 	result = aiGetMaterialFloatArray(&mat, AI_MATKEY_SHININESS_STRENGTH, &shininessStrength, &max);
-	if (result == aiReturn_SUCCESS)
+	//if (result == aiReturn_SUCCESS)
 		material.m_reflectance = shininessStrength;
 
 	return material;
 }
-
 
 // checks all material textures of a given type and loads teh textures if thye're not loaded yet.
 // the required info is returned as a Texture struct.

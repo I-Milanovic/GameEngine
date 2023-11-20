@@ -38,10 +38,10 @@ class Mesh {
 
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureS> textures, Material material);
-	Mesh(const Mesh &m);
+//	Mesh(const Mesh &m);
 	void cleanup();
 	inline unsigned int getVao() { return vao; };
-	inline unsigned int getIndicesSize() { return m_indices.size(); };
+	inline unsigned int getIndicesSize() { return static_cast<unsigned int> (m_indices.size()); };
 
 	inline int getTextureId(unsigned int index) { return m_textures.at(index).m_id; };
 	inline std::vector<Vertex> getVertex() { return m_vertices; };
