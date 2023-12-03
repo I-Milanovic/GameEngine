@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\utilities\Loader.cpp">
+    <ClCompile Include="src\utilities\FileLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\app\Main.cpp">
@@ -52,6 +52,10 @@
     <ClCompile Include="src\engine\hud\Hud.cpp" />
     <ClCompile Include="src\engine\Framebuffer.cpp" />
     <ClCompile Include="src\engine\hud\LightUi.cpp" />
+    <ClCompile Include="src\utilities\ImageLoader.cpp" />
+    <ClCompile Include="src\utilities\FileListing.cpp" />
+    <ClCompile Include="src\engine\hud\TextureViewer.cpp" />
+    <ClCompile Include="src\engine\FileModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\Window.h">
@@ -72,7 +76,7 @@
     <ClInclude Include="src\engine\Mesh.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="src\utilities\Loader.h">
+    <ClInclude Include="src\utilities\FileLoader.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\shader\UniformMap.h">
@@ -104,6 +108,11 @@
     <ClInclude Include="src\engine\hud\Hud.h" />
     <ClInclude Include="src\engine\Framebuffer.h" />
     <ClInclude Include="src\engine\hud\LightUi.h" />
+    <ClInclude Include="src\utilities\ImageLoader.h" />
+    <ClInclude Include="src\engine\scene\Fog.h" />
+    <ClInclude Include="src\utilities\FileListing.h" />
+    <ClInclude Include="src\engine\hud\TextureViewer.h" />
+    <ClInclude Include="src\engine\FileModel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\shader.frag">
@@ -113,11 +122,11 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="src\glfw3.dll" />
-    <None Include="assimp-vc140-mt.dll" />
     <None Include="resources\shaders\lightShader.frag" />
     <None Include="resources\shaders\lightShader.vert" />
     <None Include="resources\shaders\basicShader.vert" />
     <None Include="resources\shaders\basicShader.frag" />
+    <None Include="src\assimp-vc143-mtd.dll" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -140,6 +149,7 @@
     <Image Include="resources\images\container2.png" />
     <Image Include="resources\images\container2_specular.png" />
     <Image Include="resources\images\a.png" />
-    <Image Include="..\..\cube\cube.png" />
+    <Image Include="resources\models\a.png" />
+    <Image Include="resources\images\icons\icons8-folder-50.png" />
   </ItemGroup>
 </Project>

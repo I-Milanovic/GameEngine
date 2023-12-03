@@ -24,6 +24,5 @@ private:
 private:
 	SceneLights& m_sceneLights;
 	ImGuiColorEditFlags m_misc_flags = NULL;
-
 };
 

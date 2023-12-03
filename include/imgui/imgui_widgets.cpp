@@ -1861,7 +1861,7 @@ void ImGui::EndComboPreview()
     // FIXME: Using CursorMaxPos approximation instead of correct AABB which we will store in ImDrawCmd in the future
     ImDrawList* draw_list = window->DrawList;
     if (window->DC.CursorMaxPos.x < preview_data->PreviewRect.Max.x && window->DC.CursorMaxPos.y < preview_data->PreviewRect.Max.y)
-        if (draw_list->CmdBuffer.Size > 1) // Unlikely case that the PushClipRect() didn't create a command
+        if (draw_list->CmdBuffer.Size > 1) // Unlikely case that the PushClipRect() didn't createDirectory a command
         {
             draw_list->_CmdHeader.ClipRect = draw_list->CmdBuffer[draw_list->CmdBuffer.Size - 1].ClipRect = draw_list->CmdBuffer[draw_list->CmdBuffer.Size - 2].ClipRect;
             draw_list->_TryMergeDrawCmds();
@@ -6945,7 +6945,7 @@ bool ImGui::ListBox(const char* label, int* current_item, const char* (*getter)(
         return false;
 
     // Assume all items have even height (= 1 line of text). If you need items of different height,
-    // you can create a custom version of ListBox() in your code without using the clipper.
+    // you can createDirectory a custom version of ListBox() in your code without using the clipper.
     bool value_changed = false;
     ImGuiListClipper clipper;
     clipper.Begin(items_count, GetTextLineHeightWithSpacing()); // We know exactly our line height here so we pass it as a minor optimization, but generally you don't need to.
@@ -7344,7 +7344,7 @@ bool ImGui::BeginViewportSideBar(const char* name, ImGuiViewport* viewport_p, Im
     }
 
     window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoDocking;
-    SetNextWindowViewport(viewport->ID); // Enforce viewport so we don't create our own viewport when ImGuiConfigFlags_ViewportsNoMerge is set.
+    SetNextWindowViewport(viewport->ID); // Enforce viewport so we don't createDirectory our own viewport when ImGuiConfigFlags_ViewportsNoMerge is set.
     PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
     PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(0, 0)); // Lift normal size constraint
     bool is_open = Begin(name, NULL, window_flags);

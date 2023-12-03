@@ -9,7 +9,7 @@ struct Attenuation {
 };
 
 struct AmbientLight {
-	float m_factor = 0.0f;
+	float m_factor = 1.0f;
 	glm::vec3 m_color = glm::vec3(1.0f, 1.0f, 1.0f);
 };
 

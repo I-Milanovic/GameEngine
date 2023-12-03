@@ -771,7 +771,7 @@ struct ImGuiTextIndex
 #define IM_DRAWLIST_ARCFAST_SAMPLE_MAX                          IM_DRAWLIST_ARCFAST_TABLE_SIZE // Sample index _PathArcToFastEx() for 360 angle.
 
 // Data shared between all ImDrawList instances
-// You may want to create your own instance of this if you want to use ImDrawList completely without ImGui. In that case, watch out for future changes to this structure.
+// You may want to createDirectory your own instance of this if you want to use ImDrawList completely without ImGui. In that case, watch out for future changes to this structure.
 struct IMGUI_API ImDrawListSharedData
 {
     ImVec2          TexUvWhitePixel;            // UV of white pixel in the atlas
@@ -1694,7 +1694,7 @@ struct ImGuiOldColumns
 enum ImGuiDockNodeFlagsPrivate_
 {
     // [Internal]
-    ImGuiDockNodeFlags_DockSpace                = 1 << 10,  // Saved // A dockspace is a node that occupy space within an existing user window. Otherwise the node is floating and create its own window.
+    ImGuiDockNodeFlags_DockSpace                = 1 << 10,  // Saved // A dockspace is a node that occupy space within an existing user window. Otherwise the node is floating and createDirectory its own window.
     ImGuiDockNodeFlags_CentralNode              = 1 << 11,  // Saved // The central node has 2 main properties: stay visible when empty, only use "remaining" spaces from its neighbor.
     ImGuiDockNodeFlags_NoTabBar                 = 1 << 12,  // Saved // Tab bar is completely unavailable. No triangle in the corner to enable it back.
     ImGuiDockNodeFlags_HiddenTabBar             = 1 << 13,  // Saved // Tab bar is hidden, with a triangle in the corner to show it again (NB: actual tab-bar instance may be destroyed as this is only used for single-window tab bar)
@@ -2980,7 +2980,7 @@ struct IMGUI_API ImGuiTable
     float                       ColumnsAutoFitWidth;        // Sum of ideal column width in order nothing to be clipped, used for auto-fitting and content width submission in outer window
     float                       ColumnsStretchSumWeights;   // Sum of weight of all enabled stretching columns
     float                       ResizedColumnNextWidth;
-    float                       ResizeLockMinContentsX2;    // Lock minimum contents width while resizing down in order to not create feedback loops. But we allow growing the table.
+    float                       ResizeLockMinContentsX2;    // Lock minimum contents width while resizing down in order to not createDirectory feedback loops. But we allow growing the table.
     float                       RefScale;                   // Reference scale to be able to rescale columns on font/dpi changes.
     float                       AngledHeadersHeight;        // Set by TableAngledHeadersRow(), used in TableUpdateLayout()
     float                       AngledHeadersSlope;         // Set by TableAngledHeadersRow(), used in TableUpdateLayout()
@@ -3431,9 +3431,9 @@ namespace ImGui
     // Docking - Builder function needs to be generally called before the node is used/submitted.
     // - The DockBuilderXXX functions are designed to _eventually_ become a public API, but it is too early to expose it and guarantee stability.
     // - Do not hold on ImGuiDockNode* pointers! They may be invalidated by any split/merge/remove operation and every frame.
-    // - To create a DockSpace() node, make sure to set the ImGuiDockNodeFlags_DockSpace flag when calling DockBuilderAddNode().
-    //   You can create dockspace nodes (attached to a window) _or_ floating nodes (carry its own window) with this API.
-    // - DockBuilderSplitNode() create 2 child nodes within 1 node. The initial node becomes a parent node.
+    // - To createDirectory a DockSpace() node, make sure to set the ImGuiDockNodeFlags_DockSpace flag when calling DockBuilderAddNode().
+    //   You can createDirectory dockspace nodes (attached to a window) _or_ floating nodes (carry its own window) with this API.
+    // - DockBuilderSplitNode() createDirectory 2 child nodes within 1 node. The initial node becomes a parent node.
     // - If you intend to split the node immediately after creation using DockBuilderSplitNode(), make sure
     //   to call DockBuilderSetNodeSize() beforehand. If you don't, the resulting split sizes may not be reliable.
     // - Call DockBuilderFinish() after you are done.

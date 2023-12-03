@@ -137,6 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\FileModel.cpp" />
+    <ClCompile Include="src\utilities\FileListing.cpp" />
+    <ClCompile Include="src\utilities\ImageLoader.cpp" />
     <ClCompile Include="src\engine\hud\LightUi.cpp" />
     <ClCompile Include="src\engine\Framebuffer.cpp" />
     <ClCompile Include="src\engine\hud\Hud.cpp" />
@@ -156,7 +159,7 @@
     <ClCompile Include="src\engine\scene\Scene.cpp" />
     <ClCompile Include="src\engine\shader\UniformMap.cpp" />
     <ClCompile Include="src\window\Input.cpp" />
-    <ClCompile Include="src\utilities\Loader.cpp" />
+    <ClCompile Include="src\utilities\FileLoader.cpp" />
     <ClCompile Include="src\app\Main.cpp" />
     <ClCompile Include="src\engine\Mesh.cpp" />
     <ClCompile Include="src\engine\Renderer.cpp" />
@@ -164,8 +167,13 @@
     <ClCompile Include="src\engine\shader\ShaderProgram.cpp" />
     <ClCompile Include="src\engine\Texture.cpp" />
     <ClCompile Include="src\window\Window.cpp" />
+    <ClCompile Include="src\engine\hud\TextureViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\FileModel.h" />
+    <ClInclude Include="src\utilities\FileListing.h" />
+    <ClInclude Include="src\engine\scene\Fog.h" />
+    <ClInclude Include="src\utilities\ImageLoader.h" />
     <ClInclude Include="src\engine\hud\LightUi.h" />
     <ClInclude Include="src\engine\Framebuffer.h" />
     <ClInclude Include="src\engine\hud\Hud.h" />
@@ -187,31 +195,33 @@
     <ClInclude Include="src\engine\scene\Scene.h" />
     <ClInclude Include="src\engine\shader\UniformMap.h" />
     <ClInclude Include="src\window\Input.h" />
-    <ClInclude Include="src\utilities\Loader.h" />
+    <ClInclude Include="src\utilities\FileLoader.h" />
     <ClInclude Include="src\engine\Mesh.h" />
     <ClInclude Include="src\engine\Renderer.h" />
     <ClInclude Include="src\engine\SceneRenderer.h" />
     <ClInclude Include="src\engine\shader\ShaderProgram.h" />
     <ClInclude Include="src\engine\Texture.h" />
     <ClInclude Include="src\window\Window.h" />
+    <ClInclude Include="src\engine\hud\TextureViewer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assimp-vc140-mt.dll" />
     <None Include="resources\shaders\basicShader.frag" />
     <None Include="resources\shaders\basicShader.vert" />
     <None Include="resources\shaders\lightShader.frag" />
     <None Include="resources\shaders\lightShader.vert" />
+    <None Include="src\assimp-vc143-mtd.dll" />
     <None Include="src\glfw3.dll" />
     <None Include="resources\shaders\shader.frag" />
     <None Include="resources\shaders\shader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\cube\cube.png" />
     <Image Include="resources\images\a.png" />
     <Image Include="resources\images\awesomeface.png" />
     <Image Include="resources\images\container.jpg" />
     <Image Include="resources\images\container2.png" />
     <Image Include="resources\images\container2_specular.png" />
+    <Image Include="resources\images\icons\icons8-folder-50.png" />
+    <Image Include="resources\models\a.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

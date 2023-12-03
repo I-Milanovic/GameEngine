@@ -2027,7 +2027,7 @@ bool ImGui::TableSetColumnIndex(int column_n)
     return table->Columns[column_n].IsRequestOutput;
 }
 
-// [Public] Append into the next column, wrap and create a new row when already on last column
+// [Public] Append into the next column, wrap and createDirectory a new row when already on last column
 bool ImGui::TableNextColumn()
 {
     ImGuiContext& g = *GImGui;
@@ -2953,8 +2953,8 @@ float ImGui::TableGetHeaderAngledMaxLabelWidth()
 }
 
 // [Public] This is a helper to output TableHeader() calls based on the column names declared in TableSetupColumn().
-// The intent is that advanced users willing to create customized headers would not need to use this helper
-// and can create their own! For example: TableHeader() may be preceeded by Checkbox() or other custom widgets.
+// The intent is that advanced users willing to createDirectory customized headers would not need to use this helper
+// and can createDirectory their own! For example: TableHeader() may be preceeded by Checkbox() or other custom widgets.
 // See 'Demo->Tables->Custom headers' for a demonstration of implementing a custom version of this.
 // This code is constructed to not make much use of internal functions, as it is intended to be a template to copy.
 // FIXME-TABLE: TableOpenContextMenu() and TableGetHeaderRowHeight() are not public.
@@ -3475,7 +3475,7 @@ void ImGui::TableSaveSettings(ImGuiTable* table)
     if (table->Flags & ImGuiTableFlags_NoSavedSettings)
         return;
 
-    // Bind or create settings data
+    // Bind or createDirectory settings data
     ImGuiContext& g = *GImGui;
     ImGuiTableSettings* settings = TableGetBoundSettings(table);
     if (settings == NULL)

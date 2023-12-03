@@ -1644,7 +1644,7 @@ static void ShowDemoWindowWidgets()
         if (ImGui::TreeNode("Resize Callback"))
         {
             // To wire InputText() with std::string or any other custom string type,
-            // you can use the ImGuiInputTextFlags_CallbackResize flag + create a custom ImGui::InputText() wrapper
+            // you can use the ImGuiInputTextFlags_CallbackResize flag + createDirectory a custom ImGui::InputText() wrapper
             // using your preferred type. See misc/cpp/imgui_stdlib.h for an implementation of this using std::string.
             HelpMarker(
                 "Using ImGuiInputTextFlags_CallbackResize to wire your custom string type to InputText().\n\n"
@@ -2717,7 +2717,7 @@ static void ShowDemoWindowWidgets()
             ImGui::EndChild();
 
         // Calling IsItemHovered() after begin returns the hovered status of the title bar.
-        // This is useful in particular if you want to create a context menu associated to the title bar of a window.
+        // This is useful in particular if you want to createDirectory a context menu associated to the title bar of a window.
         // This will also work when docked into a Tab (the Tab replace the Title Bar and guarantee the same properties).
         static bool test_window = false;
         ImGui::Checkbox("Hovered/Active tests after Begin() for title bar testing", &test_window);
@@ -3086,7 +3086,7 @@ static void ShowDemoWindowLayout()
             ImGui::EndGroup();
             ImGui::SetItemTooltip("First group hovered");
         }
-        // Capture the group size and create widgets using the same size
+        // Capture the group size and createDirectory widgets using the same size
         ImVec2 size = ImGui::GetItemRectSize();
         const float values[5] = { 0.5f, 0.20f, 0.80f, 0.60f, 0.25f };
         ImGui::PlotHistogram("##values", values, IM_ARRAYSIZE(values), 0, NULL, 0.0f, 1.0f, size);
@@ -3365,7 +3365,7 @@ static void ShowDemoWindowLayout()
         for (int line = 0; line < lines; line++)
         {
             // Display random stuff. For the sake of this trivial demo we are using basic Button() + SameLine()
-            // If you want to create your own time line for a real application you may be better off manipulating
+            // If you want to createDirectory your own time line for a real application you may be better off manipulating
             // the cursor position yourself, aka using SetCursorPos/SetCursorScreenPos to position the widgets
             // yourself. You may also want to use the lower-level ImDrawList API.
             int num_buttons = 10 + ((line & 1) ? line * 9 : line * 3);
@@ -3870,7 +3870,7 @@ static void ShowDemoWindowPopups()
             if (ImGui::Button("Add another modal.."))
                 ImGui::OpenPopup("Stacked 2");
 
-            // Also demonstrate passing a bool* to BeginPopupModal(), this will create a regular close button which
+            // Also demonstrate passing a bool* to BeginPopupModal(), this will createDirectory a regular close button which
             // will close the popup. Note that the visibility state of popups is owned by imgui, so the input value
             // of the bool actually doesn't matter here.
             bool unused_open = true;
@@ -4075,7 +4075,7 @@ static void ShowDemoWindowTables()
     if (!ImGui::CollapsingHeader("Tables & Columns"))
         return;
 
-    // Using those as a base value to create width/height that are factor of the size of our font
+    // Using those as a base value to createDirectory width/height that are factor of the size of our font
     const float TEXT_BASE_WIDTH = ImGui::CalcTextSize("A").x;
     const float TEXT_BASE_HEIGHT = ImGui::GetTextLineHeightWithSpacing();
 
@@ -4117,7 +4117,7 @@ static void ShowDemoWindowTables()
         // Here we will showcase three different ways to output a table.
         // They are very simple variations of a same thing!
 
-        // [Method 1] Using TableNextRow() to create a new row, and TableSetColumnIndex() to select the column.
+        // [Method 1] Using TableNextRow() to createDirectory a new row, and TableSetColumnIndex() to select the column.
         // In many situations, this is the most flexible and easy to use pattern.
         HelpMarker("Using TableNextRow() + calling TableSetColumnIndex() _before_ each cell, in a loop.");
         if (ImGui::BeginTable("table1", 3))
@@ -4153,7 +4153,7 @@ static void ShowDemoWindowTables()
         }
 
         // [Method 3] We call TableNextColumn() _before_ each cell. We never call TableNextRow(),
-        // as TableNextColumn() will automatically wrap around and create new rows as needed.
+        // as TableNextColumn() will automatically wrap around and createDirectory new rows as needed.
         // This is generally more convenient when your cells all contains the same type of data.
         HelpMarker(
             "Only using TableNextColumn(), which tends to be convenient for tables where every cell contains the same type of contents.\n"
@@ -4376,7 +4376,7 @@ static void ShowDemoWindowTables()
 
         if (ImGui::BeginTable("table1", 3, flags))
         {
-            // Submit columns name with TableSetupColumn() and call TableHeadersRow() to create a row with a header in each column.
+            // Submit columns name with TableSetupColumn() and call TableHeadersRow() to createDirectory a row with a header in each column.
             // (Later we will show how TableSetupColumn() has other uses, optional flags, sizing weight etc.)
             ImGui::TableSetupColumn("One");
             ImGui::TableSetupColumn("Two");
@@ -5297,7 +5297,7 @@ static void ShowDemoWindowTables()
         ImGui::TreePop();
     }
 
-    // Demonstrate using ImGuiTableColumnFlags_AngledHeader flag to create angled headers
+    // Demonstrate using ImGuiTableColumnFlags_AngledHeader flag to createDirectory angled headers
     if (open_action != -1)
         ImGui::SetNextItemOpen(open_action != 0);
     IMGUI_DEMO_MARKER("Tables/Angled headers");
@@ -6863,7 +6863,7 @@ void ImGui::ShowUserGuide()
 // Demonstrate creating a "main" fullscreen menu bar and populating it.
 // Note the difference between BeginMainMenuBar() and BeginMenuBar():
 // - BeginMenuBar() = menu-bar inside current window (which needs the ImGuiWindowFlags_MenuBar flag!)
-// - BeginMainMenuBar() = helper to create menu-bar-sized window at the top of the main viewport + call BeginMenuBar() into it.
+// - BeginMainMenuBar() = helper to createDirectory menu-bar-sized window at the top of the main viewport + call BeginMenuBar() into it.
 static void ShowExampleAppMainMenuBar()
 {
     if (ImGui::BeginMainMenuBar())
@@ -7046,7 +7046,7 @@ struct ExampleAppConsole
 
         // As a specific feature guaranteed by the library, after calling Begin() the last Item represent the title bar.
         // So e.g. IsItemHovered() will return true when hovering the title bar.
-        // Here we create a context menu only available from the title bar.
+        // Here we createDirectory a context menu only available from the title bar.
         if (ImGui::BeginPopupContextItem())
         {
             if (ImGui::MenuItem("Close Console"))
@@ -7498,7 +7498,7 @@ static void ShowExampleAppLog(bool* p_open)
 // [SECTION] Example App: Simple Layout / ShowExampleAppLayout()
 //-----------------------------------------------------------------------------
 
-// Demonstrate create a window with multiple child windows.
+// Demonstrate createDirectory a window with multiple child windows.
 static void ShowExampleAppLayout(bool* p_open)
 {
     ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
@@ -7612,7 +7612,7 @@ static void ShowPlaceholderObject(const char* prefix, int uid)
     ImGui::PopID();
 }
 
-// Demonstrate create a simple property editor.
+// Demonstrate createDirectory a simple property editor.
 // This demo is a bit lackluster nowadays, would be nice to improve.
 static void ShowExampleAppPropertyEditor(bool* p_open)
 {
@@ -7965,7 +7965,7 @@ static void ShowExampleAppCustomRendering(bool* p_open)
     IMGUI_DEMO_MARKER("Examples/Custom Rendering");
 
     // Tip: If you do a lot of custom rendering, you probably want to use your own geometrical types and benefit of
-    // overloaded operators, etc. Define IM_VEC2_CLASS_EXTRA in imconfig.h to create implicit conversions between your
+    // overloaded operators, etc. Define IM_VEC2_CLASS_EXTRA in imconfig.h to createDirectory implicit conversions between your
     // types and ImVec2/ImVec4. Dear ImGui defines overloaded operators but they are internal to imgui.cpp and not
     // exposed outside (to avoid messing with your types) In this example we are not using the maths operators!
 
@@ -8209,7 +8209,7 @@ static void ShowExampleAppCustomRendering(bool* p_open)
                 ImVec2 p1 = ImGui::GetCursorScreenPos();
 
                 // Create 2 channels and draw a Blue shape THEN a Red shape.
-                // You can create any number of channels. Tables API use 1 channel per column in order to better batch draw calls.
+                // You can createDirectory any number of channels. Tables API use 1 channel per column in order to better batch draw calls.
                 draw_list->ChannelsSplit(2);
                 draw_list->ChannelsSetCurrent(1);
                 draw_list->AddRectFilled(ImVec2(p1.x, p1.y), ImVec2(p1.x + 50, p1.y + 50), IM_COL32(0, 0, 255, 255)); // Blue
@@ -8235,20 +8235,20 @@ static void ShowExampleAppCustomRendering(bool* p_open)
 // [SECTION] Example App: Docking, DockSpace / ShowExampleAppDockSpace()
 //-----------------------------------------------------------------------------
 
-// Demonstrate using DockSpace() to create an explicit docking node within an existing window.
+// Demonstrate using DockSpace() to createDirectory an explicit docking node within an existing window.
 // Note: You can use most Docking facilities without calling any API. You DO NOT need to call DockSpace() to use Docking!
 // - Drag from window title bar or their tab to dock/undock. Hold SHIFT to disable docking.
 // - Drag from window menu button (upper-left button) to undock an entire node (all windows).
 // - When io.ConfigDockingWithShift == true, you instead need to hold SHIFT to enable docking.
 // About dockspaces:
-// - Use DockSpace() to create an explicit dock node _within_ an existing window.
-// - Use DockSpaceOverViewport() to create an explicit dock node covering the screen or a specific viewport.
+// - Use DockSpace() to createDirectory an explicit dock node _within_ an existing window.
+// - Use DockSpaceOverViewport() to createDirectory an explicit dock node covering the screen or a specific viewport.
 //   This is often used with ImGuiDockNodeFlags_PassthruCentralNode.
 // - Important: Dockspaces need to be submitted _before_ any window they can host. Submit it early in your frame! (*)
 // - Important: Dockspaces need to be kept alive if hidden, otherwise windows docked into it will be undocked.
 //   e.g. if you have multiple tabs with a dockspace inside each tab: submit the non-visible dockspaces with ImGuiDockNodeFlags_KeepAliveOnly.
 // (*) because of this constraint, the implicit \"Debug\" window can not be docked into an explicit DockSpace() node,
-// because that window is submitted as part of the part of the NewFrame() call. An easy workaround is that you can create
+// because that window is submitted as part of the part of the NewFrame() call. An easy workaround is that you can createDirectory
 // your own implicit "Debug##2" window after calling DockSpace() and leave it in the window stack for anyone to use.
 void ShowExampleAppDockSpace(bool* p_open)
 {
@@ -8461,7 +8461,7 @@ void ShowExampleAppDocuments(bool* p_open)
     {
         Target_None,
         Target_Tab,                 // Create documents as local tab into a local tab bar
-        Target_DockSpaceAndWindow   // Create documents as regular windows, and create an embedded dockspace
+        Target_DockSpaceAndWindow   // Create documents as regular windows, and createDirectory an embedded dockspace
     };
     static Target opt_target = Target_Tab;
     static bool opt_reorderable = true;
@@ -8469,7 +8469,7 @@ void ShowExampleAppDocuments(bool* p_open)
 
     // When (opt_target == Target_DockSpaceAndWindow) there is the possibily that one of our child Document window (e.g. "Eggplant")
     // that we emit gets docked into the same spot as the parent window ("Example: Documents").
-    // This would create a problematic feedback loop because selecting the "Eggplant" tab would make the "Example: Documents" tab
+    // This would createDirectory a problematic feedback loop because selecting the "Eggplant" tab would make the "Example: Documents" tab
     // not visible, which in turn would stop submitting the "Eggplant" window.
     // We avoid this problem by submitting our documents window even if our parent window is not currently visible.
     // Another solution may be to make the "Example: Documents" window use the ImGuiWindowFlags_NoDocking.

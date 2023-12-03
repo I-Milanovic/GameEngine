@@ -16,7 +16,6 @@ class Application {
 		Application();	
 		virtual ~Application() = default;	
 		void run();
-		inline static Application& getApplication() { return *s_instance; };
 
 	private:
 		Window* m_window;
@@ -30,6 +29,4 @@ class Application {
 		float m_deltaTime = 0.0f; // time between current frame and last frame
 		float m_lastFrame = 0.0f;
 
-	private:
-		static Application* s_instance;
 };

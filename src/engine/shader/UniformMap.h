@@ -6,6 +6,9 @@
 
 #include "../scene/lights/Light.h"
 #include "../Mesh.h"
+
+#include "../scene/Fog.h"
+
 class UniformMap {
 
 public:
@@ -31,6 +34,7 @@ public:
 					
 	void setUniform(const std::string& uniformName, glm::mat4 &value) const;
 
+
 public:
 	void createAmbientLight(const std::string& uniformName);
 
@@ -41,6 +45,8 @@ public:
 	void createPointLightUniform(const std::string& uniformName);
 	void createDirLightUniform(const std::string& uniformName);
 	void createSpotLightUniform(const std::string& uniformNae);
+
+	void createFogUniform(const std::string& uniformName);
 
 	void createPointLightListUniform(const std::string& uniformName, unsigned int size);
 	void createDirLightListUniform(const std::string& uniformName, unsigned int size);
@@ -60,6 +66,9 @@ public:
 	void setPointLightListUniform(const std::string& uniformName, std::vector<PointLight> pointLights);
 	void setDirLightListUniform(const std::string& uniformName, std::vector<DirLight> dirLights);
 	void setSpotLightListUniform(const std::string& uniformName, std::vector<SpotLight> spotLights);
+
+	void setFogUniform(const std::string& uniformName, Fog fog);
+
 
 private:
 	int getUniformLocation(const std::string& uniformName) const;

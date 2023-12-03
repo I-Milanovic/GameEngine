@@ -8,7 +8,7 @@
     Profile: compatibility
     Extensions:
         
-    Loader: True
+    FileLoader: True
     Local files: False
     Omit khrplatform: False
     Reproducible: False

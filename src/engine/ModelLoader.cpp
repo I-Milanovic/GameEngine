@@ -51,7 +51,6 @@ Mesh ModelLoader::processMesh(aiMesh& mesh, const aiScene& scene) {
 	aiMaterial& material = *scene.mMaterials[mesh.mMaterialIndex];
 	Material mat = processMaterial(material);
 	std::vector<TextureS> textures = processTextures(mat, material);
-
 	return Mesh(vertices, indices, textures, mat);
 }
 
@@ -126,12 +125,15 @@ std::vector<TextureS> ModelLoader::processTextures(Material& mat, aiMaterial& ma
 	std::vector<TextureS> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
 	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-	// return a mesh object create from the extracting  mesh data
-	if (diffuseMaps.empty() || textures.at(0).m_id == 0)
+	// return a mesh object createDirectory from the extracting  mesh data
+	if (diffuseMaps.empty() || textures.at(0).m_id == 0) {
 		mat.m_hasTextures = 0;
-	else
+		//mat.m_ambient = glm::vec4(0.0f);
+	}
+	else {
 		mat.m_hasTextures = 1;
-
+	//	mat.m_ambient = glm::vec4(0.0f);
+	}
 
 	return textures;
 }
@@ -143,15 +145,15 @@ Material ModelLoader::processMaterial(const aiMaterial& mat) {
 
 	int result = aiGetMaterialColor(&mat, AI_MATKEY_COLOR_AMBIENT, &color);
 	if (result == aiReturn_SUCCESS)
-		material.m_ambient = glm::vec3(color.r, color.g, color.b);
+		material.m_ambient = glm::vec4(color.r, color.g, color.b, color.a);
 
 	result = aiGetMaterialColor(&mat, AI_MATKEY_COLOR_DIFFUSE, &color);
 	if (result == aiReturn_SUCCESS)
-		material.m_diffuse = glm::vec3(color.r, color.g, color.b);
+		material.m_diffuse = glm::vec4(color.r, color.g, color.b, color.a);
 
 	result = aiGetMaterialColor(&mat, AI_MATKEY_COLOR_SPECULAR, &color);
 	if (result == aiReturn_SUCCESS)
-		material.m_specular = glm::vec3(color.r, color.g, color.b);
+		material.m_specular = glm::vec4(color.r, color.g, color.b, color.a);
 
 	unsigned int max = 1;
 

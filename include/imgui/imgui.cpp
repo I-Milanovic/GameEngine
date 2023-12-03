@@ -102,8 +102,8 @@ CODE
  MISSION STATEMENT
  =================
 
- - Easy to use to create code-driven and data-driven tools.
- - Easy to use to create ad hoc short-lived tools and long-lived, more elaborate tools.
+ - Easy to use to createDirectory code-driven and data-driven tools.
+ - Easy to use to createDirectory ad hoc short-lived tools and long-lived, more elaborate tools.
  - Easy to hack and improve.
  - Minimize setup and maintenance.
  - Minimize state storage on user side.
@@ -258,7 +258,7 @@ CODE
  - You can later customize the imconfig.h file to tweak some compile-time behavior, such as integrating Dear ImGui types with your own maths types.
  - When using Dear ImGui, your programming IDE is your friend: follow the declaration of variables, functions and types to find comments about them.
  - Dear ImGui never touches or knows about your GPU state. The only function that knows about GPU is the draw function that you provide.
-   Effectively it means you can create widgets at any time in your code, regardless of considerations of being in "update" vs "render"
+   Effectively it means you can createDirectory widgets at any time in your code, regardless of considerations of being in "update" vs "render"
    phases of your own application. All rendering information is stored into command-lists that you will retrieve after calling ImGui::Render().
  - Refer to the backends and demo applications in the examples/ folder for instruction on how to setup your code.
  - If you are running over a standard OS with a common graphics API, you should be able to use unmodified imgui_impl_*** files from the examples/ folder.
@@ -269,7 +269,7 @@ CODE
  EXHIBIT 1: USING THE EXAMPLE BACKENDS (= imgui_impl_XXX.cpp files from the backends/ folder).
  The sub-folders in examples/ contain examples applications following this structure.
 
-     // Application init: create a dear imgui context, setup some options, load fonts
+     // Application init: createDirectory a dear imgui context, setup some options, load fonts
      ImGui::CreateContext();
      ImGuiIO& io = ImGui::GetIO();
      // TODO: Set optional io.ConfigFlags values, e.g. 'io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard' to enable keyboard controls.
@@ -304,7 +304,7 @@ CODE
 
  EXHIBIT 2: IMPLEMENTING CUSTOM BACKEND / CUSTOM ENGINE
 
-     // Application init: create a dear imgui context, setup some options, load fonts
+     // Application init: createDirectory a dear imgui context, setup some options, load fonts
      ImGui::CreateContext();
      ImGuiIO& io = ImGui::GetIO();
      // TODO: Set optional io.ConfigFlags values, e.g. 'io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard' to enable keyboard controls.
@@ -512,7 +512,7 @@ CODE
  - 2022/08/03 (1.89) - changed signature of ImageButton() function. Kept redirection function (will obsolete).
                         - added 'const char* str_id' parameter + removed 'int frame_padding = -1' parameter.
                         - old signature: bool ImageButton(ImTextureID tex_id, ImVec2 size, ImVec2 uv0 = ImVec2(0,0), ImVec2 uv1 = ImVec2(1,1), int frame_padding = -1, ImVec4 bg_col = ImVec4(0,0,0,0), ImVec4 tint_col = ImVec4(1,1,1,1));
-                          - used the ImTextureID value to create an ID. This was inconsistent with other functions, led to ID conflicts, and caused problems with engines using transient ImTextureID values.
+                          - used the ImTextureID value to createDirectory an ID. This was inconsistent with other functions, led to ID conflicts, and caused problems with engines using transient ImTextureID values.
                           - had a FramePadding override which was inconsistent with other functions and made the already-long signature even longer.
                         - new signature: bool ImageButton(const char* str_id, ImTextureID tex_id, ImVec2 size, ImVec2 uv0 = ImVec2(0,0), ImVec2 uv1 = ImVec2(1,1), ImVec4 bg_col = ImVec4(0,0,0,0), ImVec4 tint_col = ImVec4(1,1,1,1));
                           - requires an explicit identifier. You may still use e.g. PushID() calls and then pass an empty identifier.
@@ -626,7 +626,7 @@ CODE
  - 2020/04/23 (1.77) - removed unnecessary ID (first arg) of ImFontAtlas::AddCustomRectRegular().
  - 2020/01/22 (1.75) - ImDrawList::AddCircle()/AddCircleFilled() functions don't accept negative radius any more.
  - 2019/12/17 (1.75) - [undid this change in 1.76] made Columns() limited to 64 columns by asserting above that limit. While the current code technically supports it, future code may not so we're putting the restriction ahead.
- - 2019/12/13 (1.75) - [imgui_internal.h] changed ImRect() default constructor initializes all fields to 0.0f instead of (FLT_MAX,FLT_MAX,-FLT_MAX,-FLT_MAX). If you used ImRect::Add() to create bounding boxes by adding multiple points into it, you may need to fix your initial value.
+ - 2019/12/13 (1.75) - [imgui_internal.h] changed ImRect() default constructor initializes all fields to 0.0f instead of (FLT_MAX,FLT_MAX,-FLT_MAX,-FLT_MAX). If you used ImRect::Add() to createDirectory bounding boxes by adding multiple points into it, you may need to fix your initial value.
  - 2019/12/08 (1.75) - removed redirecting functions/enums that were marked obsolete in 1.53 (December 2017):
                        - ShowTestWindow()                    -> use ShowDemoWindow()
                        - IsRootWindowFocused()               -> use IsWindowFocused(ImGuiFocusedFlags_RootWindow)
@@ -708,7 +708,7 @@ CODE
  - 2018/02/07 (1.60) - reorganized context handling to be more explicit,
                        - YOU NOW NEED TO CALL ImGui::CreateContext() AT THE BEGINNING OF YOUR APP, AND CALL ImGui::DestroyContext() AT THE END.
                        - removed Shutdown() function, as DestroyContext() serve this purpose.
-                       - you may pass a ImFontAtlas* pointer to CreateContext() to share a font atlas between contexts. Otherwise CreateContext() will create its own font atlas instance.
+                       - you may pass a ImFontAtlas* pointer to CreateContext() to share a font atlas between contexts. Otherwise CreateContext() will createDirectory its own font atlas instance.
                        - removed allocator parameters from CreateContext(), they are now setup with SetAllocatorFunctions(), and shared by all contexts.
                        - removed the default global context and font atlas instance, which were confusing for users of DLL reloading and users of multiple contexts.
  - 2018/01/31 (1.60) - moved sample TTF files from extra_fonts/ to misc/fonts/. If you loaded files directly from the imgui repo you may need to update your paths.
@@ -768,7 +768,7 @@ CODE
                        If your TitleBg/TitleBgActive alpha was 1.0f or you are using the default theme it will not affect you, otherwise if <1.0f you need to tweak your custom theme to readjust for the fact that we don't draw a WindowBg background behind the title bar.
                        This helper function will convert an old TitleBg/TitleBgActive color into a new one with the same visual output, given the OLD color and the OLD WindowBg color:
                        ImVec4 ConvertTitleBgCol(const ImVec4& win_bg_col, const ImVec4& title_bg_col) { float new_a = 1.0f - ((1.0f - win_bg_col.w) * (1.0f - title_bg_col.w)), k = title_bg_col.w / new_a; return ImVec4((win_bg_col.x * win_bg_col.w + title_bg_col.x) * k, (win_bg_col.y * win_bg_col.w + title_bg_col.y) * k, (win_bg_col.z * win_bg_col.w + title_bg_col.z) * k, new_a); }
-                       If this is confusing, pick the RGB value from title bar from an old screenshot and apply this as TitleBg/TitleBgActive. Or you may just create TitleBgActive from a tweaked TitleBg color.
+                       If this is confusing, pick the RGB value from title bar from an old screenshot and apply this as TitleBg/TitleBgActive. Or you may just createDirectory TitleBgActive from a tweaked TitleBg color.
  - 2016/05/07 (1.49) - removed confusing set of GetInternalState(), GetInternalStateSize(), SetInternalState() functions. Now using CreateContext(), DestroyContext(), GetCurrentContext(), SetCurrentContext().
  - 2016/05/02 (1.49) - renamed SetNextTreeNodeOpened() to SetNextTreeNodeOpen(), no redirection.
  - 2016/05/01 (1.49) - obsoleted old signature of CollapsingHeader(const char* label, const char* str_id = NULL, bool display_frame = true, bool default_open = false) as extra parameters were badly designed and rarely used. You can replace the "default_open = true" flag in new API with CollapsingHeader(label, ImGuiTreeNodeFlags_DefaultOpen).
@@ -922,7 +922,7 @@ CODE
  =============
 
  Q: Who uses Dear ImGui?
- Q: Can you create elaborate/serious tools with Dear ImGui?
+ Q: Can you createDirectory elaborate/serious tools with Dear ImGui?
  Q: Can you reskin the look of Dear ImGui?
  Q: Why using C++ (as opposed to C)?
  >> See https://www.dearimgui.com/faq
@@ -2793,7 +2793,7 @@ void ImGui::CalcListClipping(int items_count, float items_height, int* out_items
         return;
     }
 
-    // We create the union of the ClipRect and the scoring rect which at worst should be 1 page away from ClipRect
+    // We createDirectory the union of the ClipRect and the scoring rect which at worst should be 1 page away from ClipRect
     // We don't include g.NavId's rectangle in there (unless g.NavJustMovedToId is set) because the rectangle enlargement can get costly.
     ImRect rect = window->ClipRect;
     if (g.NavMoveScoringItems)
@@ -4509,7 +4509,7 @@ void ImGui::StartMouseMovingWindowOrNode(ImGuiWindow* window, ImGuiDockNode* nod
     {
         // Can undock if:
         // - part of a hierarchy with more than one visible node (if only one is visible, we'll just move the root window)
-        // - part of a dockspace node hierarchy: so we can undock the last single visible node too (trivia: undocking from a fixed/central node will create a new node and copy windows)
+        // - part of a dockspace node hierarchy: so we can undock the last single visible node too (trivia: undocking from a fixed/central node will createDirectory a new node and copy windows)
         ImGuiDockNode* root_node = DockNodeGetRootNode(node);
         if (root_node->OnlyNodeWithWindows != node || root_node->CentralNode != NULL)   // -V1051 PVS-Studio thinks node should be root_node and is wrong about that.
             can_undock_node = true;
@@ -5019,7 +5019,7 @@ void ImGui::NewFrame()
     }
 
     // Create implicit/fallback window - which we will only render it if the user has added something to it.
-    // We don't use "Debug" to avoid colliding with user trying to create a "Debug" window with custom flags.
+    // We don't use "Debug" to avoid colliding with user trying to createDirectory a "Debug" window with custom flags.
     // This fallback is particularly important as it prevents ImGui:: calls from crashing.
     g.WithinFrameScopeWithImplicitWindow = true;
     SetNextWindowSize(ImVec2(400, 400), ImGuiCond_FirstUseEver);
@@ -5184,7 +5184,7 @@ static void ImGui::RenderDimmedBackgroundBehindWindow(ImGuiWindow* window, ImU32
         IM_ASSERT(cmd.ElemCount == 6);
         draw_list->CmdBuffer.pop_back();
         draw_list->CmdBuffer.push_front(cmd);
-        draw_list->AddDrawCmd(); // We need to create a command as CmdBuffer.back().IdxOffset won't be correct if we append to same command.
+        draw_list->AddDrawCmd(); // We need to createDirectory a command as CmdBuffer.back().IdxOffset won't be correct if we append to same command.
         draw_list->PopClipRect();
     }
 
@@ -5828,7 +5828,7 @@ void ImGui::EndChild()
     g.LogLinePosY = -FLT_MAX; // To enforce a carriage return
 }
 
-// Helper to create a child window / scrolling region that looks like a normal widget frame.
+// Helper to createDirectory a child window / scrolling region that looks like a normal widget frame.
 bool ImGui::BeginChildFrame(ImGuiID id, const ImVec2& size, ImGuiWindowFlags extra_flags)
 {
     ImGuiContext& g = *GImGui;
@@ -6731,7 +6731,7 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
     IM_ASSERT(g.WithinFrameScope);                  // Forgot to call ImGui::NewFrame()
     IM_ASSERT(g.FrameCountEnded != g.FrameCount);   // Called ImGui::Render() or ImGui::EndFrame() and haven't called ImGui::NewFrame() again yet
 
-    // Find or create
+    // Find or createDirectory
     ImGuiWindow* window = FindWindowByName(name);
     const bool window_just_created = (window == NULL);
     if (window_just_created)
@@ -7108,7 +7108,7 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
         else if ((flags & ImGuiWindowFlags_Tooltip) != 0 && !window_pos_set_by_api && !window_is_child_tooltip)
             window->Pos = FindBestWindowPosForPopup(window);
 
-        // Late create viewport if we don't fit within our current host viewport.
+        // Late createDirectory viewport if we don't fit within our current host viewport.
         if (window->ViewportAllowPlatformMonitorExtend >= 0 && !window->ViewportOwned && !(window->Viewport->Flags & ImGuiViewportFlags_IsMinimized))
             if (!window->Viewport->GetMainRect().Contains(window->Rect()))
             {
@@ -11006,7 +11006,7 @@ bool ImGui::BeginTooltipEx(ImGuiTooltipFlags tooltip_flags, ImGuiWindowFlags ext
         if (ImGuiWindow* window = FindWindowByName(window_name))
             if (window->Active)
             {
-                // Hide previous tooltip from being displayed. We can't easily "reset" the content of a window so we create a new one.
+                // Hide previous tooltip from being displayed. We can't easily "reset" the content of a window so we createDirectory a new one.
                 SetWindowHiddendAndSkipItemsForCurrentFrame(window);
                 ImFormatString(window_name, IM_ARRAYSIZE(window_name), "##Tooltip_%02d", ++g.TooltipOverrideCount);
             }
@@ -11415,8 +11415,8 @@ void ImGui::OpenPopupOnItemClick(const char* str_id, ImGuiPopupFlags popup_flags
 }
 
 // This is a helper to handle the simplest case of associating one named popup to one given widget.
-// - To create a popup associated to the last item, you generally want to pass a NULL value to str_id.
-// - To create a popup with a specific identifier, pass it in str_id.
+// - To createDirectory a popup associated to the last item, you generally want to pass a NULL value to str_id.
+// - To createDirectory a popup with a specific identifier, pass it in str_id.
 //    - This is useful when using using BeginPopupContextItem() on an item which doesn't have an identifier, e.g. a Text() call.
 //    - This is useful when multiple code locations may want to manipulate/open the same popup, given an explicit id.
 // - You may want to handle the whole on user side if you have specific needs (e.g. tweaking IsItemHovered() parameters).
@@ -12740,7 +12740,7 @@ static void ImGui::NavUpdateCancelRequest()
 }
 
 // Handle PageUp/PageDown/Home/End keys
-// Called from NavUpdateCreateMoveRequest() which will use our output to create a move request
+// Called from NavUpdateCreateMoveRequest() which will use our output to createDirectory a move request
 // FIXME-NAV: This doesn't work properly with NavFlattened siblings as we use NavWindow rectangle for reference
 // FIXME-NAV: how to get Home/End to aim at the beginning/end of a 2D grid?
 static float ImGui::NavUpdatePageUpPageDown()
@@ -13882,7 +13882,7 @@ void ImGui::LoadIniSettingsFromMemory(const char* ini_data, size_t ini_size)
     //IM_ASSERT(g.SettingsLoaded == false && g.FrameCount == 0);
 
     // For user convenience, we allow passing a non zero-terminated string (hence the ini_size parameter).
-    // For our convenience and to make the code simpler, we'll also write zero-terminators within the buffer. So let's create a writable copy..
+    // For our convenience and to make the code simpler, we'll also write zero-terminators within the buffer. So let's createDirectory a writable copy..
     if (ini_size == 0)
         ini_size = strlen(ini_data);
     g.SettingsIniData.Buf.resize((int)ini_size + 1);
@@ -14253,7 +14253,7 @@ void ImGui::SetWindowViewport(ImGuiWindow* window, ImGuiViewportP* viewport)
 
 static bool ImGui::GetWindowAlwaysWantOwnViewport(ImGuiWindow* window)
 {
-    // Tooltips and menus are not automatically forced into their own viewport when the NoMerge flag is set, however the multiplication of viewports makes them more likely to protrude and create their own.
+    // Tooltips and menus are not automatically forced into their own viewport when the NoMerge flag is set, however the multiplication of viewports makes them more likely to protrude and createDirectory their own.
     ImGuiContext& g = *GImGui;
     if (g.IO.ConfigViewportsNoAutoMerge || (window->WindowClass.ViewportFlagsOverrideSet & ImGuiViewportFlags_NoAutoMerge))
         if (g.ConfigFlagsCurrFrame & ImGuiConfigFlags_ViewportsEnable)
@@ -14776,7 +14776,7 @@ static void ImGui::WindowSelectViewport(ImGuiWindow* window)
             UpdateTryMergeWindowIntoHostViewports(window);
     }
 
-    // Fallback: merge in default viewport if z-order matches, otherwise create a new viewport
+    // Fallback: merge in default viewport if z-order matches, otherwise createDirectory a new viewport
     if (window->Viewport == NULL)
         if (!UpdateTryMergeWindowIntoHostViewport(window, main_viewport))
             window->Viewport = AddUpdateViewport(window, window->ID, window->Pos, window->Size, ImGuiViewportFlags_None);
@@ -15177,7 +15177,7 @@ void ImGui::DestroyPlatformWindows()
 //    | DockContextNewFrameUpdateUndocking()  - process queued undocking requests
 //    | - DockContextProcessUndockWindow()    - process one window undocking request
 //    | - DockContextProcessUndockNode()      - process one whole node undocking request
-//    | DockContextNewFrameUpdateUndocking()  - process queue docking requests, create floating dock nodes
+//    | DockContextNewFrameUpdateUndocking()  - process queue docking requests, createDirectory floating dock nodes
 //    | - update g.HoveredDockNode            - [debug] update node hovered by mouse
 //    | - DockContextProcessDock()            - process one docking request
 //    | - DockNodeUpdate()
@@ -15185,13 +15185,13 @@ void ImGui::DestroyPlatformWindows()
 //    |     - DockNodeUpdateFlagsAndCollapse()
 //    |     - DockNodeFindInfo()
 //    |   - destroy unused node or tab bar
-//    |   - create dock node host window
+//    |   - createDirectory dock node host window
 //    |      - Begin() etc.
 //    |   - DockNodeStartMouseMovingWindow()
 //    |   - DockNodeTreeUpdatePosSize()
 //    |   - DockNodeTreeUpdateSplitter()
 //    |   - draw node background
-//    |   - DockNodeUpdateTabBar()            - create/update tab bar for a docking node
+//    |   - DockNodeUpdateTabBar()            - createDirectory/update tab bar for a docking node
 //    |     - DockNodeAddTabBar()
 //    |     - DockNodeWindowMenuUpdate()
 //    |     - DockNodeCalcTabBarLayout()
@@ -15202,7 +15202,7 @@ void ImGui::DestroyPlatformWindows()
 //    |      - DockNodeUpdate()               - recurse into child nodes...
 //-----------------------------------------------------------------------------
 // - DockSpace()                              user submit a dockspace into a window
-//    | Begin(Child)                          - create a child window
+//    | Begin(Child)                          - createDirectory a child window
 //    | DockNodeUpdate()                      - call main dock node update function
 //    | End(Child)
 //    | ItemSize()
@@ -15354,7 +15354,7 @@ namespace ImGui
 //-----------------------------------------------------------------------------
 // Docking: ImGuiDockContext
 //-----------------------------------------------------------------------------
-// The lifetime model is different from the one of regular windows: we always create a ImGuiDockNode for each ImGuiDockNodeSettings,
+// The lifetime model is different from the one of regular windows: we always createDirectory a ImGuiDockNode for each ImGuiDockNodeSettings,
 // or we always hold the entire docking node tree. Nodes are frequently hidden, e.g. if the window(s) or child nodes they host are not active.
 // At boot time only, we run a simple GC to remove nodes that have no references.
 // Because dock node settings (which are small, contiguous structures) are always mirrored by their corresponding dock nodes (more complete structures),
@@ -15965,7 +15965,7 @@ void ImGui::DockContextProcessUndockNode(ImGuiContext* ctx, ImGuiDockNode* node)
         int index_in_parent = (node->ParentNode->ChildNodes[0] == node) ? 0 : 1;
         node->ParentNode->ChildNodes[index_in_parent] = NULL;
         DockNodeTreeMerge(ctx, node->ParentNode, node->ParentNode->ChildNodes[index_in_parent ^ 1]);
-        node->ParentNode->AuthorityForViewport = ImGuiDataAuthority_Window; // The node that stays in place keeps the viewport, so our newly dragged out node will create a new viewport
+        node->ParentNode->AuthorityForViewport = ImGuiDataAuthority_Window; // The node that stays in place keeps the viewport, so our newly dragged out node will createDirectory a new viewport
         node->ParentNode = NULL;
     }
     for (ImGuiWindow* window : node->Windows)
@@ -16106,7 +16106,7 @@ static void ImGui::DockNodeAddWindow(ImGuiDockNode* node, ImGuiWindow* window, b
     window->DockTabWantClose = false;
 
     // When reactivating a node with one or two loose window, the window pos/size/viewport are authoritative over the node storage.
-    // In particular it is important we init the viewport from the first window so we don't create two viewports and drop one.
+    // In particular it is important we init the viewport from the first window so we don't createDirectory two viewports and drop one.
     if (node->HostWindow == NULL && node->IsFloatingNode())
     {
         if (node->AuthorityForPos == ImGuiDataAuthority_Auto)
@@ -16482,7 +16482,7 @@ static void DockNodeSetupHostWindow(ImGuiDockNode* node, ImGuiWindow* host_windo
     // Remove ourselves from any previous different host window
     // This can happen if a user mistakenly does (see #4295 for details):
     //  - N+0: DockBuilderAddNode(id, 0)    // missing ImGuiDockNodeFlags_DockSpace
-    //  - N+1: NewFrame()                   // will create floating host window for that node
+    //  - N+1: NewFrame()                   // will createDirectory floating host window for that node
     //  - N+1: DockSpace(id)                // requalify node as dockspace, moving host window
     if (node->HostWindow && node->HostWindow != host_window && node->HostWindow->DockNodeAsHost == node)
         node->HostWindow->DockNodeAsHost = NULL;
@@ -16562,7 +16562,7 @@ static void ImGui::DockNodeUpdate(ImGuiDockNode* node)
     // otherwise the node ends up using the minimum window size. Effectively those windows will take an extra frame to show up:
     //   N+0: Begin(): window created (with no known size), node is created
     //   N+1: DockNodeUpdate(): node skip creating host window / Begin(): window size applied, not visible
-    //   N+2: DockNodeUpdate(): node can create host window / Begin(): window becomes visible
+    //   N+2: DockNodeUpdate(): node can createDirectory host window / Begin(): window becomes visible
     // We could remove this frame if we could reliably calculate the expected window size during node update, before the Begin() code.
     // It would require a generalization of CalcWindowExpectedSize(), probably extracting code away from Begin().
     // In reality it isn't very important as user quickly ends up with size data in .ini file.
@@ -16595,7 +16595,7 @@ static void ImGui::DockNodeUpdate(ImGuiDockNode* node)
     if (node_flags & ImGuiDockNodeFlags_NoCloseButton)
         node->HasCloseButton = false;
 
-    // Bind or create host window
+    // Bind or createDirectory host window
     ImGuiWindow* host_window = NULL;
     bool beginned_into_host_window = false;
     if (node->IsDockSpace())
@@ -16657,7 +16657,7 @@ static void ImGui::DockNodeUpdate(ImGuiDockNode* node)
 
             // We set ImGuiWindowFlags_NoFocusOnAppearing because we don't want the host window to take full focus (e.g. steal NavWindow)
             // But we still it bring it to the front of display. There's no way to choose this precise behavior via window flags.
-            // One simple case to ponder if: window A has a toggle to create windows B/C/D. Dock B/C/D together, clear the toggle and enable it again.
+            // One simple case to ponder if: window A has a toggle to createDirectory windows B/C/D. Dock B/C/D together, clear the toggle and enable it again.
             // When reappearing B/C/D will request focus and be moved to the top of the display pile, but they are not linked to the dock host window
             // during the frame they appear. The dock host window would keep its old display order, and the sorting in EndFrame would move B/C/D back
             // after the dock host window, losing their top-most status.
@@ -18206,7 +18206,7 @@ void ImGui::DockBuilderSetNodeSize(ImGuiID node_id, ImVec2 size)
     node->AuthorityForSize = ImGuiDataAuthority_DockNode;
 }
 
-// Make sure to use the ImGuiDockNodeFlags_DockSpace flag to create a dockspace node! Otherwise this will create a floating node!
+// Make sure to use the ImGuiDockNodeFlags_DockSpace flag to createDirectory a dockspace node! Otherwise this will createDirectory a floating node!
 // - Floating node: you can then call DockBuilderSetNodePos()/DockBuilderSetNodeSize() to position and size the floating node.
 // - Dockspace node: calling DockBuilderSetNodePos() is unnecessary.
 // - If you intend to split a node immediately after creation using DockBuilderSplitNode(), make sure to call DockBuilderSetNodeSize() beforehand!
@@ -18697,7 +18697,7 @@ void ImGui::BeginDocked(ImGuiWindow* window, bool* p_open)
         window->DockStyle.Colors[color_n] = ColorConvertFloat4ToU32(g.Style.Colors[GWindowDockStyleColors[color_n]]);
 
     // Fast path return. It is common for windows to hold on a persistent DockId but be the only visible window,
-    // and never create neither a host window neither a tab bar.
+    // and never createDirectory neither a host window neither a tab bar.
     // FIXME-DOCK: replace ->HostWindow NULL compare with something more explicit (~was initially intended as a first frame test)
     if (node->HostWindow == NULL)
     {

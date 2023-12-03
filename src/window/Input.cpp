@@ -11,13 +11,13 @@ void Input::keyboardInput(GLFWwindow* windowHandle, const float& const deltaTime
  //   GLFWwindow* windowHandle = m_window.getWindowHandle();
 
 	if (glfwGetKey(windowHandle, GLFW_KEY_W) == GLFW_PRESS)
-		m_sceneRenderer.getScene().getCamera()->cameraMove(CameraMovement::FORWARD, deltaTime);
+		m_sceneRenderer.getScene().getCamera().cameraMove(CameraMovement::FORWARD, deltaTime);
     if (glfwGetKey(windowHandle, GLFW_KEY_S) == GLFW_PRESS)
-		m_sceneRenderer.getScene().getCamera()->cameraMove(CameraMovement::BACKWARD, deltaTime);
+		m_sceneRenderer.getScene().getCamera().cameraMove(CameraMovement::BACKWARD, deltaTime);
     if (glfwGetKey(windowHandle, GLFW_KEY_A) == GLFW_PRESS)
-		m_sceneRenderer.getScene().getCamera()->cameraMove(CameraMovement::LEFT, deltaTime);
+		m_sceneRenderer.getScene().getCamera().cameraMove(CameraMovement::LEFT, deltaTime);
     if (glfwGetKey(windowHandle, GLFW_KEY_D) == GLFW_PRESS)
-		m_sceneRenderer.getScene().getCamera()->cameraMove(CameraMovement::RIGHT, deltaTime);
+		m_sceneRenderer.getScene().getCamera().cameraMove(CameraMovement::RIGHT, deltaTime);
 }
 
 
@@ -39,12 +39,12 @@ void Input::mouseInput(double xpos, double ypos) {
 
 //	std::cout << xPosition << "  " << yPosition << "  " << m_lastX << "  " << m_lastY << std::endl;
 
-	m_sceneRenderer.getScene().getCamera()->cameraRotate(offsetX, offsetY);
+	m_sceneRenderer.getScene().getCamera().cameraRotate(offsetX, offsetY);
 
 }
 
 void Input::scrollInput(double offsetX, double offsetY) {
-	m_sceneRenderer.getScene().getCamera()->cameraZoom(static_cast<float>(offsetY));
+	m_sceneRenderer.getScene().getCamera().cameraZoom(static_cast<float>(offsetY));
 }
 
 void Input::keyInput() {

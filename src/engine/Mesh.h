@@ -26,9 +26,12 @@ struct TextureS {
 
 
 struct Material {
-	glm::vec3 m_ambient;
-	glm::vec3 m_diffuse;
-	glm::vec3 m_specular;
+private:
+	glm::vec4 defaultColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+public:
+	glm::vec4 m_ambient = defaultColor;
+	glm::vec4 m_diffuse = defaultColor;
+	glm::vec4 m_specular = defaultColor;
 	float m_reflectance; // what did they call for this in aiMaterial
 	float m_shininess;
 	int m_hasTextures;
@@ -44,9 +47,12 @@ public:
 	inline unsigned int getIndicesSize() { return static_cast<unsigned int> (m_indices.size()); };
 
 	inline int getTextureId(unsigned int index) { return m_textures.at(index).m_id; };
+	inline void setTextureId(const unsigned int index, const int textureId) { m_textures.at(index).m_id = textureId; };
 	inline std::vector<Vertex> getVertex() { return m_vertices; };
 	inline Material getMaterial() { return m_material; };
 	inline void setMaterial(Material material) { m_material = material; };
+
+	inline glm::mat4& getModelMatrix() { return m_modelMatrix; };
 
 private:
 	void setupMesh();
@@ -58,7 +64,7 @@ private:
 	std::vector<unsigned int> m_indices;
 	std::vector<TextureS> m_textures;
 	Material m_material;
-
+	glm::mat4 m_modelMatrix = glm::mat4(1.0f);;
 
 	unsigned int vbo, vao, ebo;
 };

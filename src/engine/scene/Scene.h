@@ -4,16 +4,19 @@
 #include "Camera.h"
 #include "../Mesh.h"
 #include "lights/SceneLights.h"
+#include "Fog.h"
+
 #include <vector>
 
 class Scene {
 
 	public:
 		Scene(int width, int height);
-		Camera* getCamera();
-		Projection& getProjection();
-		SceneLights& getSceneLights();
-		Mesh getMesh(int index);
+		Camera& getCamera() { return m_camera; };
+		Projection& getProjection() { return m_projection; };
+		SceneLights& getSceneLights() { return m_sceneLights; };
+
+		Mesh& getMesh(int index) { return m_meshes.at(index); };
 		void addMesh(Mesh mesh);
 		
 		void addPointLight(PointLight pointLight);
@@ -27,10 +30,13 @@ class Scene {
 		std::vector<Mesh> getMeshes();
 		void setMeshes(std::vector<Mesh> meshes);
 
+		inline Fog& getFog() { return fog; };
+
 	private: 
-		Projection m_projection;
 		Camera m_camera;
+		Projection m_projection;
 		std::vector<Mesh> m_meshes;
 		SceneLights m_sceneLights;
+		Fog fog;
 };
 

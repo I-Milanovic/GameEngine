@@ -6,8 +6,6 @@
 #include "shader/UniformMap.h"
 
 #include "../engine/ModelLoader.h"
-#include "../engine/Framebuffer.h"
-
 #include "scene/Scene.h"
 
 
@@ -17,17 +15,22 @@ class SceneRenderer {
         SceneRenderer(Scene scene);
         void renderScene();
         inline Scene& getScene() { return m_scene; };
-        inline Framebuffer* getFrameBuffer() { return &m_frameBuffer; };
+        inline bool& getIsOrtho() { return isOrhto; };
+
     private:
         void createUniforms();
         void createLightUniforms();
+        void setUniforms();
+
+        void renderScatteredBoxes();
+        
     private:  
         Scene m_scene;
-        Framebuffer m_frameBuffer;
-
-	    ShaderProgram* m_shader;
-	    ShaderProgram* m_lightShader;
+	    ShaderProgram m_shader;
+	    ShaderProgram m_lightShader;
         
+        bool isOrhto = false;
+
         glm::vec3 cubePositions[10] = {
             glm::vec3(0.0f,  0.0f,  0.0f),
             glm::vec3(2.0f,  5.0f, -15.0f),

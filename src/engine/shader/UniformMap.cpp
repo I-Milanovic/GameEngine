@@ -1,8 +1,8 @@
 #include <iostream>
+#include "../scene/lights/Light.h"
 #include <glad/glad.h>
 
 #include "UniformMap.h"
-#include "../scene/lights/Light.h"
 
 
 UniformMap::UniformMap(int programId) : m_programId(programId) {
@@ -114,6 +114,14 @@ void UniformMap::createSpotLightUniform(const std::string& uniformName) {
 	
 }
 
+void UniformMap::createFogUniform(const std::string& uniformName) {
+	createUniform(uniformName + ".isActive");
+	createUniform(uniformName + ".color");
+	createUniform(uniformName + ".density");
+
+}
+
+
 void UniformMap::createPointLightListUniform(const std::string& uniformName, unsigned int size) {
 	for (unsigned int i = 0; i < size; i++) {
 		std::string count = std::to_string(i);
@@ -142,6 +150,7 @@ void UniformMap::setAttenuationUniform(const std::string& uniformName, Attenuati
 }
 
 void UniformMap::setMaterialUniform(const std::string& uniformName, Material material) {
+
 	setUniform(uniformName + ".ambient", material.m_ambient);
 	setUniform(uniformName + ".diffuse", material.m_diffuse);
 	setUniform(uniformName + ".specular", material.m_specular);
@@ -189,4 +198,10 @@ void UniformMap::setSpotLightListUniform(const std::string& uniformName, std::ve
 		std::string count = std::to_string(i);
 		setSpotLightUniform(uniformName + "[" + count + "]", spotLights[i]);
 	}
+}
+
+void UniformMap::setFogUniform(const std::string& uniformName, Fog fog) {
+	setUniform(uniformName + ".isActive", fog.isActive ? 1 : 0);
+	setUniform(uniformName + ".color", fog.color);
+	setUniform(uniformName + ".density", fog.density);
 }

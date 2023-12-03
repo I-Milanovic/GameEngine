@@ -1171,7 +1171,7 @@ static void stb_textedit_discard_redo(StbUndoState *state)
 
 static StbUndoRecord *stb_text_create_undo_record(StbUndoState *state, int numchars)
 {
-   // any time we create a new undo record, we discard redo
+   // any time we createDirectory a new undo record, we discard redo
    stb_textedit_flush_redo(state);
 
    // if we have no free records, we have to make room, by sliding the
@@ -1220,7 +1220,7 @@ static void stb_text_undo(STB_TEXTEDIT_STRING *str, STB_TexteditState *state)
    if (s->undo_point == 0)
       return;
 
-   // we need to do two things: apply the undo record, and create a redo record
+   // we need to do two things: apply the undo record, and createDirectory a redo record
    u = s->undo_rec[s->undo_point-1];
    r = &s->undo_rec[s->redo_point-1];
    r->char_storage = -1;
@@ -1288,7 +1288,7 @@ static void stb_text_redo(STB_TEXTEDIT_STRING *str, STB_TexteditState *state)
    if (s->redo_point == STB_TEXTEDIT_UNDOSTATECOUNT)
       return;
 
-   // we need to do two things: apply the redo record, and create an undo record
+   // we need to do two things: apply the redo record, and createDirectory an undo record
    u = &s->undo_rec[s->undo_point];
    r = s->undo_rec[s->redo_point];
 

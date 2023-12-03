@@ -1,8 +1,9 @@
+#include "ShaderProgram.h"
+#include "../../utilities/FileLoader.h"
+
 #include <glad/glad.h>
 #include <iostream>
 
-#include "ShaderProgram.h"
-#include "../../utilities/Loader.h"
 
 
 	ShaderProgram::ShaderProgram(std::string shaderPath) :
@@ -12,43 +13,37 @@
 		std::string vertexFile = shaderPath + ".vert";
 		std::string fragmentFile = shaderPath + ".frag";
 
-		// Instantiate class for file reading
-		Loader loader;
-		char *vertexSource = loader.read(vertexFile);
-		char *fragmentSource = loader.read(fragmentFile);
-
-		// Create m_shader program
-
-		unsigned int vertexId = compileVertex(vertexSource);
-		unsigned int fragmentId = compileFragment(fragmentSource);
+		FileLoader loader;
+		unsigned int vertexId = compileVertex(loader.readFile(vertexFile));
+		unsigned int fragmentId = compileFragment(loader.readFile(fragmentFile));
 
 		link();
 		validate();
-		
 		glDeleteShader(vertexId);
 		glDeleteShader(fragmentId);
 	
 	}
 
-	unsigned int ShaderProgram::compileVertex(char* source) {
+	unsigned int ShaderProgram::compileVertex(std::string source) {
 		return compile(source, GL_VERTEX_SHADER, "Vertex");
 	}
 
-	unsigned int ShaderProgram::compileFragment(char* source) {
+	unsigned int ShaderProgram::compileFragment(std::string source) {
 		return compile(source, GL_FRAGMENT_SHADER, "Fragment");
 	}
 
-	unsigned int ShaderProgram::compile(char* source, int type, std::string shaderTypeName) {
+	unsigned int ShaderProgram::compile(std::string source, int type, std::string shaderTypeName) {
 
-		// create m_shader name
+		// createDirectory m_shader name
 		unsigned int shaderId = glCreateShader(type);
 
 		if (shaderId == GL_FALSE) {
 			std::cout << "Error creating shader, type: \n" << type << std::endl;
 		}
 
-		// Pass the m_shader code to the 
-		glShaderSource(shaderId, 1, &source, NULL);
+		// Pass the m_shader code to the
+		const char* c = source.c_str();
+		glShaderSource(shaderId, 1, &c, NULL);
 		glCompileShader(shaderId);
 
 		// check for compile errors

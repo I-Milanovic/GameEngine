@@ -1,17 +1,14 @@
 #include "Scene.h"
 
 Scene::Scene(int width, int height) :
-	m_projection(Projection(45.0f, width, height, 100.0f, 0.1f )),
-	m_camera(Camera(glm::vec3(3.0f, 3.0f, 3.0f))),
-	m_sceneLights(SceneLights()),
-	m_meshes(std::vector<Mesh>()) {
+m_camera(Camera(glm::vec3(3.0f, 3.0f, 3.0f))),
+m_projection(Projection(m_camera.getFov(), width, height, 100.0f, 0.1f)),
+m_meshes(std::vector<Mesh>()),
+m_sceneLights(SceneLights()) {
+
 	m_camera.cameraRotate(-430, -320);
 }
 
-Camera* Scene::getCamera() { return &m_camera; };
-Projection& Scene::getProjection() { return m_projection; };
-SceneLights& Scene::getSceneLights() { return m_sceneLights; };
-Mesh Scene::getMesh(int index) { return m_meshes.at(index); };
 void Scene::addMesh(Mesh mesh) { m_meshes.push_back(mesh); };
 
 void Scene::addPointLight(PointLight pointLight) { m_sceneLights.getPointLights().push_back(pointLight); };
