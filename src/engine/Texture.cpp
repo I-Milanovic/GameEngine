@@ -10,8 +10,8 @@
 unsigned int Texture::generateTexture(const std::string& filePath) {
 	int width, height, nChannels;
 
-	unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nChannels, 0);
-	stbi_set_flip_vertically_on_load(true);
+	ImageLoader imageLoader;
+	Image image = imageLoader.loadTexture(filePath);
 
 	if (!data) {
 		std::cout << "Failed to load the texture path: " << filePath << std::endl;
