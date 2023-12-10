@@ -40,10 +40,10 @@ std::string FileListing::getCurrentPath() {
     return s;   
 };
 
-void FileListing::listDirectory(const std::string path, std::vector<std::pair<bool, std::string>>& list) {
+bool FileListing::listDirectory(const std::string path, std::vector<std::pair<bool, std::string>>& list) {
     std::filesystem::path pathToDisplay(path);
     if (!std::filesystem::is_directory(pathToDisplay))
-        return;
+        return false;
 
     list.clear();
 
@@ -71,7 +71,10 @@ void FileListing::listDirectory(const std::string path, std::vector<std::pair<bo
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;
+        return false;
     }
+
+    return true;
 }
 
 

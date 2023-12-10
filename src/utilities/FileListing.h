@@ -18,7 +18,7 @@ public:
 
 	std::string getCurrentPath();
 
-	void listDirectory(const std::string path, std::vector<std::pair<bool, std::string>>& list);
+	bool listDirectory(const std::string path, std::vector<std::pair<bool, std::string>>& list);
 
 };
 

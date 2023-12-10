@@ -11,6 +11,7 @@ public:
 	void loadImageInGPU(const std::string path);
 	void RenderTextureViewer();
 
+
 private:
 	void createDirectory();
 
@@ -19,7 +20,7 @@ private:
 	unsigned int m_fileImageId;
 	FileModel m_fileModel;
 
-	Texture m_texture;
+//	Texture m_texture;
 	std::vector<int> m_loadedImages;
 
 	Scene& m_scene;

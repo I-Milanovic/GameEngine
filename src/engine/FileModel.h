@@ -8,26 +8,25 @@ public:
 	FileModel();
 
 	void loadParentDir();
-	void loadNewDir(const std::string newPath);
-	void loadNewDir();
+	void loadChildDir(std::string newPath);
 
-	inline char& getDeafultPath() { return m_defaultPath[0]; };
-	inline int getPathSize() { return pathCharSize; };
+	void loadDir(const std::string newPath);
+
 	inline std::vector<std::pair<bool, std::string>>& getDirectoryList() { return m_directoryList; };
 
-	inline void setPrviousPath(std::string newPath) { strcpy_s(m_previousPath, newPath.c_str()); };
+	inline std::string& getPath() { return m_path; };
+	inline void setPath(std::string newPath) { m_path = newPath; };
+	inline void setPreviousPath(std::string newPath) { m_previousPath = newPath; };
 	inline std::string getPreviousPath() { return m_previousPath; };
 
 	std::string getFileFullPath(const std::string fileName);
 
 private:
-	const int pathCharSize = 100;
-	char m_parentPath[100];
-	char m_defaultPath[100];// = "C:/Users/38163/Desktop";
-	char m_previousPath[100];
+	std::string m_path;
+	std::string m_parentPath;
+	std::string m_previousPath;
+
 	FileListing m_fileListing;
-
 	std::vector<std::pair<bool, std::string>> m_directoryList;
-
 };
 

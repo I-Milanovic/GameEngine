@@ -56,6 +56,7 @@
     <ClCompile Include="src\utilities\FileListing.cpp" />
     <ClCompile Include="src\engine\hud\TextureViewer.cpp" />
     <ClCompile Include="src\engine\FileModel.cpp" />
+    <ClCompile Include="include\imgui\imgui_stdlib.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\Window.h">
@@ -113,6 +114,7 @@
     <ClInclude Include="src\utilities\FileListing.h" />
     <ClInclude Include="src\engine\hud\TextureViewer.h" />
     <ClInclude Include="src\engine\FileModel.h" />
+    <ClInclude Include="include\imgui\imgui_stdlib.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\shader.frag">

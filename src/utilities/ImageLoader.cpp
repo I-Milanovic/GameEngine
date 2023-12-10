@@ -8,7 +8,7 @@ Image ImageLoader::loadTexture(const std::string& filePath) {
 	Image image;
 
 	image.data = stbi_load(filePath.c_str(), &image.width, &image.height, &image.nChannels, 0);
-	stbi_set_flip_vertically_on_load(true);
+//	stbi_set_flip_vertically_on_load(true);
 
 	if (!image.data)
 		std::cout << "Failed to load the texture, path: " << filePath << std::endl;

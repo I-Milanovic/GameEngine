@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="src\engine\FileModel.cpp" />
     <ClCompile Include="src\utilities\FileListing.cpp" />
     <ClCompile Include="src\utilities\ImageLoader.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\engine\hud\TextureViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\imgui\imgui_stdlib.h" />
     <ClInclude Include="src\engine\FileModel.h" />
     <ClInclude Include="src\utilities\FileListing.h" />
     <ClInclude Include="src\engine\scene\Fog.h" />
