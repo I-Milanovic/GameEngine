@@ -39,6 +39,10 @@
 	void Window::init(SceneRenderer& scene, Input& input) {
 		glfwSetWindowUserPointer(m_windowHandle, &input);
 
+		glfwSetWindowCloseCallback(m_windowHandle, [](GLFWwindow* window) {
+			std::cout << "Window is closing!" << std::endl;
+			});
+
 		glfwSetScrollCallback(m_windowHandle, [](GLFWwindow* window, double offsetX, double offsetY) {
 			Input* i = ((Input*)glfwGetWindowUserPointer(window));
 			i->scrollInput(offsetX, offsetY);
@@ -48,24 +52,51 @@
 			if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 				glfwSetWindowShouldClose(window, true);
 			}
-		});
 
+
+
+		});
+		 //original
 		glfwSetCursorPosCallback(m_windowHandle, [](GLFWwindow* window, double xpos, double ypos) {
-				Input* i = ((Input*)glfwGetWindowUserPointer(window));
-			if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
-				i->mouseInput(xpos, ypos);
+			Input* i = ((Input*)glfwGetWindowUserPointer(window));
+
+			bool isMiddleMouseButtonDown = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_PRESS;
+			bool isShiftDown = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
+
+			if (isMiddleMouseButtonDown && isShiftDown) {
+				i->keyboardInput(window, 0.0f, xpos, ypos);
 			}
-			else
-				i->setFirstMouseTrue();
+			else {
+				if (isMiddleMouseButtonDown) {
+					i->mouseInputOld(xpos, ypos);
+				}
+				else {
+					i->setFirstMouseTrue();
+					//	i->arcReplace();
+				}
+			}
+
+
 		});
 
-		//glfwSetWindowSizeCallback(m_windowHandle, [](GLFWwindow* window, int width, int height) {
-
+		// arcBall
+		//glfwSetMouseButtonCallback(m_windowHandle, [](GLFWwindow* window, int button, int action, int mods) {
+		//	Input* i = ((Input*)glfwGetWindowUserPointer(window));
+		//		if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+		//			double startXPos, startYPos; // screen coordinates when mouse clicks
+		//			glfwGetCursorPos(window, &startXPos, &startYPos);
+		//			i->dragAction(startXPos, startYPos);
+		//		}
+		//		else if (action == GLFW_RELEASE) {
+		//			i->arcReplace();
+		//		}
+		//});
+		
+		//glfwSetCursorPosCallback(m_windowHandle, [](GLFWwindow* window, double xpos, double ypos) {
+		//	Input* i = ((Input*)glfwGetWindowUserPointer(window));
+		//	i->moveAction(xpos, ypos);
 		//});
 
-		glfwSetWindowCloseCallback(m_windowHandle, [](GLFWwindow* window) {
-			std::cout << "Window is closing!" << std::endl;
-		});
 
 	}
 

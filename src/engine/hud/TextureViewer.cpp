@@ -12,7 +12,6 @@ TextureViewer::TextureViewer(Scene& scene) : m_scene(scene) {
 	Texture texture;
 	m_DirImageId = texture.generateTexture("./resources/images/icons/icons8-folder-80.png");
 	m_fileImageId = texture.generateTexture("./resources/images/icons/icons8-image-64.png");
-
 }
 
 void TextureViewer::loadImageInGPU(const std::string path) {
@@ -24,6 +23,38 @@ void TextureViewer::loadImageInGPU(const std::string path) {
 static const int MAX_PATH = 100;
 
 void TextureViewer::RenderTextureViewer() {
+
+	ImGui::Begin("Tree Test");
+
+	ImGui::AlignTextToFramePadding();
+	ImGui::SetNextItemOpen(true);
+	bool treeopen = ImGui::TreeNodeEx("Scene", ImGuiTreeNodeFlags_AllowItemOverlap);
+	ImGui::SameLine();
+	if (ImGui::Button("H##1"));
+
+
+	if (treeopen) {
+
+		for (int i = 0; i < m_scene.getMeshes().size(); i++) {
+			
+			ImGui::TreeNodeEx("Item_1", ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_AllowItemOverlap);
+			ImGui::SameLine();
+			ImGui::PushID(i);
+			Mesh& m = m_scene.getMeshes().at(i);
+			ImGui::Checkbox("##", &m.isRendered);
+			//if (ImGui::Button("H##2")) {
+			//	//m.cleanup();
+			//	m.isRendered = false;
+			//}
+			ImGui::PopID();
+
+		}
+
+		ImGui::TreePop();
+	}
+	ImGui::End();
+
+
 	ImGui::Begin("Loaded Textures");
 
 	ImVec2 button_sz(128, 128);

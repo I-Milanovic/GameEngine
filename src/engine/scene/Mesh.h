@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "MeshData.h"
+
 #define MAX_BONE_INFLUENCE 4
 
 struct Vertex {
@@ -41,8 +43,10 @@ class Mesh {
 
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureS> textures, Material material);
-//	Mesh(const Mesh &m);
+	Mesh(const MeshData meshData);
+
 	void cleanup();
+	inline void setVao(int newVao) { vao = newVao; };
 	inline unsigned int getVao() { return vao; };
 	inline unsigned int getIndicesSize() { return static_cast<unsigned int> (m_indices.size()); };
 
@@ -54,11 +58,18 @@ public:
 
 	inline glm::mat4& getModelMatrix() { return m_modelMatrix; };
 
+	void rotate();
+
+
 private:
 	void setupMesh();
 
+public:
+	bool isRendered = true;
+	float m_angle;
 
 private:
+	MeshData m_meshData;
 	// mesh data
 	std::vector<Vertex> m_vertices;
 	std::vector<unsigned int> m_indices;

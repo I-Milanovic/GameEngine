@@ -5,11 +5,14 @@
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 
-Hud::Hud(SceneRenderer& sceneRenderer) : m_sceneRenderer(sceneRenderer),
-m_lightUi(sceneRenderer.getScene().getSceneLights()),
-m_textureViewer(TextureViewer(m_sceneRenderer.getScene())){}
 
-void Hud::init(Window& window) {
+Hud::Hud(Renderer& renderer) : m_renderer(renderer),
+    m_lightUi(renderer.getSceneRenderer().m_scene.getSceneLights()),
+    m_textureViewer(TextureViewer(renderer.getSceneRenderer().m_scene)),
+    m_sceneViewport(SceneViewport())
+{}
+
+void Hud::init(GLFWwindow* windowHandle) {
 
 	static bool show_demo_window = true;
 	static bool show_another_window = false;
@@ -39,7 +42,7 @@ void Hud::init(Window& window) {
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }	 
 	 
-	ImGui_ImplGlfw_InitForOpenGL(window.getWindowHandle(), true);
+	ImGui_ImplGlfw_InitForOpenGL(windowHandle, true);
 	ImGui_ImplOpenGL3_Init();
 }
 
@@ -50,57 +53,37 @@ void Hud::renderHud(Framebuffer& frameBuffer) {
 
     ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
-
-    //bool what = ImGui::IsWindowHovered();
-    //std::cout << what << std::endl;
-
-    renderDisplayWindow(frameBuffer);
+    m_sceneViewport.render(m_renderer);
     m_lightUi.RenderLightUi();
     renderCameraUi();
     renderOptionsUi();
     ImGui::ShowDemoWindow();
-
     m_textureViewer.RenderTextureViewer();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
-        GLFWwindow* backup_current_context = glfwGetCurrentContext();
-        ImGui::UpdatePlatformWindows();
-        ImGui::RenderPlatformWindowsDefault();
-        glfwMakeContextCurrent(backup_current_context);
-    }
+    //if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    //{
+    //    GLFWwindow* backup_current_context = glfwGetCurrentContext();
+    //    ImGui::UpdatePlatformWindows();
+    //    ImGui::RenderPlatformWindowsDefault();
+    //    glfwMakeContextCurrent(backup_current_context);
+    //}
 }
 
-//ShowExampleAppDockSpace
 void Hud::terminate() {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 }
 
-void Hud::renderDisplayWindow(Framebuffer& frameBuffer) {
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-    ImGui::Begin("Renderer display");
-
-//    bool isWindowHovered = ImGui::IsWindowHovered();
-
-
-    ImVec2 contentSize = ImGui::GetContentRegionAvail();
-    m_sceneRenderer.getScene().getProjection().setRatio(static_cast<int> (contentSize.x), static_cast<int> (contentSize.y));
-    ImGui::Image((void*)(intptr_t)frameBuffer.getColorTex(), contentSize, ImVec2{ 0, 1 }, ImVec2{ 1,0 });
-    ImGui::PopStyleVar();
-    ImGui::End();
-}
-
 void Hud::renderCameraUi() {
-    ImGui::Begin("Camera");
+ /*   ImGui::Begin("Camera");
     ImGui::SeparatorText("Position");
     ImGui::Text("Warning in local space for now");
 
-    glm::vec3& pos = m_sceneRenderer.getScene().getCamera().getCameraPos();
+    glm::vec3& pos = m_renderer.getSceneRenderer().m_scene.getCamera().getCameraPos();
     float cameraSliderFactW = 0.0f;
     float cameraSliderSpd = 0.05f;
 
@@ -108,7 +91,48 @@ void Hud::renderCameraUi() {
     ImGui::DragFloat("##YcameraPos", &pos.y, cameraSliderSpd, 0.0f, 0.0f, "Y: %.3f");
     ImGui::DragFloat("##ZcameraPos", &pos.z, cameraSliderSpd, 0.0f, 0.0f, "Z: %.3f");
     ImGui::DragFloat("##WcameraPos", &cameraSliderFactW, cameraSliderSpd, 0.0f, 0.0f, "W: %.3f");
-    ImGui::End();
+
+
+    glm::vec3& front = m_renderer.getSceneRenderer().m_scene.getCamera().getFront();
+    glm::vec3& right = m_renderer.getSceneRenderer().m_scene.getCamera().getRight();
+    glm::vec3& up = m_renderer.getSceneRenderer().m_scene.getCamera().getUp();
+
+    ImGui::SeparatorText("Rotation Euler");
+    ImGui::PushItemWidth(100);
+
+    ImGui::Text("RIGHT");
+    ImGui::SameLine();
+    ImGui::DragFloat("##RXcameraRotE", &right.x, cameraSliderSpd, 0.0f, 0.0f, "X: %.3f");
+    ImGui::SameLine();
+    ImGui::DragFloat("##RYcameraRotE", &right.y, cameraSliderSpd, 0.0f, 0.0f, "Y: %.3f");
+    ImGui::SameLine();
+    ImGui::DragFloat("##RZcameraRotE", &right.z, cameraSliderSpd, 0.0f, 0.0f, "Z: %.3f");
+
+    ImGui::Text("UP   ");
+    ImGui::SameLine();
+    ImGui::DragFloat("##UXcameraRotE", &up.x, cameraSliderSpd, 0.0f, 0.0f, "X: %.3f");
+    ImGui::SameLine();
+    ImGui::DragFloat("##UYcameraRotE", &up.y, cameraSliderSpd, 0.0f, 0.0f, "Y: %.3f");
+    ImGui::SameLine();
+    ImGui::DragFloat("##UZcameraRotE", &up.z, cameraSliderSpd, 0.0f, 0.0f, "Z: %.3f");
+
+    ImGui::Text("FRONT");
+    ImGui::SameLine();
+    ImGui::DragFloat("##FXcameraRotE", &front.x, cameraSliderSpd, 0.0f, 0.0f, "X: %.3f"); 
+    ImGui::SameLine();
+    ImGui::DragFloat("##FYcameraRotE", &front.y, cameraSliderSpd, 0.0f, 0.0f, "Y: %.3f"); 
+    ImGui::SameLine();
+    ImGui::DragFloat("##FZcameraRotE", &front.z, cameraSliderSpd, 0.0f, 0.0f, "Z: %.3f");
+
+
+    ImGui::Text("Camera Quat");
+    float& pitch = m_renderer.getSceneRenderer().m_scene.m_quatCamera.pitch;
+    ImGui::DragFloat("##CamQuatRotX", &pitch, cameraSliderSpd, 0.0f, 0.0f, "X: %.3f");
+   
+    float& yaw = m_renderer.getSceneRenderer().m_scene.m_quatCamera.yaw;
+    ImGui::DragFloat("##CamQuatRotY", &yaw, cameraSliderSpd, 0.0f, 0.0f, "Y: %.3f");
+
+    ImGui::End();*/
 }
 
 void Hud::renderOptionsUi() {
@@ -116,18 +140,18 @@ void Hud::renderOptionsUi() {
     std::string labelPerspective = "Perspective";
     std::string label;
 
-    bool& isOrtho = m_sceneRenderer.getIsOrtho();
+    bool& isOrtho = m_renderer.getSceneRenderer().isOrhto;
     if (isOrtho)
         label = labelOrtho;
     else
         label = labelPerspective;
 
     ImGui::Begin("User controls");
-    ImGui::Checkbox("Fog", &m_sceneRenderer.getScene().getFog().isActive);
-    ImGui::DragFloat("##Density", &m_sceneRenderer.getScene().getFog().density, 0.01f, 0.0f, 1.0f, "Dens: %.3f");
+    ImGui::Checkbox("Fog", &m_renderer.getSceneRenderer().m_scene.m_fog.isActive);
+    ImGui::DragFloat("##Density", &m_renderer.getSceneRenderer().m_scene.m_fog.density, 0.01f, 0.0f, 1.0f, "Dens: %.3f");
 
     ImGui::Checkbox(label.c_str(), &isOrtho);
-    ImGui::DragFloat("##Size", &m_sceneRenderer.getScene().getProjection().getOrthoSize(), 0.025f, 0.1f, 10.0f, "Size: %.3f");
+    ImGui::DragFloat("##Size", &m_renderer.getSceneRenderer().m_scene.m_projection.getOrthoSize(), 0.025f, 0.1f, 10.0f, "Size: %.3f");
 
     ImGui::End();
 }

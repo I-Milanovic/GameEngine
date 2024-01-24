@@ -10,7 +10,6 @@ class Window {
 
 	public:
 		Window(int width = 800, int height = 600);
-	//	Window(SceneRenderer* scene);
 		inline const int getWindowWidth() { return m_width; };
 		inline const int getWindowHeight() { return m_height; };
 		inline GLFWwindow* getWindowHandle() { return m_windowHandle; };

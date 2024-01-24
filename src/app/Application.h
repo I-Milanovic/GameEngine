@@ -20,8 +20,8 @@ class Application {
 	private:
 		Window* m_window;
 		Renderer* m_renderer;
-		Input* m_input;
 		Hud m_hud;
+		Input* m_input;
 
 		bool m_isRunnin = true;
 		float m_lastFrameTime = 0.0f;

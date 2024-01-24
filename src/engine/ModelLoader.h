@@ -4,7 +4,7 @@
 #include <vector>
 #include <assimp/scene.h>
 
-#include "Mesh.h"
+#include "scene/Mesh.h"
 
 class ModelLoader {
 

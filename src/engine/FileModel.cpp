@@ -3,14 +3,12 @@
 FileModel::FileModel() : m_fileListing(FileListing()) {
 	m_path = m_fileListing.getCurrentPath();
 	m_fileListing.listDirectory(m_path, m_directoryList);
-//	m_fileListing.displayPathInfo();
 }
 
 void FileModel::loadDir(const std::string newPath) {
 	bool pathExists = m_fileListing.listDirectory(newPath, m_directoryList);
 	if (pathExists) {
 		setPreviousPath(m_path);
-//		std::cout << getPreviousPath() << std::endl;
 		setPath(newPath);
 	}
 }

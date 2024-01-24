@@ -40,11 +40,11 @@ class Camera {
 		inline glm::vec3& getCameraPos() { return m_position; };
 
 	public:
-		inline vec3 getPos() { return m_position; };
-		inline vec3 getFront() { return m_front; };
-		inline vec3 getUp() { return m_up; };
-		inline vec3 getRight() { return m_right; };
-		inline vec3 getWorldUp() { return m_worldUp; };
+		inline glm::vec3 getPos() { return m_position; };
+		inline glm::vec3& getFront() { return m_front; };
+		inline glm::vec3& getUp() { return m_up; };
+		inline glm::vec3& getRight() { return m_right; };
+		inline glm::vec3 getWorldUp() { return m_worldUp; };
 		inline float getMovementSpeed() { return m_movementSpeed; };
 		inline float& getFov() { return m_fov; };
 

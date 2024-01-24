@@ -200,8 +200,8 @@ void UniformMap::setSpotLightListUniform(const std::string& uniformName, std::ve
 	}
 }
 
-void UniformMap::setFogUniform(const std::string& uniformName, Fog fog) {
-	setUniform(uniformName + ".isActive", fog.isActive ? 1 : 0);
-	setUniform(uniformName + ".color", fog.color);
-	setUniform(uniformName + ".density", fog.density);
+void UniformMap::setFogUniform(const std::string& uniformName, Fog m_fog) {
+	setUniform(uniformName + ".isActive", m_fog.isActive ? 1 : 0);
+	setUniform(uniformName + ".color", m_fog.color);
+	setUniform(uniformName + ".density", m_fog.density);
 }

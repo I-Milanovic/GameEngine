@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "../scene/lights/Light.h"
-#include "../Mesh.h"
+#include "../scene/Mesh.h"
 
 #include "../scene/Fog.h"
 
@@ -67,7 +67,7 @@ public:
 	void setDirLightListUniform(const std::string& uniformName, std::vector<DirLight> dirLights);
 	void setSpotLightListUniform(const std::string& uniformName, std::vector<SpotLight> spotLights);
 
-	void setFogUniform(const std::string& uniformName, Fog fog);
+	void setFogUniform(const std::string& uniformName, Fog m_fog);
 
 
 private:

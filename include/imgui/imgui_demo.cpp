@@ -2895,7 +2895,7 @@ static void ShowDemoWindowLayout()
     if (ImGui::TreeNode("Widgets Width"))
     {
         static float f = 0.0f;
-        static bool show_indented_items = true;
+        static bool show_indented_items = true; 
         ImGui::Checkbox("Show indented items", &show_indented_items);
 
         // Use SetNextItemWidth() to set the width of a single upcoming item.

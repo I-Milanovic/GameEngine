@@ -7,7 +7,7 @@
     <ClCompile Include="src\app\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\Mesh.cpp">
+    <ClCompile Include="src\engine\scene\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\Renderer.cpp">
@@ -57,6 +57,9 @@
     <ClCompile Include="src\engine\hud\TextureViewer.cpp" />
     <ClCompile Include="src\engine\FileModel.cpp" />
     <ClCompile Include="include\imgui\imgui_stdlib.cpp" />
+    <ClCompile Include="src\engine\scene\ArcballCamera.cpp" />
+    <ClCompile Include="src\engine\hud\SceneViewport.cpp" />
+    <ClCompile Include="src\engine\scene\QuatCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\Window.h">
@@ -74,7 +77,7 @@
     <ClInclude Include="src\engine\Renderer.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\Mesh.h">
+    <ClInclude Include="src\engine\scene\Mesh.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
     <ClInclude Include="src\utilities\FileLoader.h">
@@ -115,6 +118,11 @@
     <ClInclude Include="src\engine\hud\TextureViewer.h" />
     <ClInclude Include="src\engine\FileModel.h" />
     <ClInclude Include="include\imgui\imgui_stdlib.h" />
+    <ClInclude Include="src\engine\scene\MeshData.h" />
+    <ClInclude Include="src\engine\scene\Material.h" />
+    <ClInclude Include="src\engine\scene\ArcballCamera.h" />
+    <ClInclude Include="src\engine\hud\SceneViewport.h" />
+    <ClInclude Include="src\engine\scene\QuatCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\shader.frag">
@@ -129,6 +137,8 @@
     <None Include="resources\shaders\basicShader.vert" />
     <None Include="resources\shaders\basicShader.frag" />
     <None Include="src\assimp-vc143-mtd.dll" />
+    <None Include="resources\shaders\grid.vert" />
+    <None Include="resources\shaders\grid.frag" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

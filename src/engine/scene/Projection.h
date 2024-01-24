@@ -4,7 +4,7 @@
 
 class Projection {
 	public:
-		Projection(float& fov, int width, int height, float zFar = 100.0f, float zNear = 0.1f);
+		Projection(float fov, int width, int height, float zFar = 100.0f, float zNear = 0.1f);
 		void updateProjection();	
 		void updateOrtho();
 
@@ -17,7 +17,7 @@ class Projection {
 		inline void setOrthoSize(float size) { orthoSize = size; };
 		inline float& getOrthoSize() { return orthoSize; };
 
-	private:
+	public:
 		float m_fov;
 		int m_width, m_height;
 		float m_zFar, m_zNear;

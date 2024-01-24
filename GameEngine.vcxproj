@@ -139,6 +139,8 @@
   <ItemGroup>
     <ClCompile Include="include\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="src\engine\FileModel.cpp" />
+    <ClCompile Include="src\engine\scene\ArcballCamera.cpp" />
+    <ClCompile Include="src\engine\scene\QuatCamera.cpp" />
     <ClCompile Include="src\utilities\FileListing.cpp" />
     <ClCompile Include="src\utilities\ImageLoader.cpp" />
     <ClCompile Include="src\engine\hud\LightUi.cpp" />
@@ -162,17 +164,22 @@
     <ClCompile Include="src\window\Input.cpp" />
     <ClCompile Include="src\utilities\FileLoader.cpp" />
     <ClCompile Include="src\app\Main.cpp" />
-    <ClCompile Include="src\engine\Mesh.cpp" />
+    <ClCompile Include="src\engine\scene\Mesh.cpp" />
     <ClCompile Include="src\engine\Renderer.cpp" />
     <ClCompile Include="src\engine\SceneRenderer.cpp" />
     <ClCompile Include="src\engine\shader\ShaderProgram.cpp" />
     <ClCompile Include="src\engine\Texture.cpp" />
     <ClCompile Include="src\window\Window.cpp" />
     <ClCompile Include="src\engine\hud\TextureViewer.cpp" />
+    <ClCompile Include="src\engine\hud\SceneViewport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\imgui\imgui_stdlib.h" />
+    <ClInclude Include="src\engine\scene\ArcballCamera.h" />
+    <ClInclude Include="src\engine\scene\Material.h" />
+    <ClInclude Include="src\engine\scene\MeshData.h" />
     <ClInclude Include="src\engine\FileModel.h" />
+    <ClInclude Include="src\engine\scene\QuatCamera.h" />
     <ClInclude Include="src\utilities\FileListing.h" />
     <ClInclude Include="src\engine\scene\Fog.h" />
     <ClInclude Include="src\utilities\ImageLoader.h" />
@@ -198,17 +205,20 @@
     <ClInclude Include="src\engine\shader\UniformMap.h" />
     <ClInclude Include="src\window\Input.h" />
     <ClInclude Include="src\utilities\FileLoader.h" />
-    <ClInclude Include="src\engine\Mesh.h" />
+    <ClInclude Include="src\engine\scene\Mesh.h" />
     <ClInclude Include="src\engine\Renderer.h" />
     <ClInclude Include="src\engine\SceneRenderer.h" />
     <ClInclude Include="src\engine\shader\ShaderProgram.h" />
     <ClInclude Include="src\engine\Texture.h" />
     <ClInclude Include="src\window\Window.h" />
     <ClInclude Include="src\engine\hud\TextureViewer.h" />
+    <ClInclude Include="src\engine\hud\SceneViewport.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\basicShader.frag" />
     <None Include="resources\shaders\basicShader.vert" />
+    <None Include="resources\shaders\grid.frag" />
+    <None Include="resources\shaders\grid.vert" />
     <None Include="resources\shaders\lightShader.frag" />
     <None Include="resources\shaders\lightShader.vert" />
     <None Include="src\assimp-vc143-mtd.dll" />
