@@ -7,10 +7,10 @@ class FileModel {
 public:
 	FileModel();
 
-	void loadParentDir();
-	void loadChildDir(std::string newPath);
-
 	void loadDir(const std::string newPath);
+	void loadChildDir(std::string newPath);
+	void loadParentDir();
+
 
 	inline std::vector<std::pair<bool, std::string>>& getDirectoryList() { return m_directoryList; };
 

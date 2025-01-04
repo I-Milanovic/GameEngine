@@ -1,12 +1,12 @@
 #include "FileModel.h"
 
-FileModel::FileModel() : m_fileListing(FileListing()) {
+FileModel::FileModel() : m_fileListing(FileListing("/resources/images")) {
 	m_path = m_fileListing.getCurrentPath();
-	m_fileListing.listDirectory(m_path, m_directoryList);
+	m_fileListing.getDirectoryContent(m_path, m_directoryList, ImageFile | ModelFile);
 }
 
 void FileModel::loadDir(const std::string newPath) {
-	bool pathExists = m_fileListing.listDirectory(newPath, m_directoryList);
+	bool pathExists = m_fileListing.getDirectoryContent(newPath, m_directoryList, ImageFile | ModelFile);
 	if (pathExists) {
 		setPreviousPath(m_path);
 		setPath(newPath);

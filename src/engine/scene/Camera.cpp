@@ -2,8 +2,8 @@
 #include <iostream>
 #include <iomanip> 
 
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch, float fov) : m_movementSpeed(c_SPEED),
-m_mouseSensitivity(c_SENSITIVITY), m_fov(fov), m_position(position), m_worldUp(glm::vec3(0.0f, 1.0f, 0.0f)), m_yaw(yaw), m_pitch(pitch) {
+Camera::Camera(glm::vec3 m_position, glm::vec3 up, float m_yaw, float m_pitch, float fov) : m_movementSpeed(c_SPEED),
+m_mouseSensitivity(c_SENSITIVITY), m_fov(fov), m_position(m_position), m_worldUp(glm::vec3(0.0f, 1.0f, 0.0f)), m_yaw(m_yaw), m_pitch(m_pitch) {
 	updateCameraVectors();
 
 }
@@ -14,7 +14,7 @@ mat4 Camera::getViewMatrix() {
 	//	" right: " << m_right.x << " " << m_right.y << " " << m_right.z <<
 	//	" up: " << m_up.x << " " << m_up.y << " " << m_up.z <<
 	//	" front: " << m_front.x << " " << m_front.y << " " << m_front.z << 
-	//	//" yaw: " << m_yaw << " pitch: " << m_pitch <<
+	//	//" m_yaw: " << m_yaw << " m_pitch: " << m_pitch <<
 	//	std::endl;
 
 	return lookAt(m_position, /*glm::vec3(0.0f, 0.0f, 1.0f)*/ m_position + m_front, glm::vec3(0.0f, 1.0f, 0.0f)/*m_up*/);
@@ -42,7 +42,7 @@ void Camera::cameraRotate(float xoffset, float yoffset, bool constrainPitch) {
 	m_yaw += xoffset;
 	m_pitch += yoffset;
 
-	// make sure that when pitch is out of bounds, screen doesn't get flipped
+	// make sure that when m_pitch is out of bounds, screen doesn't get flipped
 	if (constrainPitch)
 	{
 		if (m_pitch > 89.0f)

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -110,7 +110,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -138,11 +138,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\imgui\imgui_stdlib.cpp" />
+    <ClCompile Include="src\engine\AssimpWrapper.cpp" />
     <ClCompile Include="src\engine\FileModel.cpp" />
+    <ClCompile Include="src\engine\hud\FileExplorerDisplay.cpp" />
+    <ClCompile Include="src\engine\hud\PropertyPanel.cpp" />
+    <ClCompile Include="src\engine\scene\AnimationManager.cpp" />
+    <ClCompile Include="src\engine\scene\AnimMeshData.cpp" />
     <ClCompile Include="src\engine\scene\ArcballCamera.cpp" />
+    <ClCompile Include="src\engine\scene\Entity.cpp" />
+    <ClCompile Include="src\engine\scene\LoaderManager.cpp" />
+    <ClCompile Include="src\engine\scene\Material.cpp" />
+    <ClCompile Include="src\engine\scene\MaterialCache.cpp" />
+    <ClCompile Include="src\engine\scene\Model.cpp" />
+    <ClCompile Include="src\engine\scene\ModelCache.cpp" />
+    <ClCompile Include="src\engine\scene\Node.cpp" />
+    <ClCompile Include="src\engine\scene\OrbitCamera.cpp" />
     <ClCompile Include="src\engine\scene\QuatCamera.cpp" />
+    <ClCompile Include="src\engine\scene\SceneGraphTree.cpp" />
+    <ClCompile Include="src\engine\scene\TextureCache.cpp" />
     <ClCompile Include="src\utilities\FileListing.cpp" />
-    <ClCompile Include="src\utilities\ImageLoader.cpp" />
     <ClCompile Include="src\engine\hud\LightUi.cpp" />
     <ClCompile Include="src\engine\Framebuffer.cpp" />
     <ClCompile Include="src\engine\hud\Hud.cpp" />
@@ -154,7 +168,6 @@
     <ClCompile Include="include\imgui\imgui_tables.cpp" />
     <ClCompile Include="include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\engine\scene\lights\SceneLights.cpp" />
-    <ClCompile Include="src\engine\ModelLoader.cpp" />
     <ClCompile Include="src\app\Application.cpp" />
     <ClCompile Include="src\app\glad.c" />
     <ClCompile Include="src\engine\scene\Camera.cpp" />
@@ -168,21 +181,35 @@
     <ClCompile Include="src\engine\Renderer.cpp" />
     <ClCompile Include="src\engine\SceneRenderer.cpp" />
     <ClCompile Include="src\engine\shader\ShaderProgram.cpp" />
-    <ClCompile Include="src\engine\Texture.cpp" />
+    <ClCompile Include="src\engine\scene\Texture.cpp" />
     <ClCompile Include="src\window\Window.cpp" />
-    <ClCompile Include="src\engine\hud\TextureViewer.cpp" />
     <ClCompile Include="src\engine\hud\SceneViewport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\imgui\imgui_stdlib.h" />
+    <ClInclude Include="src\engine\AssimpWrapper.h" />
+    <ClInclude Include="src\engine\hud\FileExplorerDisplay.h" />
+    <ClInclude Include="src\engine\hud\PropertyPanel.h" />
+    <ClInclude Include="src\engine\scene\Animation.h" />
+    <ClInclude Include="src\engine\scene\AnimationManager.h" />
+    <ClInclude Include="src\engine\scene\AnimMeshData.h" />
     <ClInclude Include="src\engine\scene\ArcballCamera.h" />
+    <ClInclude Include="src\engine\scene\CameraAbstract.h" />
+    <ClInclude Include="src\engine\scene\Entity.h" />
+    <ClInclude Include="src\engine\scene\LoaderManager.h" />
     <ClInclude Include="src\engine\scene\Material.h" />
+    <ClInclude Include="src\engine\scene\MaterialCache.h" />
     <ClInclude Include="src\engine\scene\MeshData.h" />
     <ClInclude Include="src\engine\FileModel.h" />
+    <ClInclude Include="src\engine\scene\Model.h" />
+    <ClInclude Include="src\engine\scene\ModelCache.h" />
+    <ClInclude Include="src\engine\scene\Node.h" />
+    <ClInclude Include="src\engine\scene\OrbitCamera.h" />
     <ClInclude Include="src\engine\scene\QuatCamera.h" />
+    <ClInclude Include="src\engine\scene\SceneGraphTree.h" />
+    <ClInclude Include="src\engine\scene\TextureCache.h" />
     <ClInclude Include="src\utilities\FileListing.h" />
     <ClInclude Include="src\engine\scene\Fog.h" />
-    <ClInclude Include="src\utilities\ImageLoader.h" />
     <ClInclude Include="src\engine\hud\LightUi.h" />
     <ClInclude Include="src\engine\Framebuffer.h" />
     <ClInclude Include="src\engine\hud\Hud.h" />
@@ -197,7 +224,6 @@
     <ClInclude Include="include\imgui\imstb_truetype.h" />
     <ClInclude Include="src\engine\scene\lights\SceneLights.h" />
     <ClInclude Include="src\engine\scene\lights\Light.h" />
-    <ClInclude Include="src\engine\ModelLoader.h" />
     <ClInclude Include="src\app\Application.h" />
     <ClInclude Include="src\engine\scene\Camera.h" />
     <ClInclude Include="src\engine\scene\Projection.h" />
@@ -209,22 +235,22 @@
     <ClInclude Include="src\engine\Renderer.h" />
     <ClInclude Include="src\engine\SceneRenderer.h" />
     <ClInclude Include="src\engine\shader\ShaderProgram.h" />
-    <ClInclude Include="src\engine\Texture.h" />
+    <ClInclude Include="src\engine\scene\Texture.h" />
     <ClInclude Include="src\window\Window.h" />
-    <ClInclude Include="src\engine\hud\TextureViewer.h" />
     <ClInclude Include="src\engine\hud\SceneViewport.h" />
+    <ClInclude Include="src\engine\scene\TextureData.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\shaders\basicShader.frag" />
-    <None Include="resources\shaders\basicShader.vert" />
+    <None Include="resources\shaders\shader.frag" />
+    <None Include="resources\shaders\shader.vert" />
+    <None Include="resources\shaders\shader_2.frag" />
+    <None Include="resources\shaders\shader_2.vert" />
     <None Include="resources\shaders\grid.frag" />
     <None Include="resources\shaders\grid.vert" />
     <None Include="resources\shaders\lightShader.frag" />
     <None Include="resources\shaders\lightShader.vert" />
     <None Include="src\assimp-vc143-mtd.dll" />
     <None Include="src\glfw3.dll" />
-    <None Include="resources\shaders\shader.frag" />
-    <None Include="resources\shaders\shader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\images\a.png" />
@@ -233,7 +259,8 @@
     <Image Include="resources\images\container2.png" />
     <Image Include="resources\images\container2_specular.png" />
     <Image Include="resources\images\icons\icons8-folder-50.png" />
-    <Image Include="resources\models\a.png" />
+    <Image Include="resources\images\TexelGrid.png" />
+    <Image Include="resources\images\models\a.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

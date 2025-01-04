@@ -17,7 +17,7 @@ const float c_SENSITIVITY = 0.1f;
 const float c_FOV = 45.0f;
 
 
-//struct orientation {
+//struct m_orientation {
 //	glm::vec3 m_position;
 //	glm::vec3 m_front;
 //	glm::vec3 m_up;
@@ -26,7 +26,7 @@ const float c_FOV = 45.0f;
 
 class Camera {
 	public:
-		Camera(glm::vec3 position = glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
+		Camera(glm::vec3 m_position = glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
 			float m_yaw = c_YAW, float m_pitch = c_PITCH, float m_fov = c_FOV) ;
 
 		mat4 getViewMatrix();

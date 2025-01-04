@@ -20,7 +20,7 @@ public:
     void replace();
 
 public:
-    glm::vec3 position = glm::vec3(0.0f, -1.0f, -3.0f);
+    glm::vec3 m_position = glm::vec3(0.0f, -1.0f, -3.0f);
     glm::vec3 startPos;
     glm::vec3 currentPos = startPos;
     glm::vec3 startPosUnitVector;
@@ -37,7 +37,7 @@ public:
 
    
 public:
-    const float RADIUS = 1.0f; // radius of the sphere
+    const float RADIUS = 1.0f; // m_radius of the sphere
     bool flag = false; // a signal for mouse click.
 
 };

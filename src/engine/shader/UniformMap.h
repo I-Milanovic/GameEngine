@@ -7,12 +7,14 @@
 #include "../scene/lights/Light.h"
 #include "../scene/Mesh.h"
 
+#include "src/engine/scene/Material.h"
+
 #include "../scene/Fog.h"
 
 class UniformMap {
 
 public:
-	UniformMap(int programId);
+	UniformMap(int programId, std::string shaderName);
 	
 	void createUniform(const std::string& uniformName);
 
@@ -22,18 +24,19 @@ public:
 				
 	void setUniform(const std::string& uniformName, float value) const;
 				
-	void setUniform(const std::string& uniformName, glm::vec2 &value) const;
+	void setUniform(const std::string& uniformName, const glm::vec2 &value) const;
 				
 	void setUniform(const std::string& uniformName, const glm::vec3 &value) const;
 				
-	void setUniform(const std::string& uniformName, glm::vec4 &value) const;
+	void setUniform(const std::string& uniformName, const glm::vec4 &value) const;
+													
+	void setUniform(const std::string& uniformName, const glm::mat2 &value) const;
+													 
+	void setUniform(const std::string& uniformName, const glm::mat3 &value) const;
 					
-	void setUniform(const std::string& uniformName, glm::mat2 &value) const;
-				
-	void setUniform(const std::string& uniformName, glm::mat3 &value) const;
-					
-	void setUniform(const std::string& uniformName, glm::mat4 &value) const;
+	void setUniform(const std::string& uniformName, const glm::mat4 &value) const;
 
+	void setUniform(const std::string& uniformName, std::vector<glm::mat4>& value);
 
 public:
 	void createAmbientLight(const std::string& uniformName);
@@ -76,4 +79,5 @@ private:
 private:
 	int m_programId;
 	std::unordered_map<std::string, unsigned int> m_uniformMap;
+	std::string m_shaderName;
 };

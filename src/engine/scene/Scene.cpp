@@ -1,36 +1,58 @@
 #include "Scene.h"
 
+#include "QuatCamera.h"
+
 Scene::Scene(int width, int height) :
+	m_camera(new OrbitCamera(glm::vec3(0.0f, 0.0f, 0.0f), 10.0f, 1.0f, 0.0f, 0.0f)),
+	m_fog(Fog()),
+	m_materialCache(MaterialCache()),
+	m_textureCache(TextureCache()),
+	m_modelCache(ModelCache()),
 	m_projection(Projection(45.0f, width, height, 100.0f, 0.1f)),
-	m_meshes(std::vector<Mesh>()),
-	m_sceneLights(SceneLights()), 
-	m_quatCamera(QuatCamera(glm::vec3(0.0f, 0.0f, -5.0f))){
+	m_sceneLights(SceneLights()),
+	m_sceneGraph(SceneGraphTree()) {}
+
+Scene::~Scene() {
+	std::cout << "Scene deleting" << std::endl;
+	delete m_camera;
 }
 
-void Scene::addMesh(Mesh mesh) { 
-	m_meshes.push_back(mesh); 
+const void Scene::addEntity(Entity entity) {
+	std::cout << "Entity Added: " << entity.getID() << std::endl;
 }
 
-void Scene::addPointLight(PointLight pointLight) { 
-	m_sceneLights.getPointLights().push_back(pointLight); 
+void Scene::resize(int width, int height){
+	m_projection.setRatio(width, height);
 }
 
-void Scene::removePointLight(int index) { 
-	m_sceneLights.getPointLights().erase(m_sceneLights.getPointLights().begin() + index); 
+CameraAbstract& Scene::getCamera() {
+	return *m_camera;
 }
 
-void Scene::addSpotLight(SpotLight spotLight) { 
-	m_sceneLights.getSpotLights().push_back(spotLight);
+Fog& Scene::getFog(){
+	return m_fog;
 }
 
-void Scene::setAmbientLight(AmbientLight& ambientLight) { 
-	m_sceneLights.setAmbientLight(ambientLight);
+Projection& Scene::getProjection(){
+	return m_projection;
 }
 
-void Scene::setDirLight(DirLight dirLight) {
-	m_sceneLights.setDirLight(dirLight); 
+SceneLights& Scene::getSceneLights(){
+	return m_sceneLights;
 }
 
-void Scene::setMeshes(std::vector<Mesh> meshes) {
-	m_meshes = meshes; 
+MaterialCache& Scene::getMaterialCache(){
+	return m_materialCache;
+}
+
+TextureCache& Scene::getTextureCache(){
+	return m_textureCache;
+}
+
+ModelCache& Scene::getModelCache() {
+	return m_modelCache;
+}
+
+SceneGraphTree& Scene::getSceneGraph() {
+	return m_sceneGraph;
 }

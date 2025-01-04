@@ -19,7 +19,7 @@
     <ClCompile Include="src\engine\shader\ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\Texture.cpp">
+    <ClCompile Include="src\engine\scene\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\window\Window.cpp">
@@ -38,7 +38,6 @@
     <ClCompile Include="src\app\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\ModelLoader.cpp" />
     <ClCompile Include="src\engine\scene\Projection.cpp" />
     <ClCompile Include="src\engine\scene\Scene.cpp" />
     <ClCompile Include="src\engine\scene\lights\SceneLights.cpp" />
@@ -52,20 +51,33 @@
     <ClCompile Include="src\engine\hud\Hud.cpp" />
     <ClCompile Include="src\engine\Framebuffer.cpp" />
     <ClCompile Include="src\engine\hud\LightUi.cpp" />
-    <ClCompile Include="src\utilities\ImageLoader.cpp" />
     <ClCompile Include="src\utilities\FileListing.cpp" />
-    <ClCompile Include="src\engine\hud\TextureViewer.cpp" />
     <ClCompile Include="src\engine\FileModel.cpp" />
     <ClCompile Include="include\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="src\engine\scene\ArcballCamera.cpp" />
     <ClCompile Include="src\engine\hud\SceneViewport.cpp" />
     <ClCompile Include="src\engine\scene\QuatCamera.cpp" />
+    <ClCompile Include="src\engine\scene\OrbitCamera.cpp" />
+    <ClCompile Include="src\engine\scene\Entity.cpp" />
+    <ClCompile Include="src\engine\scene\Model.cpp" />
+    <ClCompile Include="src\engine\scene\Material.cpp" />
+    <ClCompile Include="src\engine\scene\MaterialCache.cpp" />
+    <ClCompile Include="src\engine\scene\TextureCache.cpp" />
+    <ClCompile Include="src\engine\scene\Node.cpp" />
+    <ClCompile Include="src\engine\scene\AnimationManager.cpp" />
+    <ClCompile Include="src\engine\scene\AnimMeshData.cpp" />
+    <ClCompile Include="src\engine\scene\ModelCache.cpp" />
+    <ClCompile Include="src\engine\scene\SceneGraphTree.cpp" />
+    <ClCompile Include="src\engine\hud\PropertyPanel.cpp" />
+    <ClCompile Include="src\engine\hud\FileExplorerDisplay.cpp" />
+    <ClCompile Include="src\engine\AssimpWrapper.cpp" />
+    <ClCompile Include="src\engine\scene\LoaderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\Window.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\Texture.h">
+    <ClInclude Include="src\engine\scene\Texture.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\shader\ShaderProgram.h">
@@ -95,7 +107,6 @@
     <ClInclude Include="src\app\Application.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\ModelLoader.h" />
     <ClInclude Include="src\engine\scene\lights\Light.h" />
     <ClInclude Include="src\engine\scene\lights\SceneLights.h" />
     <ClInclude Include="src\engine\scene\Projection.h" />
@@ -112,10 +123,8 @@
     <ClInclude Include="src\engine\hud\Hud.h" />
     <ClInclude Include="src\engine\Framebuffer.h" />
     <ClInclude Include="src\engine\hud\LightUi.h" />
-    <ClInclude Include="src\utilities\ImageLoader.h" />
     <ClInclude Include="src\engine\scene\Fog.h" />
     <ClInclude Include="src\utilities\FileListing.h" />
-    <ClInclude Include="src\engine\hud\TextureViewer.h" />
     <ClInclude Include="src\engine\FileModel.h" />
     <ClInclude Include="include\imgui\imgui_stdlib.h" />
     <ClInclude Include="src\engine\scene\MeshData.h" />
@@ -123,22 +132,35 @@
     <ClInclude Include="src\engine\scene\ArcballCamera.h" />
     <ClInclude Include="src\engine\hud\SceneViewport.h" />
     <ClInclude Include="src\engine\scene\QuatCamera.h" />
+    <ClInclude Include="src\engine\scene\OrbitCamera.h" />
+    <ClInclude Include="src\engine\scene\CameraAbstract.h" />
+    <ClInclude Include="src\engine\scene\Entity.h" />
+    <ClInclude Include="src\engine\scene\Model.h" />
+    <ClInclude Include="src\engine\scene\MaterialCache.h" />
+    <ClInclude Include="src\engine\scene\TextureCache.h" />
+    <ClInclude Include="src\engine\scene\Node.h" />
+    <ClInclude Include="src\engine\scene\AnimationManager.h" />
+    <ClInclude Include="src\engine\scene\Animation.h" />
+    <ClInclude Include="src\engine\scene\AnimMeshData.h" />
+    <ClInclude Include="src\engine\scene\ModelCache.h" />
+    <ClInclude Include="src\engine\scene\SceneGraphTree.h" />
+    <ClInclude Include="src\engine\hud\PropertyPanel.h" />
+    <ClInclude Include="src\engine\hud\FileExplorerDisplay.h" />
+    <ClInclude Include="src\engine\scene\TextureData.h" />
+    <ClInclude Include="src\engine\AssimpWrapper.h" />
+    <ClInclude Include="src\engine\scene\LoaderManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\shaders\shader.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="resources\shaders\shader.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="src\glfw3.dll" />
     <None Include="resources\shaders\lightShader.frag" />
     <None Include="resources\shaders\lightShader.vert" />
-    <None Include="resources\shaders\basicShader.vert" />
-    <None Include="resources\shaders\basicShader.frag" />
+    <None Include="resources\shaders\shader_2.vert" />
+    <None Include="resources\shaders\shader_2.frag" />
     <None Include="src\assimp-vc143-mtd.dll" />
     <None Include="resources\shaders\grid.vert" />
     <None Include="resources\shaders\grid.frag" />
+    <None Include="resources\shaders\shader.frag" />
+    <None Include="resources\shaders\shader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -161,7 +183,8 @@
     <Image Include="resources\images\container2.png" />
     <Image Include="resources\images\container2_specular.png" />
     <Image Include="resources\images\a.png" />
-    <Image Include="resources\models\a.png" />
+    <Image Include="resources\images\models\a.png" />
     <Image Include="resources\images\icons\icons8-folder-50.png" />
+    <Image Include="resources\images\TexelGrid.png" />
   </ItemGroup>
 </Project>

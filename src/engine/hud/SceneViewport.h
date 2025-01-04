@@ -13,7 +13,7 @@ public:
 
 public:
 	bool m_isHovered = false;
-	ImVec2 m_screenPos;		// position in a main window
+	ImVec2 m_screenPos;		// m_position in a main window
 	ImVec2 m_viewPortSize;	// width height
 };
 

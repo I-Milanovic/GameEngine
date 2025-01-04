@@ -461,7 +461,7 @@ static stbrp__findresult stbrp__skyline_pack_rectangle(stbrp_context *context, i
       return res;
    }
 
-   // on success, createDirectory new node
+   // on success, create new node
    node = context->free_head;
    node->x = (stbrp_coord) res.x;
    node->y = (stbrp_coord) (res.y + height);

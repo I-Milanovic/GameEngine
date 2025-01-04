@@ -4,8 +4,10 @@
 
 #include "UniformMap.h"
 
+#include <glm/gtc/type_ptr.hpp>
 
-UniformMap::UniformMap(int programId) : m_programId(programId) {
+#include <glm/gtx/string_cast.hpp>
+UniformMap::UniformMap(int programId, std::string shaderName) : m_programId(programId), m_shaderName(shaderName){
 }
 
 void UniformMap::createUniform(const std::string &uniformName) {
@@ -13,11 +15,11 @@ void UniformMap::createUniform(const std::string &uniformName) {
 
 	if (uniformLocation < 0) {
 		// TODO better set exception than just print
-		std::cout << "Could not find uniform " << uniformName << " in shader program " <<
+		std::cout << "Could not find uniform " << uniformName << " in shader program: " << m_shaderName << " : " <<
 			m_programId << std::endl;
 	}
 	else {
-		std::cout << "Uniform created: " << uniformName << " at location: " << uniformLocation << std::endl;
+		std::cout << "Uniform created: " << uniformName << " at location: " << uniformLocation << " in program: " << m_shaderName << std::endl;
 		m_uniformMap[uniformName] = uniformLocation;
 	}
 }
@@ -33,7 +35,7 @@ int UniformMap::getUniformLocation(const std::string &uniformName) const{
 
 	if (location < 0) {
 		// TODO set exception
-		std::cout << "Could not find uniform: " << location << " " << uniformName << std::endl;
+		std::cout << "Could not find uniform: " << location << " " << uniformName << " in program: " << m_shaderName << std::endl;
 	}
 
 	return location;
@@ -51,7 +53,7 @@ void UniformMap::setUniform(const std::string& uniformName, float value) const {
 	glUniform1f(getUniformLocation(uniformName), value);
 }
 
-void UniformMap::setUniform(const std::string& uniformName, glm::vec2 &value) const {
+void UniformMap::setUniform(const std::string& uniformName, const glm::vec2 &value) const {
 	glUniform2fv(getUniformLocation(uniformName), 1, &value[0]);
 }
 
@@ -59,20 +61,27 @@ void UniformMap::setUniform(const std::string& uniformName, const glm::vec3 &val
 	glUniform3fv(getUniformLocation(uniformName), 1, &value[0]);
 }
 
-void UniformMap::setUniform(const std::string& uniformName, glm::vec4 &value) const {
+void UniformMap::setUniform(const std::string& uniformName, const glm::vec4 &value) const {
 	glUniform4fv(getUniformLocation(uniformName), 1, &value[0]);
 }
 
-void UniformMap::setUniform(const std::string& uniformName, glm::mat2 &value) const {
+void UniformMap::setUniform(const std::string& uniformName, const glm::mat2 &value) const {
 	glUniformMatrix2fv(getUniformLocation(uniformName), 1, GL_FALSE, &value[0][0]);
 }
 
-void UniformMap::setUniform(const std::string& uniformName, glm::mat3 &value) const {
+void UniformMap::setUniform(const std::string& uniformName, const glm::mat3 &value) const {
 	glUniformMatrix3fv(getUniformLocation(uniformName), 1, GL_FALSE, &value[0][0]);
 }
 
-void UniformMap::setUniform(const std::string& uniformName, glm::mat4 &value) const {
+void UniformMap::setUniform(const std::string& uniformName, const glm::mat4 &value) const {
 	glUniformMatrix4fv(getUniformLocation(uniformName), 1, GL_FALSE, &value[0][0]);
+}
+
+
+void UniformMap::setUniform(const std::string& uniformName, std::vector<glm::mat4>& value) {
+	//std::cout << glm::to_string(value[0]) << std::endl;
+
+	glUniformMatrix4fv(getUniformLocation(uniformName), value.size(), GL_FALSE, glm::value_ptr(value[0][0]));
 }
 
 void UniformMap::createAttenuation(const std::string& uniformName) {
@@ -86,6 +95,7 @@ void UniformMap::createMaterial(const std::string& uniformName) {
 	createUniform(uniformName + ".diffuse");
 	createUniform(uniformName + ".specular");
 	createUniform(uniformName + ".reflectance");
+	createUniform(uniformName + ".hasNormalMap");
 }
 
 void UniformMap::createAmbientLight(const std::string& uniformName) {
@@ -151,10 +161,11 @@ void UniformMap::setAttenuationUniform(const std::string& uniformName, Attenuati
 
 void UniformMap::setMaterialUniform(const std::string& uniformName, Material material) {
 
-	setUniform(uniformName + ".ambient", material.m_ambient);
-	setUniform(uniformName + ".diffuse", material.m_diffuse);
-	setUniform(uniformName + ".specular", material.m_specular);
-	setUniform(uniformName + ".reflectance", material.m_reflectance);
+	//setUniform(uniformName + ".ambient", material.getAmbientColor());
+	setUniform(uniformName + ".diffuse", material.getDiffuseColor());
+	setUniform(uniformName + ".specular", material.getSpecularColor());
+	setUniform(uniformName + ".reflectance", material.getReflectance());
+	setUniform(uniformName + ".hasNormalMap", material.hasNormalTexture());
 }
 
 void UniformMap::setAmbientLight(const std::string& uniformName, AmbientLight ambientLight) {

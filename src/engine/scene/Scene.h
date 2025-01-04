@@ -1,40 +1,60 @@
 #pragma once
 
+#include <map>
+#include <vector>
+
 #include "Projection.h"
-#include "Camera.h"
 #include "../scene/Mesh.h"
 #include "lights/SceneLights.h"
 #include "Fog.h"
 
-#include <vector>
+//#include "Camera.h"
+//#include "ArcballCamera.h"
 
-#include "ArcballCamera.h"
-#include "QuatCamera.h"
+#include "OrbitCamera.h"
+#include "CameraAbstract.h"
+
+#include "src/engine/scene/MaterialCache.h"
+#include "src/engine/scene/TextureCache.h"
+#include "src/engine/scene/ModelCache.h"
+
+#include "src/engine/scene/Model.h"
+#include "src/engine/scene/Entity.h"
+
+#include "src/engine/scene/SceneGraphTree.h"
 
 class Scene {
 
 public:
 	Scene(int width, int height);
+	~Scene();
 
-	void addMesh(Mesh mesh);
-	Mesh& getMesh(int index) { return m_meshes.at(index); };
-	inline std::vector<Mesh>& getMeshes() { return m_meshes; };
-	void setMeshes(std::vector<Mesh> meshes);
-	
-	SceneLights& getSceneLights() { return m_sceneLights; };
-	void addPointLight(PointLight pointLight);
-	void removePointLight(int index);
-	void addSpotLight(SpotLight spotLight);
-	void setAmbientLight(AmbientLight& ambientLight);
-	void setDirLight(DirLight dirLight);
-	
-public:
-	Projection m_projection;
-	Fog m_fog;
-	QuatCamera m_quatCamera;
+	const void addEntity(Entity entity);
+
+	void resize(int width, int height);
+
+	CameraAbstract& getCamera();
+	Fog& getFog();
+	Projection& getProjection();
+	SceneLights& getSceneLights();
+
+	MaterialCache& getMaterialCache();
+	TextureCache& getTextureCache();
+	ModelCache& getModelCache();
+
+	SceneGraphTree& getSceneGraph();
 
 private: 
-	std::vector<Mesh> m_meshes;
+	CameraAbstract* m_camera;
+	Fog m_fog;
+
+	MaterialCache m_materialCache;
+	TextureCache m_textureCache;
+	ModelCache m_modelCache;
+
+	Projection m_projection;
 	SceneLights m_sceneLights;
+
+	SceneGraphTree m_sceneGraph;	// TODO shouldn't be in here
 };
 

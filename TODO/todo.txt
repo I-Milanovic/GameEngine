@@ -1,0 +1,43 @@
+0) everything & all
+	- separate classes for ortographic and perspective projections
+	- texture size of viewport, for now it's fixed change to scale to size
+	- shader program manager or shader cache
+	- reversing quaternion rotation to zero changes object orientation because of commutativity	
+	- set action hierarchy
+	- set name for process to parse in assimp wrapper
+	- check fps and delta time
+
+1) animation 
+	- when setting data in slider through click action doesn't trigger update matrix of children
+	- load and animate fbx and animation files
+	- show vertex weights in shader
+
+2) Scene graph
+	- set scene graph in its own window at the top right corner
+	- set data in Node to be template instead of void*
+
+3) Shaders
+	- shader program manager or shader cache
+	- viewport grid needs to be fading in distance
+	- point light is following the camera
+
+
+	take bones from mesh bones list and check if the name matches in node hierarchy and set those nodes as bones node the list ones
+	bones shouldn't be under character anim
+
+	can be found
+	1) in node herarchy // just describes hierarchy of the bones
+	2) in the array of the mesh
+
+
+
+	PLAN 
+	use different shader for vertex weight
+	todo pogledaj u  blenderu bones i na koliko vertexa utice
+
+
+
+	PLAN OF ATTACK
+	load necessary data
+	create scene graph with previously aquired data or for efficiency sake aquire data while creating scene graph
+	mozda dodaj svaku funkciju za node add tipa addMaterialNode, addMeshNode, addBoneNode

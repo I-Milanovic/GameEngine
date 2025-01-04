@@ -5,6 +5,7 @@
 class Renderer {
 	public: 
 		Renderer();
+		~Renderer();
 		void render();
 		inline SceneRenderer& getSceneRenderer() { return m_sceneRenderer; };
 		inline Framebuffer& getFrameBuffer() { return m_frameBuffer; };

@@ -16,12 +16,12 @@ LightUi::LightUi(SceneLights& sceneLights) : m_sceneLights(sceneLights) {
 }
 
 void LightUi::RenderLightUi() {
-	ImGui::Begin("Lighting");
+//	ImGui::Begin("Lighting");
     RenderAmbientLightUi();
     RenderDirectionalLightUi();
     RenderPointLightUi();
   //  RenderSpotLightUi();
-	ImGui::End();
+//	ImGui::End();
 }
 
 void LightUi::RenderAmbientLightUi() {

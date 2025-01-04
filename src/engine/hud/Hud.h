@@ -1,5 +1,4 @@
 #pragma once
-#include <GLFW/glfw3.h>
 
 #include "../Renderer.h"
 #include "../Framebuffer.h"
@@ -7,6 +6,10 @@
 #include "TextureViewer.h"
 
 #include "SceneViewport.h"
+
+#include "PropertyPanel.h"
+#include <GLFW/glfw3.h>
+
 
 class Hud {
 
@@ -18,7 +21,13 @@ public:
 
 private:
 	void renderCameraUi();
-	void renderOptionsUi();
+	void renderOptionsUi() const;
+
+	void createSceneGraph(Node* node);
+
+	void renderSceneGraph();
+
+	void renderSceneGraphWindow();
 
 public:
 	SceneViewport m_sceneViewport;
@@ -26,6 +35,9 @@ public:
 private:
 	Renderer& m_renderer;
 	LightUi m_lightUi;
-	TextureViewer m_textureViewer;
+	PropertyPanel m_propertyPanel;
+
+	Model* m_selectedModel;
+	Node* m_selectedNode;
 };
 

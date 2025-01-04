@@ -9,16 +9,9 @@ Input::Input(SceneRenderer& sceneRenderer, Hud& hud)
 void Input::keyboardInput(GLFWwindow* windowHandle, const float& const deltaTime, double xpos, double ypos) {
 	float cameraSpeed = static_cast<float>(2.5 * m_deltaTime);
 
-	//if (glfwGetKey(windowHandle, GLFW_KEY_W) == GLFW_PRESS)
-	//	m_sceneRenderer.m_scene().m_quatCamera.cameraMove(CameraMovement1::FORWARD1, deltaTime);
- //   if (glfwGetKey(windowHandle, GLFW_KEY_S) == GLFW_PRESS)
-	//	m_sceneRenderer.m_scene().m_quatCamera.cameraMove(CameraMovement1::BACKWARD1, deltaTime);
- //   if (glfwGetKey(windowHandle, GLFW_KEY_A) == GLFW_PRESS)
-	//	m_sceneRenderer.m_scene().m_quatCamera.cameraMove(CameraMovement1::LEFT1, deltaTime);
- //   if (glfwGetKey(windowHandle, GLFW_KEY_D) == GLFW_PRESS)
-	//	m_sceneRenderer.m_scene().m_quatCamera.cameraMove(CameraMovement1::RIGHT1, deltaTime);
 
-	QuatCamera& m_quatCamera = m_sceneRenderer.m_scene.m_quatCamera;
+	CameraAbstract& camera = m_sceneRenderer.m_scene.getCamera();
+
 	float xPosition = static_cast<float>(xpos);
 	float yPosition = static_cast<float>(ypos);
 
@@ -26,24 +19,23 @@ void Input::keyboardInput(GLFWwindow* windowHandle, const float& const deltaTime
 		m_lastX = xPosition;
 		m_lastY = yPosition;
 		m_isFirstMouse = false;
-		//calcNDC(xpos, ypos, m_quatCamera.startPos);
 	}
 
 	float offsetX = xPosition - m_lastX;
-	float offsetY = m_lastY - yPosition; // reversed since y-coordinate go from bottom to top
+	float offsetY =  m_lastY - yPosition;
 
-//	std::cout << offsetX << " " << offsetY << std::endl;
+	float spd = 0.01f;
+	float flipAxisDirection = -1.0f;
 
-	m_sceneRenderer.m_scene.m_quatCamera.cameraMove(offsetX, offsetY, deltaTime);
+	camera.moveHorizontal(offsetX * spd * flipAxisDirection);
+	camera.moveVertical(offsetY * spd * flipAxisDirection);
 
 	m_lastX = xPosition;
 	m_lastY = yPosition;
 }
-
-//static glm::vec3 dir = glm::vec3(1.0f, 0.0f, 0.0f);
 
 void Input::mouseInputOld(double xpos, double ypos) {
-	QuatCamera& m_quatCamera = m_sceneRenderer.m_scene.m_quatCamera;
+	CameraAbstract& camera = m_sceneRenderer.m_scene.getCamera();
 	float xPosition = static_cast<float>(xpos);
 	float yPosition = static_cast<float>(ypos);
 
@@ -57,17 +49,22 @@ void Input::mouseInputOld(double xpos, double ypos) {
 	float offsetX = xPosition - m_lastX;
 	float offsetY = m_lastY - yPosition; // reversed since y-coordinate go from bottom to top
 
-	m_quatCamera.pitch += 0.01f * -offsetY;
-	m_quatCamera.yaw += 0.01f * offsetX;
-
-	m_quatCamera.rotation();
+	camera.rotateYaw(0.01f * offsetX);
+	camera.rotatePitch(0.01f * -offsetY);
 
 	m_lastX = xPosition;
 	m_lastY = yPosition;
 
 
 }
-// Calculates ndc position from screen coordinates
+
+void Input::scrollInput(double offsetX, double offsetY) {
+	m_sceneRenderer.m_scene.getCamera().moveForward(offsetY * 0.5f);
+
+}
+
+
+// Calculates ndc m_position from screen coordinates
 void Input::calcNDC(double xpos, double ypos, glm::vec3& vec) {
 	float xPosition = static_cast<float>(xpos) - m_hud.m_sceneViewport.m_screenPos.x;
 	float yPosition = static_cast<float>(ypos) - m_hud.m_sceneViewport.m_screenPos.y;
@@ -75,7 +72,7 @@ void Input::calcNDC(double xpos, double ypos, glm::vec3& vec) {
 	float viewportWidth = m_hud.m_sceneViewport.m_viewPortSize.x;
 	float viewportHeight = m_hud.m_sceneViewport.m_viewPortSize.y;
 
-	QuatCamera& m_quatCamera = m_sceneRenderer.m_scene.m_quatCamera;
+//	QuatCamera& m_quatCamera = m_sceneRenderer.m_scene.m_quatCamera;
 
 	//vec.x = xPosition / viewportWidth;
 	//vec.y = yPosition / viewportHeight;
@@ -163,18 +160,5 @@ void Input::moveAction(double xpos, double ypos) {
 	//arcCamera.rotation();
 }
 
-void Input::arcReplace() {
-//	m_sceneRenderer.m_scene().getArcCamera().replace();
-//	m_sceneRenderer.m_scene().getArcCamera().flag = false;
-
-	m_sceneRenderer.m_scene.m_quatCamera.replace();
-}
 
 
-void Input::scrollInput(double offsetX, double offsetY) {
-//	m_sceneRenderer.m_scene.getCamera().cameraZoom(static_cast<float>(offsetY));
-}
-
-void Input::keyInput() {
-
-}

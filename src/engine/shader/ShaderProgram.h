@@ -5,7 +5,7 @@
 class ShaderProgram {
 
 	public:
-		ShaderProgram(std::string shaderPath);
+		ShaderProgram(std::string shaderPath, std::string shaderName);
 
 		unsigned int compileVertex(std::string source);
 		unsigned int compileFragment(std::string source);
@@ -27,4 +27,5 @@ class ShaderProgram {
 	private:
 		unsigned int m_programId;
 		UniformMap m_uniformMap;
+		std::string m_shaderName;
 };

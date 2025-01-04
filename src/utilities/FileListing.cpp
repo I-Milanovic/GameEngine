@@ -2,15 +2,18 @@
 
 
 
-//FileListing l;
-//std::wcout << l.displayPathInfo() << std::endl;
+FileListing::FileListing() : m_startingPath(fs::current_path().string()) {
+    std::replace(m_startingPath.begin(), m_startingPath.end(), '\\', '/');
+}
 
+FileListing::FileListing(std::string chidlDir) : m_startingPath(fs::current_path().string()) {
+    std::replace(m_startingPath.begin(), m_startingPath.end(), '\\', '/');
+    m_startingPath.append(chidlDir);
+}
 
 void FileListing::displayPathInfo() {
-
     //std::string str = "C:/Users/38163/Desktop";
     //std::filesystem::path pathToDisplay(str);
-
 
     //std::wostringstream wos;
     //wos << L"root_name() = " << pathToDisplay.root_name() << std::endl
@@ -20,7 +23,6 @@ void FileListing::displayPathInfo() {
     //    << L"filename() = " << pathToDisplay.filename() << std::endl
     //    << L"stem() = " << pathToDisplay.stem() << std::endl
     //    << L"extension() = " << pathToDisplay.extension() << std::endl;
-
 
     fs::current_path();
     std::cout << "Current path is " << fs::current_path() << std::endl;
@@ -33,14 +35,11 @@ std::string FileListing::getParentPath(const std::string path) {
 }
 
 std::string FileListing::getCurrentPath() { 
-    fs::path p = fs::current_path();
-    std::string s = p.string();
-    std::replace(s.begin(), s.end(), '\\', '/');
-    s.append("/resources/images");
-    return s;   
-};
+    return m_startingPath;   
+}
 
-bool FileListing::listDirectory(const std::string path, std::vector<std::pair<bool, std::string>>& list) {
+
+bool FileListing::getDirectoryContent(const std::string path, std::vector<std::pair<bool, std::string>>& list, FileType filterFileType) {
     std::filesystem::path pathToDisplay(path);
     if (!std::filesystem::is_directory(pathToDisplay))
         return false;
@@ -49,23 +48,36 @@ bool FileListing::listDirectory(const std::string path, std::vector<std::pair<bo
 
     try {
         for (const auto& entry : fs::directory_iterator(pathToDisplay)) {
-            bool isFile = entry.is_regular_file();
             bool isDir = entry.is_directory();
-            bool isJPG = isFile && (entry.path().extension().compare(".jpg") == 0);
-            bool isPNG = isFile && (entry.path().extension().compare(".png") == 0);
-            bool isImage = isJPG || isPNG;
-       //     bool isBlockFile = entry.is_block_file();
+            bool isImage = false;
+            bool isModel = false;
 
+            if (filterFileType & ImageFile)
+                isImage = isImageFunc(entry);
+
+            if (filterFileType & ModelFile)
+                isModel = isModelFunc(entry);
+
+            if (filterFileType & AllFiles && !isDir) {
+                isImage = true;
+                isModel = true;
+            }         
 
             if (isDir) {
                 std::pair<bool, std::string> p(isDir, entry.path().filename().string());
                 list.push_back(p);
+                continue;
             }
             if (isImage) {
                 std::pair<bool, std::string> p(isDir, entry.path().filename().string());
                 list.push_back(p);
+                continue;
             }
-
+            if (isModel) {
+                std::pair<bool, std::string> p(isDir, entry.path().filename().string());
+                list.push_back(p);
+                continue;
+            }
 
         }
     }
@@ -77,5 +89,19 @@ bool FileListing::listDirectory(const std::string path, std::vector<std::pair<bo
     return true;
 }
 
+bool FileListing::isImageFunc(auto& entry) {
+    bool isFile = entry.is_regular_file();
+    bool isJPG = isFile && (entry.path().extension().compare(".jpg") == 0);
+    bool isPNG = isFile && (entry.path().extension().compare(".png") == 0);
+    bool isImage = isJPG || isPNG;
+    return isImage;
+}
+
+bool FileListing::isModelFunc(auto& entry) {
+    bool isFile = entry.is_regular_file();
+    bool isOBJ = isFile && (entry.path().extension().compare(".obj") == 0);
+    bool isMTL = isFile && (entry.path().extension().compare(".mtl") == 0);
+    return isOBJ || isMTL;
+}
 
 

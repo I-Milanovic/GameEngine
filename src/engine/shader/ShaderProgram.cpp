@@ -6,8 +6,8 @@
 
 
 
-	ShaderProgram::ShaderProgram(std::string shaderPath) :
-			m_programId(glCreateProgram()), m_uniformMap(m_programId) {
+	ShaderProgram::ShaderProgram(std::string shaderPath, std::string shaderName) :
+			m_programId(glCreateProgram()), m_uniformMap(m_programId, shaderName) {
 
 		// Concat for the whole file name: path + file extension
 		std::string vertexFile = shaderPath + ".vert";
@@ -38,7 +38,7 @@
 		unsigned int shaderId = glCreateShader(type);
 
 		if (shaderId == GL_FALSE) {
-			std::cout << "Error creating shader, type: \n" << type << std::endl;
+			std::cout << "Error creating shader:" << m_shaderName << " type: \n" << type << std::endl;
 		}
 
 		// Pass the m_shader code to the
@@ -56,7 +56,7 @@
 			std::cout << "ERROR : HADER : VERTEX : COMPILATION FAILED\n" << infoLog << std::endl;
 		}
 		else {
-			std::cout << shaderTypeName << " Shader Compiled!" << std::endl;
+			std::cout << m_shaderName << " : " << shaderTypeName << " Shader Compiled!" << std::endl;
 		}
 
 		// Attach m_shader to the program
@@ -77,7 +77,7 @@
 			std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 		} 
 		else {
-			std::cout << "Shader Program Linked" << std::endl;
+			std::cout << m_shaderName << " Shader Program Linked" << std::endl;
 		}
 	}
 
@@ -92,7 +92,7 @@
 			std::cout << "ERROR VALIDATING PROGRAM\n" << infoLog << std::endl;
 		}
 		else {
-			std::cout << "Shader Program Validated" << std::endl;
+			std::cout << m_shaderName << " Shader Program Validated" << std::endl;
 		}
 	}
 

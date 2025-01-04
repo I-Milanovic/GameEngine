@@ -1,13 +1,13 @@
 #pragma once
 
 #include <string>
-#include <GLFW/glfw3.h>
 
 #include "../window/Window.h"
 #include "../engine/Renderer.h"
+#include "../engine/hud/Hud.h"
 #include "../window/Input.h"
 
-#include "../engine/hud/Hud.h"
+#include <GLFW/glfw3.h>
 
 
 class Application {
@@ -16,6 +16,8 @@ class Application {
 		Application();	
 		virtual ~Application() = default;	
 		void run();
+
+		float m_fps = 0.0f;
 
 	private:
 		Window* m_window;
@@ -29,4 +31,7 @@ class Application {
 		float m_deltaTime = 0.0f; // time between current frame and last frame
 		float m_lastFrame = 0.0f;
 
+		float lastFrameTimeFps = 0.0f;
+		float nextFps = 0.0f;
+		
 };

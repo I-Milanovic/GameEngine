@@ -10,17 +10,20 @@
 	float lastFrame = 0.0f;
 */
 
+	static float x = 0.0f;
 
-	Window::Window(int width, int height) : m_width(width), m_height(height) {
+	Window::Window(std::string title, int width, int height) : m_title(title), m_width(width), m_height(height) {
 		// glfw initialization and configure
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_SAMPLES, 4);
 
 		//setFullScreen();
 
-		m_windowHandle = glfwCreateWindow(m_width, m_height, "Demo", NULL, NULL);
+
+		m_windowHandle = glfwCreateWindow(m_width, m_height, &m_title[0], NULL, NULL);
 		if (m_windowHandle == NULL) {
 			std::cout << "Failed to create GLFWE window" << std::endl;
 			glfwTerminate();
@@ -52,10 +55,8 @@
 			if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 				glfwSetWindowShouldClose(window, true);
 			}
-
-
-
 		});
+
 		 //original
 		glfwSetCursorPosCallback(m_windowHandle, [](GLFWwindow* window, double xpos, double ypos) {
 			Input* i = ((Input*)glfwGetWindowUserPointer(window));
@@ -67,6 +68,7 @@
 				i->keyboardInput(window, 0.0f, xpos, ypos);
 			}
 			else {
+				//i->call();
 				if (isMiddleMouseButtonDown) {
 					i->mouseInputOld(xpos, ypos);
 				}
@@ -109,3 +111,5 @@
 		std::cout << m_width << std::endl;
 		std::cout << m_height << std::endl;
 	}
+
+

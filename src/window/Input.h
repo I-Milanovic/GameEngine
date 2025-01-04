@@ -1,6 +1,5 @@
 #pragma once
 
-#include <GLFW/glfw3.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -8,6 +7,7 @@
 #include "../engine/SceneRenderer.h"
 
 #include "../engine/hud/Hud.h"
+#include <GLFW/glfw3.h>
 
 class Input {
 
@@ -17,13 +17,11 @@ class Input {
 		void mouseInputOld(double xpos, double ypos);
 		void mouseInput(double xpos, double ypos);
 		void scrollInput(double offsetX, double offsetY);
-		void keyInput();
 
 		inline void setFirstMouseTrue() { m_isFirstMouse = true; };
 
 		void dragAction(double startXPos, double startYPos);
 		void moveAction(double xpos, double ypos);
-		void arcReplace();
 
 		void deltaMove(double xpos, double ypos);
 	private:
@@ -39,9 +37,6 @@ class Input {
 	private:
 		SceneRenderer& m_sceneRenderer;
 		Hud& m_hud;
-		//float& m_windowWidth;
-		//float& m_windowHeight;
-		//bool& m_isHovered;
 
 	public:
 		float m_deltaTime;

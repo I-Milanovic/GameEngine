@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-ArcballCamera::ArcballCamera(glm::vec3 pos) : position(pos){
+ArcballCamera::ArcballCamera(glm::vec3 pos) : m_position(pos){
 }
 
 float ArcballCamera::z_axis(float x, float y) {
